@@ -1,9 +1,9 @@
 
-Before runing make sure to start your mongodb database by using the command:
-"net start MongoDB" on cmd adminstrator 
+Before running make sure to start your mongodb database by using the command:
+"net start MongoDB" on cmd administrator 
 
 To stop the database use :
- "net stop MongoDB" on cmd adminstrator 
+ "net stop MongoDB" on cmd administrator 
 
 run the command : "npm install" to get the dependencies installed
 
