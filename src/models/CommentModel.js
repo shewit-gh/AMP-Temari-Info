@@ -1,3 +1,4 @@
+const { date } = require('joi');
 const mongoose = require('mongoose');
 
 const CommentSchema = mongoose.Schema({
@@ -17,6 +18,7 @@ const CommentSchema = mongoose.Schema({
         required: true,
     },
     timestamps: {
+        type : Date,
         createdAt: 'created_at',
         updatedAt: 'updated_at'
     }
