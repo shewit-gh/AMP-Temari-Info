@@ -32,4 +32,4 @@ const instSchema = mongoose.Schema({
 });
 
 
-module.exports = mongoose.model('institute', instSchema);
+module.exports = mongoose.model('Institute', instSchema);
