@@ -7,5 +7,6 @@ const University = require("../controllers/UniversityController");
 
 router.get('/', University.getUniversity);
 router.post('/', University.postUniversity);
+router.get('/:univId', University.getUniversityById);
 
 module.exports = router;

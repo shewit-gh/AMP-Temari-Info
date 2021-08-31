@@ -54,10 +54,34 @@ function postUniversity(req, res) {
 
 }
 
+// Get University by id
+
+function getUniversityById(req, res) {
+    const id = req.params.univId;
+    University.findById(id)
+        .exec()
+        .then(doc => {
+            if (doc) {
+                res.status(200).json(doc);
+            }
+            else {
+                res.status(404).json({ message: "Page not found" })
+            }
+
+        })
+        .catch(err => {
+            res.status(500).json({
+                error: err
+            });
+        });
+}
+
+
 
 module.exports = {
     getUniversity,
     postUniversity,
+    getUniversityById,
 
 };
 
