@@ -67,7 +67,27 @@ function getUniversityById(req, res) {
             else {
                 res.status(404).json({ message: "Page not found" })
             }
+        })
+        .catch(err => {
+            res.status(500).json({
+                error: err
+            });
+        });
+}
 
+// Update University 
+
+function updateUniversityByID(req, res) {
+    const id = req.params.univId;
+    const updateOps = {};
+    for (const ops of req.body) {
+        updateOps[ops.propName] = ops.value;
+    }
+    University.updateMany({ _id: id },
+        { $set: updateOps })
+        .exec()
+        .then(result => {
+            res.status(200).json(result);
         })
         .catch(err => {
             res.status(500).json({
@@ -82,6 +102,7 @@ module.exports = {
     getUniversity,
     postUniversity,
     getUniversityById,
+    updateUniversityByID,
 
 };
 
