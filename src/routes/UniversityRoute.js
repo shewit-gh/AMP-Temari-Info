@@ -9,5 +9,6 @@ router.get('/', University.getUniversity);
 router.post('/', University.postUniversity);
 router.get('/:univId', University.getUniversityById);
 router.patch('/:univId', University.updateUniversityByID);
+router.delete('/:univId', University.deleteUniversityByID);
 
 module.exports = router;
