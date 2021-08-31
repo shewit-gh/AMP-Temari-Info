@@ -4,7 +4,8 @@ const University = require("../controllers/UniversityController");
 
 
 /* GET university listing. */
-// router.get('/', getUniversity);
+
+router.get('/', University.getUniversity);
 router.post('/', University.postUniversity);
 
 module.exports = router;
