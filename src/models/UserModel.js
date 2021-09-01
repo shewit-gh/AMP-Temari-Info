@@ -19,18 +19,17 @@ const userSchema=mogoose.Schema({
         type:String,
         required: true,
     },
-    comments_id: {
-        type: mogoose.Schema.Types.objectId,
-        ref :"Comment",
-        required:false,
-
-    },
+    comments:[ 
+        {
+           type: mogoose.Schema.Types.objectId,
+           ref :"Comment",
+           required:false,
+        },
+    ],
     rating_id:{
         type:mogoose.Schema.Types.objectId,
         ref:"Rating"
     }
-
-
 
 });
 module.exports = mongoose.model('User', userSchema);
