@@ -83,6 +83,7 @@ function updateUniversityByID(req, res) {
     for (const ops of req.body) {
         updateOps[ops.propName] = ops.value;
     }
+
     University.updateMany({ _id: id },
         { $set: updateOps })
         .exec()
@@ -112,6 +113,22 @@ function deleteUniversityByID(req, res) {
         });
 }
 
+// Search University 
+
+function searchUniversity(req, res) {
+
+    var regex = new RegExp(req.params.univName, 'i'); // 'i' makes it case insensitive
+    University.find({ univ_name: regex })
+        .then(result => {
+            res.status(200).json(result);
+        })
+        .catch(err => {
+            res.status(500).json({
+                error: err
+            });
+        });
+}
+
 
 
 module.exports = {
@@ -120,6 +137,7 @@ module.exports = {
     getUniversityById,
     updateUniversityByID,
     deleteUniversityByID,
+    searchUniversity
 
 };
 

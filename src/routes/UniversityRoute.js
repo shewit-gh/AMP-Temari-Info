@@ -10,5 +10,6 @@ router.post('/', University.postUniversity);
 router.get('/:univId', University.getUniversityById);
 router.patch('/:univId', University.updateUniversityByID);
 router.delete('/:univId', University.deleteUniversityByID);
+router.get('/search/:univName', University.searchUniversity);
 
 module.exports = router;
