@@ -2,11 +2,16 @@ const mongoose = require('mongoose');
 
 const instSchema = mongoose.Schema({
     _id: mongoose.Schema.Types.ObjectId,
-    institute_name:{
+    univ_id:{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "University",
+        required:true
+    },
+    inst_name:{
         type: String,
         required: true
     },
-    phone_no:{
+    phone:{
         type: String,
         required: false,
     },
@@ -14,20 +19,18 @@ const instSchema = mongoose.Schema({
         type: String,
         required: false
     },
-    description: {
+    inst_description: {
         type: String,
         required: true
     },
-    university_id:{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Univresity",
-        required:true
-    },
-    department_id:{
+    
+    department_id:[
+        {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Department",
         required:true
-    }
+        }
+    ]    
 
 });
 
