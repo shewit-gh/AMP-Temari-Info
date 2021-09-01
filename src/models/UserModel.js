@@ -1,8 +1,8 @@
-const mogoose=require('mongoose');
+const mongoose=require('mongoose');
 
-const userSchema=mogoose.Schema({
+const userSchema=mongoose.Schema({
 
-    _id:mogoose.Schema.Types.objectId,
+    _id:mongoose.Schema.Types.objectId,
     username:{
         type: String,
         required: true,
@@ -12,7 +12,7 @@ const userSchema=mogoose.Schema({
         required: true,
     },
     password:{
-        type:mogoose.Schema.Types.objectId,
+        type:mongoose.Schema.Types.objectId,
         required: true,
     },
     role:{
@@ -21,13 +21,13 @@ const userSchema=mogoose.Schema({
     },
     comments:[ 
         {
-           type: mogoose.Schema.Types.objectId,
+           type: mongoose.Schema.Types.objectId,
            ref :"Comment",
            required:false,
         },
     ],
     rating_id:{
-        type:mogoose.Schema.Types.objectId,
+        type:mongoose.Schema.Types.objectId,
         ref:"Rating"
     }
 
