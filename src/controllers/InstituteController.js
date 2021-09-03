@@ -1,4 +1,5 @@
 const express=require('express');
+const mongoose = require('mongoose');
 const Institute = require('../models/InstituteModel')
 const University = require('../models/UniversityModel')
 
@@ -54,7 +55,7 @@ module.exports ={
             if(result){
                 console.log(result);
                 res.status(200).json({
-                    message:'Data has been successfuly deleted',
+                    message:'Data has been successfully deleted',
                     Deletedata: result
                 })
 
@@ -78,6 +79,7 @@ module.exports ={
     post: (req, res)=>{
         const institute = new Institute({
             _id: new mongoose.Types.ObjectId,
+            univ_id: req.body.univ_id,
             inst_name: req.body.inst_name,
             phone: req.body.phone,
             email: req.body.email,
@@ -86,7 +88,8 @@ module.exports ={
         })
         institute.save()
         .then(result => {
-            University.institute.push(institute._id);
+            University.find(c=> {c._id === institute.univ_id; c.institute.push(institute._id) });
+            University.populate()
             console.log(result);
             res.status(200).json({
                 message:'Posted successfully',
