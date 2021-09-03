@@ -1,3 +1,4 @@
+const { string, required } = require('joi');
 const mongoose = require('mongoose');
 
 const universitySchema = mongoose.Schema({
@@ -18,6 +19,12 @@ const universitySchema = mongoose.Schema({
         type: String,
         required: false,
     },
+
+    // image:{
+    //     type: String,
+    //     required: false
+    // },
+    
     image_id: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Image",

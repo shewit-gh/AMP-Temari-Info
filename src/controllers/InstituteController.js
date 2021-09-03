@@ -1,4 +1,5 @@
 const express=require('express');
+const mongoose = require('mongoose');
 const Institute = require('../models/InstituteModel')
 const University = require('../models/UniversityModel')
 
@@ -6,7 +7,7 @@ const University = require('../models/UniversityModel')
 module.exports ={
 //GET ALL    
     getAll:(req, res) =>{
-        Institute.find().exec()
+        Institute.find().populate("univ_id").exec()
         .then(result =>{
             console.log(result);
             res.status(200).json({
@@ -23,7 +24,7 @@ module.exports ={
 //GET BY ID
     getOne: (req, res)=>{
         const id = req.params.instId;
-        Institute.findById(id).exec()
+        Institute.find({_id:id}).populate("univ_id").exec()
         .then(result =>{
             if(result){
                 console.log(result)
@@ -54,7 +55,7 @@ module.exports ={
             if(result){
                 console.log(result);
                 res.status(200).json({
-                    message:'Data has been successfuly deleted',
+                    message:'Data has been successfully deleted',
                     Deletedata: result
                 })
 
@@ -78,6 +79,7 @@ module.exports ={
     post: (req, res)=>{
         const institute = new Institute({
             _id: new mongoose.Types.ObjectId,
+            univ_id: req.body.univ_id,
             inst_name: req.body.inst_name,
             phone: req.body.phone,
             email: req.body.email,
@@ -86,8 +88,7 @@ module.exports ={
         })
         institute.save()
         .then(result => {
-            University.institute.push(institute._id);
-            console.log(result);
+            University.updateOne({_id: req.body.univ_id}, {$push:{institute: institute._id }}).exec();
             res.status(200).json({
                 message:'Posted successfully',
                 PostedData: result
