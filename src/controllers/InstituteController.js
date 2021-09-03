@@ -7,7 +7,7 @@ const University = require('../models/UniversityModel')
 module.exports ={
 //GET ALL    
     getAll:(req, res) =>{
-        Institute.find().exec()
+        Institute.find().populate("univ_id").exec()
         .then(result =>{
             console.log(result);
             res.status(200).json({
@@ -24,7 +24,7 @@ module.exports ={
 //GET BY ID
     getOne: (req, res)=>{
         const id = req.params.instId;
-        Institute.findById(id).exec()
+        Institute.find({_id:id}).populate("univ_id").exec()
         .then(result =>{
             if(result){
                 console.log(result)
@@ -88,9 +88,7 @@ module.exports ={
         })
         institute.save()
         .then(result => {
-            University.find(c=> {c._id === institute.univ_id; c.institute.push(institute._id) });
-            University.populate()
-            console.log(result);
+            University.updateOne({_id: req.body.univ_id}, {$push:{institute: institute._id }}).exec();
             res.status(200).json({
                 message:'Posted successfully',
                 PostedData: result

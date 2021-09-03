@@ -6,6 +6,6 @@ router.get('/', instController.getAll);
 router.get('/:instId', instController.getOne);
 router.delete('/:instId', instController.delete);
 router.post('/', instController.post);
-router.patch('/:id', instController.patch);
+router.patch('/:instId', instController.patch);
 
 module.exports = router;
