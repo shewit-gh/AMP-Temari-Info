@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:temari_info_flutter/presentation/admin/admin_screen.dart';
+import 'package:temari_info_flutter/presentation/contact/contact_screen.dart';
 import 'package:temari_info_flutter/presentation/home/home_screen.dart';
 import 'package:temari_info_flutter/presentation/institute/institute_screen.dart';
 import 'package:temari_info_flutter/presentation/login/login_screen.dart';
@@ -37,6 +38,7 @@ class MyApp extends StatelessWidget {
           User.routeName: (BuildContext context) => User(),
           Search.routeName: (BuildContext context) => Search(),
           Report.routeName: (BuildContext context) => Report(),
+          Contact.routeName: (BuildContext context) => Contact(),
         });
   }
 }
