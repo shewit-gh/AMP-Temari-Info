@@ -1,6 +1,11 @@
 const mongoose = require("mongoose")
 const departmentschema=mongoose.Schema({
     _id:mongoose.Schema.Types.ObjectId,
+    dept_name:{
+        type:String,
+        required:true
+
+    },
     years:{
         type:Number,
         required:true
