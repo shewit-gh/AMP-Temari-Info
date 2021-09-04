@@ -7,7 +7,7 @@ const University = require('../models/UniversityModel')
 module.exports ={
 //GET ALL    
     getAll:(req, res) =>{
-        Institute.find().populate("univ_id").exec()
+        Institute.find().populate("univ_id").populate("department_id").exec()
         .then(result =>{
             console.log(result);
             res.status(200).json({
@@ -24,7 +24,7 @@ module.exports ={
 //GET BY ID
     getOne: (req, res)=>{
         const id = req.params.instId;
-        Institute.find({_id:id}).populate("univ_id").exec()
+        Institute.find({_id:id}).populate("univ_id").populate("department_id").exec()
         .then(result =>{
             if(result){
                 console.log(result)
