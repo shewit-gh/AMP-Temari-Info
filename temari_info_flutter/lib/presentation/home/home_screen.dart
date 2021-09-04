@@ -9,19 +9,22 @@ class Home extends StatelessWidget {
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(100.0),
         child: navtop()),
-      body:Column(children:[
+      body:SingleChildScrollView(
+        physics: ScrollPhysics(),
+        child:Column(children:[
         Container(
           margin: EdgeInsets.all(40),
           child: _search(),),
         
-        Expanded(
-        child:  ListView.builder(
+        ListView.builder(
+          physics: NeverScrollableScrollPhysics(),
+          shrinkWrap: true,
           itemCount: 5,
           itemBuilder: (BuildContext, index) {
             return _univCard("Addis Ababa University", 450);
-            }),),
+            }),
       ]
-      ),
+      )),
       bottomNavigationBar: bottomnav(),
     );
   
