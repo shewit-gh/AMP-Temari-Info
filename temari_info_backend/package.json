@@ -17,8 +17,11 @@
   },
   "homepage": "https://github.com/shewit-gh/AMP-Temari-Info#readme",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "express": "^4.17.1",
     "joi": "^17.4.2",
-    "mongoose": "^6.0.2"
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^6.0.2",
+    "nodemailer": "^6.6.3"
   }
 }
