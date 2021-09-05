@@ -1,13 +1,115 @@
+
 import 'package:flutter/material.dart';
+import 'package:temari_info_flutter/presentation/shared/navBar_Widget.dart';
 
 class User extends StatelessWidget {
   static const String routeName = "/user";
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Text('User page'),
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(60.0),
+        child: navtop(),),
+
+
+
+      body: Container(
+        child: profile("Abebe","abebe@gmail.com", " "),
       ),
+      
+
+
+
+      bottomNavigationBar: bottomnav(),
     );
   }
+}
+
+
+Widget profile(String username, String email, String? bio ){
+  return Container(
+    child: Column(
+      children: [
+        Stack(
+          children: [
+            Container(
+            margin:EdgeInsets.only(bottom: 20),
+            width:double.infinity,
+            height: 300,
+            decoration: BoxDecoration(
+              color: Colors.white
+              ),
+            ),
+            Container(
+              width:150,
+              height: 150,
+              margin: EdgeInsets.only(top:80, left:180 ),
+              decoration: BoxDecoration(
+                color: Colors.pink[800],
+                borderRadius: BorderRadius.circular(100.0)
+              ),
+              child: Center(child: Text("ተማሪ info", style: TextStyle(color:Colors.teal, fontSize: 20),),),
+
+            ),
+            Positioned(
+              bottom: 2,
+              left: 155,
+              child:SizedBox(
+              width: 200,
+              height: 40,
+              child:ElevatedButton(onPressed: (){}, child:  Text('Edit Profile')) ,
+            )
+             )
+            
+          ],
+        ),
+        SizedBox(height: 30,),
+        Row(
+          children: [
+            Icon(Icons.person_outline),
+            SizedBox(width: 50,),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text('${username}'),
+                SizedBox(height: 10,),
+                Text("Name", style: TextStyle(color: Colors.blueGrey),)
+              ],
+            )
+            
+          ],
+        ),
+        SizedBox(height: 30,),
+        Row(
+          children: [
+            Icon(Icons.email),
+            SizedBox(width: 50,),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text('${email}'),
+                SizedBox(height: 10,),
+                Text("Email", style: TextStyle(color: Colors.blueGrey),)
+              ],
+            )
+          ],
+        ),
+        SizedBox(height: 30,),
+        Row(
+          children: [
+            Icon(Icons.edit_rounded),
+            SizedBox(width: 50,),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text('${bio}'),
+                SizedBox(height: 10,),
+                Text("Bio", style: TextStyle(color: Colors.blueGrey),)
+              ],
+            )
+          ],
+        )
+      ],
+
+    ));
 }
