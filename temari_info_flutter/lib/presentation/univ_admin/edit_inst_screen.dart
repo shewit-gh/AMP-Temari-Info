@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:temari_info_flutter/presentation/shared/navBar_Widget.dart';
 
-class Institute extends StatelessWidget {
-  static const String routeName = "/institute";
+class EditInst extends StatelessWidget {
+  static const String routeName = "/editUniv";
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -83,6 +83,11 @@ class Institute extends StatelessWidget {
               ],
             ),
 
+            // edit
+            Container(
+              child: Editdescription(),
+            ),
+
             // side image and description
 
             Container(
@@ -120,6 +125,36 @@ class Institute extends StatelessWidget {
         ),
       ),
       bottomNavigationBar: bottomnav(),
+    );
+  }
+}
+
+class Editdescription extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        Row(
+          children: [
+            Container(
+              margin: EdgeInsets.fromLTRB(400, 0, 5, 0),
+              child: Icon(
+                Icons.edit,
+                color: Colors.yellow,
+              ),
+            ),
+            Container(
+              margin: EdgeInsets.fromLTRB(5, 0, 0, 0),
+              child: Icon(
+                Icons.delete,
+                color: Colors.red,
+              ),
+            ),
+          ],
+        ),
+
+        // university description
+      ],
     );
   }
 }
@@ -222,6 +257,28 @@ class DepartmnetList extends StatelessWidget {
                   decoration: TextDecoration.none,
                   color: Colors.black,
                 ),
+              ),
+            ),
+          ),
+          Positioned(
+            top: 50,
+            left: 400,
+            child: Container(
+              margin: EdgeInsets.fromLTRB(5, 0, 5, 0),
+              child: Icon(
+                Icons.edit,
+                color: Colors.yellow,
+              ),
+            ),
+          ),
+          Positioned(
+            top: 50,
+            left: 430,
+            child: Container(
+              margin: EdgeInsets.fromLTRB(5, 0, 0, 0),
+              child: Icon(
+                Icons.delete,
+                color: Colors.red,
               ),
             ),
           ),

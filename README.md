@@ -1,4 +1,4 @@
-TemariInfo is an aggregate of universities in Ethiopia. This platform provides users the complete information of each uinversity regstered: description, Institutes under it, and departments with all the necessary information. It provides an environment where users can ask questions and learn more about the university of their interest. TemariInfo is not user selective, anyo one can use it. However, it is built targeting mainly students and universities of ethiopia. The aim of this project is  to improve the educational system in our country by helping students to make the right decision with the information provide when they join a univerity. 
+TemariInfo is an aggregate of universities in Ethiopia. This platform provides users the complete information of each university registered: description, Institutes under it, and departments with all the necessary information. It provides an environment where users can ask questions and learn more about the university of their interest. TemariInfo is not user selective, any one can use it. However, it is built targeting mainly students and universities of ethiopia. The aim of this project is  to improve the educational system in our country by helping students to make the right decision with the information provide when they join a university. 
 
 Features:
     - Users can view Detail information about a university
@@ -6,7 +6,7 @@ Features:
     - Users can comment and rate universities
     - Users can search for a specific university
     - Universities can manage their account by updating their information
-    - Universities can report malicious acounts
+    - Universities can report malicious accounts
     - Admins can register universities
     - Admins can delete reported accounts after a careful review of the report
 

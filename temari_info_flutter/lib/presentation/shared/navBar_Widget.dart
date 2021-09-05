@@ -25,7 +25,7 @@ class _BasicBottomNavBarState extends State<NavBar> {
         title: Text(
           'ተማሪ info',
           style: TextStyle(
-            color: Color.fromRGBO(118, 219, 224, 1),
+            color: Colors.teal,
           ),
         ),
         actions: [
@@ -71,7 +71,8 @@ Widget navtop() {
     title: Text(
       'ተማሪ info',
       style: TextStyle(
-        color: Color.fromRGBO(118, 219, 224, 1),
+        color: Colors.teal,
+        fontWeight: FontWeight.bold,
       ),
     ),
     actions: [
@@ -90,7 +91,7 @@ Widget navtop() {
 Widget bottomnav() {
   return BottomNavigationBar(
     backgroundColor: Colors.black12,
-    selectedItemColor: Color.fromRGBO(118, 219, 224, 1),
+    selectedItemColor: Colors.teal,
     items: const <BottomNavigationBarItem>[
       BottomNavigationBarItem(
         icon: Icon(Icons.home),

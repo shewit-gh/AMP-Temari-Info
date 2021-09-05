@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:temari_info_flutter/presentation/shared/navBar_Widget.dart';
 
-class University extends StatelessWidget {
-  static const String routeName = "/university";
+class EditUniv extends StatelessWidget {
+  static const String routeName = "/editUniv";
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,6 +40,10 @@ class University extends StatelessWidget {
                 ),
               ),
             ),
+            // edit
+            Container(
+              child: Editdescription(),
+            ),
 
             // side image and description
 
@@ -56,6 +60,20 @@ class University extends StatelessWidget {
                     style: TextStyle(
                       fontSize: 23,
                     ),
+                  ),
+                ),
+                Container(
+                  margin: EdgeInsets.fromLTRB(270, 0, 5, 0),
+                  child: Icon(
+                    Icons.edit,
+                    color: Colors.yellow,
+                  ),
+                ),
+                Container(
+                  margin: EdgeInsets.fromLTRB(5, 0, 0, 0),
+                  child: Icon(
+                    Icons.delete,
+                    color: Colors.red,
                   ),
                 ),
               ],
@@ -114,13 +132,41 @@ class University extends StatelessWidget {
   }
 }
 
+class Editdescription extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        Row(
+          children: [
+            Container(
+              margin: EdgeInsets.fromLTRB(400, 0, 5, 0),
+              child: Icon(
+                Icons.edit,
+                color: Colors.yellow,
+              ),
+            ),
+            Container(
+              margin: EdgeInsets.fromLTRB(5, 0, 0, 0),
+              child: Icon(
+                Icons.delete,
+                color: Colors.red,
+              ),
+            ),
+          ],
+        ),
+
+        // university description
+      ],
+    );
+  }
+}
+
 class UnivDescription extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
       children: [
-        // university image
-
         Padding(
           padding: const EdgeInsets.all(30.0),
           child: ClipRRect(
