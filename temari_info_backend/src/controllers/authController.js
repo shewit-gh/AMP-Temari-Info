@@ -164,5 +164,6 @@ module.exports = {
     signUp,
     signIn,
     forgotPassword,
-    resetPassword
+    resetPassword,
+    sendEmail
 };
