@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:temari_info_flutter/presentation/add_department/add_department_screen.dart';
 import 'package:temari_info_flutter/presentation/add_inst/add_inst_screen.dart';
 import 'package:temari_info_flutter/presentation/admin/admin_screen.dart';
+import 'package:temari_info_flutter/presentation/contact/contact_screen.dart';
 import 'package:temari_info_flutter/presentation/home/home_screen.dart';
 import 'package:temari_info_flutter/presentation/institute/institute_screen.dart';
 import 'package:temari_info_flutter/presentation/login/login_screen.dart';
@@ -42,6 +43,7 @@ class MyApp extends StatelessWidget {
           Report.routeName: (BuildContext context) => Report(),
           AddDepartment.routeName:(BuildContext context)=>AddDepartment(),
           AddInst.routeName:(BuildContext context)=>AddInst(),
+          Contact.routeName: (BuildContext context) => Contact(),
         });
   }
 }

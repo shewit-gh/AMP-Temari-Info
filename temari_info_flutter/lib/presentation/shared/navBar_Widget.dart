@@ -29,10 +29,10 @@ class _BasicBottomNavBarState extends State<NavBar> {
           ),
         ),
         actions: [
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16),
-            child: Icon(Icons.search),
-          ),
+          // Padding(
+          //   padding: EdgeInsets.symmetric(horizontal: 16),
+          //   child: Icon(Icons.search),
+          // ),
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Icon(Icons.more_vert),
@@ -62,4 +62,48 @@ class _BasicBottomNavBarState extends State<NavBar> {
       ),
     );
   }
+}
+
+Widget navtop() {
+  return AppBar(
+    backgroundColor: Colors.black12,
+    leading: Icon(Icons.menu),
+    title: Text(
+      'ተማሪ info',
+      style: TextStyle(
+        color: Color.fromRGBO(118, 219, 224, 1),
+      ),
+    ),
+    actions: [
+      // Padding(
+      //   padding: EdgeInsets.symmetric(horizontal: 16),
+      //   child: Icon(Icons.search),
+      // ),
+      Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Icon(Icons.more_vert),
+      ),
+    ],
+  );
+}
+
+Widget bottomnav() {
+  return BottomNavigationBar(
+    backgroundColor: Colors.black12,
+    selectedItemColor: Color.fromRGBO(118, 219, 224, 1),
+    items: const <BottomNavigationBarItem>[
+      BottomNavigationBarItem(
+        icon: Icon(Icons.home),
+        label: 'Home',
+      ),
+      BottomNavigationBarItem(
+        icon: Icon(Icons.search),
+        label: 'Search',
+      ),
+      BottomNavigationBarItem(
+        icon: Icon(Icons.person),
+        label: 'Profile',
+      ),
+    ],
+  );
 }

@@ -7,7 +7,7 @@ const University = require('../models/UniversityModel');
 // Get all University
 
 function getUniversity(req, res) {
-    University.find()
+    University.find().populate("comments").populate("rating_id")
         .exec()
         .then(doc => {
             if (doc) {
@@ -58,7 +58,7 @@ function postUniversity(req, res) {
 
 function getUniversityById(req, res) {
     const id = req.params.univId;
-    University.findById(id)
+    University.findById(id).populate("comments").populate("rating_id")
         .exec()
         .then(doc => {
             if (doc) {
@@ -118,7 +118,7 @@ function deleteUniversityByID(req, res) {
 function searchUniversity(req, res) {
 
     var regex = new RegExp(req.params.univName, 'i'); // 'i' makes it case insensitive
-    University.find({ univ_name: regex })
+    University.find({ univ_name: regex }).populate("comments").populate("rating_id")
         .then(result => {
             res.status(200).json(result);
         })
