@@ -43,27 +43,28 @@ Widget _search() {
         width: 300,
         height: 40,
         margin: EdgeInsets.only(bottom: 50, top: 10),
-        child: TextFormField(
-          style: TextStyle(color: Colors.black, fontSize: 14),
-          decoration: InputDecoration(
-            fillColor: Colors.white,
-            filled: true,
-            enabledBorder:OutlineInputBorder(
-              borderSide: BorderSide(color: Colors.black38, width: 1.0),
-              borderRadius: BorderRadius.circular(20.0)
-            ),
-            focusedBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: Colors.tealAccent, width: 1.0),
-              borderRadius: BorderRadius.circular(20.0)
-            ),
-            icon: Icon(
-              Icons.search,
-              size: 25,
-            ),
-            hintText: 'search',
-            hintStyle: TextStyle(color: Colors.blueGrey,)),
+        child:Form(
+          child:TextFormField(
+            style: TextStyle(color: Colors.black, fontSize: 14),
+            decoration: InputDecoration(
+              fillColor: Colors.white,
+              filled: true,
+              enabledBorder:OutlineInputBorder(
+                borderSide: BorderSide(color: Colors.black38, width: 1.0),
+                borderRadius: BorderRadius.circular(20.0)
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: Colors.teal, width: 1.0),
+                borderRadius: BorderRadius.circular(20.0)
+              ),
+              icon: Icon(
+                Icons.search,
+                size: 25,
+              ),
+              hintText: 'search',
+              hintStyle: TextStyle(color: Colors.blueGrey,)),
 
-        ),
+        )),
       ),
       Container(
         margin: EdgeInsets.only(bottom: 40),
@@ -84,20 +85,17 @@ Widget _univCard(String univ_name, int totalRating) {
   return Container(
     width: 400,
     height: 150,
-    padding: EdgeInsets.all(30),
+    padding: EdgeInsets.all(20),
     margin: EdgeInsets.only(top: 40, left: 40, right:40),
     decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20), color: Colors.white),
     child: Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Container(
-            height: 100,
-            width: 100,
-            //add the image here
-            // child: Image()
-            decoration:
-                BoxDecoration(shape: BoxShape.circle, color: Colors.black)),
+        ClipRRect(
+          borderRadius: BorderRadius.circular(100),
+          // child:Image.asset('image/aau.png', width: 110, height: 110, fit: BoxFit.cover,)
+        ),
         Column(
           children: [
             Container(
