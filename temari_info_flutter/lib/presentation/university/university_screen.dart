@@ -44,7 +44,7 @@ class University extends StatelessWidget {
             // side image and description
 
             Container(
-              child: SideImage(),
+              child: UnivDescription(),
             ),
 
             Row(
@@ -114,7 +114,7 @@ class University extends StatelessWidget {
   }
 }
 
-class SideImage extends StatelessWidget {
+class UnivDescription extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
