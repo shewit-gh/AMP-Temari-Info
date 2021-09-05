@@ -50,6 +50,8 @@ module.exports ={
 //DELETE
     delete: (req, res)=>{
         const id = req.params.instId;
+        const inst = Institute.find({_id: id})
+        University.updateOne({_id: isnt.univ_id}, {$pull:{institute: inst._id }}).exec();
         Institute.remove({_id: id}).exec()
         .then(result => {
             if(result){

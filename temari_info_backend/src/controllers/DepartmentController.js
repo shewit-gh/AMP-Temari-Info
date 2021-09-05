@@ -83,6 +83,8 @@ function postt(req,res){
 //delete by id
 function deleteById(req,res){
     const id = req.params.dept_id
+    const dept = Department.find({_id: id})
+    Institute.updateOne({_id: dept.univ_id}, {$pull:{institute: dept._id }}).exec();
     Department.remove({_id: id}).exec()
         .then(result => {
             if(result){
