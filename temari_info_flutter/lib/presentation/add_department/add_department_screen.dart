@@ -1,6 +1,7 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:temari_info_flutter/presentation/shared/navBar_Widget.dart';
 
 class AddDepartment extends StatelessWidget {
   static const String routeName = "/AddDepartment";
@@ -8,57 +9,76 @@ class AddDepartment extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(60.0),
+        child: navtop()),
        body: Center(
         child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 50.0),
+        padding: const EdgeInsets.symmetric(vertical: 50.0,horizontal: 25.0),
          child: Card(  
           shape: RoundedRectangleBorder(  
-            borderRadius: BorderRadius.circular(15.0),  
+            borderRadius: BorderRadius.circular(15.0), 
+             
           ),
+          color: Colors.white,
         child: Form(
       
           child: Column(
             
            crossAxisAlignment: CrossAxisAlignment.stretch,
+           
             children: [
-               Text('Name',
+              Text('Add Department', 
+              textAlign:TextAlign.center, 
+              style:TextStyle(
+                color: Colors.black,
+                fontSize: 30 ),),
+              Padding(
+              padding: const EdgeInsets.all(25)),
+            
+              Text('Name',
               textAlign: TextAlign.left,
-              textDirection:TextDirection.ltr),
+              textDirection:TextDirection.ltr,
+              style: TextStyle(color: Colors.black,
+              fontSize:22.0,
+              )),
               
               TextFormField(
+               obscureText: true,   
               decoration: InputDecoration(
+                border: OutlineInputBorder(),
                 hintText: 'Enter name',
                 labelText: 'Name',)
 
               ),
-              Text('Phone',
+              Text('Years',
               textAlign: TextAlign.left,
-              textDirection:TextDirection.ltr),
+              textDirection:TextDirection.ltr,
+               style: TextStyle(color: Colors.black,
+              fontSize:22.0,
+              )),
               TextFormField(
-              decoration: InputDecoration(
-
-                hintText: 'Enter Phone',
-                labelText: 'Phone',)
-
-              ),
-              Text('Email',
-              textAlign: TextAlign.left,
-              textDirection:TextDirection.ltr),
-              TextFormField(
-              decoration: InputDecoration(
-                hintText: 'Enter email',
-                labelText: 'email',)
-
-              ),
-              Text('Description',
-              textAlign: TextAlign.left,
-              textDirection:TextDirection.ltr),
-              Container( 
-                height:300.0,
-                child:TextFormField(
+                obscureText: true,  
               decoration: InputDecoration(
                 border: OutlineInputBorder(),
-                contentPadding: EdgeInsets.symmetric(vertical: 100.0),
+                hintText: 'Enter Years',
+                labelText: 'Year',)
+
+              ),
+          
+
+            
+              Text('Description',
+              textAlign: TextAlign.left,
+              textDirection:TextDirection.ltr, style: TextStyle(color: Colors.black,
+              fontSize:22.0,
+              )),
+              Container( 
+                
+                child:TextFormField(
+                  obscureText: true,  
+              decoration: InputDecoration(
+                border: OutlineInputBorder(),
                 hintText: 'Enter description',
                 labelText: 'Description',)
 
@@ -66,7 +86,7 @@ class AddDepartment extends StatelessWidget {
                Container(
                   height: 50.0,
                   decoration: BoxDecoration(
-                    color: Colors.blue,
+                    color: Colors.teal,
                     borderRadius: BorderRadius.circular(100.0),
                   ),
                   alignment: Alignment.center,
@@ -81,7 +101,8 @@ class AddDepartment extends StatelessWidget {
               
             ],
           ),
-    )))));
+    )))),
+    bottomNavigationBar: bottomnav(),);
   }
 }
 
