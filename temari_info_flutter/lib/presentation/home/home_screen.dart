@@ -6,14 +6,15 @@ class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(100.0),
+        preferredSize: Size.fromHeight(60.0),
         child: navtop()),
       body:SingleChildScrollView(
         physics: ScrollPhysics(),
         child:Column(children:[
         Container(
-          margin: EdgeInsets.all(40),
+          margin: EdgeInsets.all(20),
           child: _search(),),
         
         ListView.builder(
@@ -28,29 +29,6 @@ class Home extends StatelessWidget {
       bottomNavigationBar: bottomnav(),
     );
   
-    //     body: Stack(
-    //       children: [
-    //         NavBar(),
-    //         // Center(
-    //         //   child: _search()
-    //         // )
-    //         Positioned(
-    //             top: 100,
-    //             child: Expanded(
-    //                 child: Column(
-    //                 children: [
-    //                   _search(),
-    //                   ListView.builder(
-    //                     itemCount: 5,
-    //                     itemBuilder: (BuildContext, index) {
-    //                       return _univCard("Addis Ababa University", 450);
-    //                       })
-    //                 ],
-    //                 // _univCard("Addis Ababa University", 450)],
-    //               ),
-    //             ))
-    //       ],
-    // )
     
   }
 }
@@ -59,27 +37,36 @@ class Home extends StatelessWidget {
 Widget _search() {
   return Row(
     //arrange the alignment
-    mainAxisAlignment: MainAxisAlignment.start,
+    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
     children: [
       Container(
         width: 300,
         height: 40,
-        margin: EdgeInsets.only(bottom: 50),
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(20), color: Colors.white),
+        margin: EdgeInsets.only(bottom: 50, top: 10),
         child: TextFormField(
+          style: TextStyle(color: Colors.black, fontSize: 14),
           decoration: InputDecoration(
-              //make the input line invisible
-              icon: Icon(
-                Icons.search,
-                size: 20,
-              ),
-              hintText: 'search',
-              hintStyle: TextStyle(color: Colors.blueGrey)),
+            fillColor: Colors.white,
+            filled: true,
+            enabledBorder:OutlineInputBorder(
+              borderSide: BorderSide(color: Colors.black38, width: 1.0),
+              borderRadius: BorderRadius.circular(20.0)
+            ),
+            focusedBorder: OutlineInputBorder(
+              borderSide: BorderSide(color: Colors.tealAccent, width: 1.0),
+              borderRadius: BorderRadius.circular(20.0)
+            ),
+            icon: Icon(
+              Icons.search,
+              size: 25,
+            ),
+            hintText: 'search',
+            hintStyle: TextStyle(color: Colors.blueGrey,)),
+
         ),
       ),
       Container(
-        margin: EdgeInsets.only(left: 30, bottom: 50),
+        margin: EdgeInsets.only(bottom: 40),
         child: _searchButton(),
       ),
     ],
@@ -88,7 +75,8 @@ Widget _search() {
 
 //search button
 Widget _searchButton() {
-  return ElevatedButton(onPressed: () {}, child: Text('Search'));
+  return ElevatedButton(
+    onPressed: () {}, child: Text('Search'));
 }
 
 //university
