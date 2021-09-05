@@ -7,6 +7,7 @@ import 'package:temari_info_flutter/presentation/login/login_screen.dart';
 import 'package:temari_info_flutter/presentation/report/report_screen.dart';
 import 'package:temari_info_flutter/presentation/search/search_screen.dart';
 import 'package:temari_info_flutter/presentation/signup/signup_scrren.dart';
+import 'package:temari_info_flutter/presentation/univ_admin/edit_inst_screen.dart';
 import 'package:temari_info_flutter/presentation/univ_admin/edit_univ_screen.dart';
 import 'package:temari_info_flutter/presentation/university/university_screen.dart';
 import 'package:temari_info_flutter/presentation/user/user_screen.dart';
@@ -26,7 +27,7 @@ class MyApp extends StatelessWidget {
           primarySwatch: Colors.teal,
           brightness: Brightness.dark,
         ),
-        initialRoute: EditUniv.routeName,
+        initialRoute: EditInst.routeName,
         routes: {
           University.routeName: (BuildContext context) => University(),
           Institute.routeName: (BuildContext context) => Institute(),
@@ -35,6 +36,7 @@ class MyApp extends StatelessWidget {
           Login.routeName: (BuildContext context) => Login(),
           Signup.routeName: (BuildContext context) => Signup(),
           EditUniv.routeName: (BuildContext context) => EditUniv(),
+          EditInst.routeName: (BuildContext context) => EditInst(),
           User.routeName: (BuildContext context) => User(),
           Search.routeName: (BuildContext context) => Search(),
           Report.routeName: (BuildContext context) => Report(),
