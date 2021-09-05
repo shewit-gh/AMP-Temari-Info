@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:temari_info_flutter/presentation/add_department/add_department_screen.dart';
+import 'package:temari_info_flutter/presentation/add_inst/add_inst_screen.dart';
 import 'package:temari_info_flutter/presentation/admin/admin_screen.dart';
 import 'package:temari_info_flutter/presentation/home/home_screen.dart';
 import 'package:temari_info_flutter/presentation/institute/institute_screen.dart';
@@ -25,7 +28,7 @@ class MyApp extends StatelessWidget {
           primarySwatch: Colors.teal,
           brightness: Brightness.dark,
         ),
-        initialRoute: Home.routeName,
+        initialRoute: AddDepartment.routeName,
         routes: {
           University.routeName: (BuildContext context) => University(),
           Institute.routeName: (BuildContext context) => Institute(),
@@ -37,6 +40,8 @@ class MyApp extends StatelessWidget {
           User.routeName: (BuildContext context) => User(),
           Search.routeName: (BuildContext context) => Search(),
           Report.routeName: (BuildContext context) => Report(),
+          AddDepartment.routeName:(BuildContext context)=>AddDepartment(),
+          AddInst.routeName:(BuildContext context)=>AddInst(),
         });
   }
 }
