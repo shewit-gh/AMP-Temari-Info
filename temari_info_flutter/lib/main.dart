@@ -15,6 +15,7 @@ import 'package:temari_info_flutter/presentation/univ_admin/edit_univ_screen.dar
 import 'package:temari_info_flutter/presentation/university/university_screen.dart';
 import 'package:temari_info_flutter/presentation/user/user_screen.dart';
 import 'package:temari_info_flutter/presentation/about/about_us.dart';
+
 void main() {
   runApp(MyApp());
 }
@@ -30,7 +31,7 @@ class MyApp extends StatelessWidget {
           primarySwatch: Colors.teal,
           brightness: Brightness.dark,
         ),
-        initialRoute: EditInst.routeName,
+        initialRoute: Contact.routeName,
         routes: {
           University.routeName: (BuildContext context) => University(),
           Institute.routeName: (BuildContext context) => Institute(),
@@ -43,10 +44,10 @@ class MyApp extends StatelessWidget {
           User.routeName: (BuildContext context) => User(),
           Search.routeName: (BuildContext context) => Search(),
           Report.routeName: (BuildContext context) => Report(),
-          AddDepartment.routeName:(BuildContext context)=>AddDepartment(),
-          AddInst.routeName:(BuildContext context)=>AddInst(),
+          AddDepartment.routeName: (BuildContext context) => AddDepartment(),
+          AddInst.routeName: (BuildContext context) => AddInst(),
           Contact.routeName: (BuildContext context) => Contact(),
-          About.routeName:(BuildContext context) =>About(),
+          About.routeName: (BuildContext context) => About(),
         });
   }
 }
