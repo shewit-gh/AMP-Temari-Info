@@ -7,7 +7,7 @@ const University = require('../models/UniversityModel');
 // Get all University
 
 function getUniversity(req, res) {
-    University.find().populate("institute")
+    University.find().populate("institute").populate("comment").populate("rating")
         .exec()
         .then(doc => {
             if (doc) {
@@ -58,7 +58,7 @@ function postUniversity(req, res) {
 
 function getUniversityById(req, res) {
     const id = req.params.univId;
-    University.findById(id).populate("institute")
+    University.findById(id).populate("institute").populate("comment").populate("rating")
         .exec()
         .then(doc => {
             if (doc) {

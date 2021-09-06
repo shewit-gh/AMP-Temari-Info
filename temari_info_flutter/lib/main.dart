@@ -19,6 +19,7 @@ import 'package:temari_info_flutter/presentation/user/edit_profile_screen.dart';
 import 'package:temari_info_flutter/presentation/login/forgot_password_screen.dart';
 import 'package:temari_info_flutter/presentation/login/reset_password_screen.dart';
 import 'package:temari_info_flutter/presentation/login/set_new_password_screen.dart';
+import 'package:temari_info_flutter/presentation/universities/universities.dart';
 void main() {
   runApp(MyApp());
 }
@@ -34,13 +35,13 @@ class MyApp extends StatelessWidget {
           primarySwatch: Colors.teal,
           brightness: Brightness.dark,
         ),
-        initialRoute: Home.routeName,
+        initialRoute: Universities.routeName,
         routes: {
           University.routeName: (BuildContext context) => University(),
           Institute.routeName: (BuildContext context) => Institute(),
           Home.routeName: (BuildContext context) => Home(),
           Admin.routeName: (BuildContext context) => Admin(),
-          Login.routeName: (BuildContext context) => Login(),
+          // Login.routeName: (BuildContext context) => Login(),
           Signup.routeName: (BuildContext context) => Signup(),
           EditUniv.routeName: (BuildContext context) => EditUniv(),
           EditInst.routeName: (BuildContext context) => EditInst(),
@@ -51,10 +52,11 @@ class MyApp extends StatelessWidget {
           AddInst.routeName: (BuildContext context) => AddInst(),
           Contact.routeName: (BuildContext context) => Contact(),
           About.routeName: (BuildContext context) => About(),
-          EditProfile.routeName: (BuildContext context) => EditProfile(),
-          ForgotPassword.routeName: (BuildContext context) => ForgotPassword(),
+          // EditProfile.routeName: (BuildContext context) => EditProfile(),
+          // ForgotPassword.routeName: (BuildContext context) => ForgotPassword(),
           ResetPassword.routeName: (BuildContext context) => ResetPassword(),
-          SetNewPassword.routeName: (BuildContext context) => SetNewPassword(),
+          // SetNewPassword.routeName: (BuildContext context) => SetNewPassword(),
+          Universities.routeName: (BuildContext context) => Universities(),
           
         });
   }

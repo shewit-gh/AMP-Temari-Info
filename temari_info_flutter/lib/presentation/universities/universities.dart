@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:temari_info_flutter/presentation/shared/navBar_Widget.dart';
 
-class Search extends StatelessWidget {
-  static const String routeName = "/search";
+class Universities extends StatelessWidget {
+  static const String routeName = "/universities";
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -17,12 +17,12 @@ class Search extends StatelessWidget {
           child: Column(children: [
             Container(
               margin: EdgeInsets.all(25),
-              child: Text("Search Result", style: TextStyle(color: Colors.teal, fontSize:30,)),
+              child: Text("Universities", style: TextStyle(color: Colors.teal, fontSize:30,)),
             ),
             ListView.builder(
                 physics: NeverScrollableScrollPhysics(),
                 shrinkWrap: true,
-                itemCount: 1,
+                itemCount: 10,
                 itemBuilder: (BuildContext, index) {
                   return _univCard("Addis Ababa University", 450);
                 }),
