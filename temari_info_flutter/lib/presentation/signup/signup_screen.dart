@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:temari_info_flutter/presentation/shared/navBar_Widget.dart';
 
-class Login extends StatelessWidget {
-  static const String routeName = "/login";
+class Signup extends StatelessWidget {
+  static const String routeName = "/signup";
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -16,12 +16,12 @@ class Login extends StatelessWidget {
             padding: EdgeInsets.all(10),
             child: ListView(
               children: <Widget>[
-                SizedBox(height:80),
+                SizedBox(height:50),
                 Container(
                     alignment: Alignment.center,
                     padding: EdgeInsets.all(10),
                     child: Text(
-                      'Sign in',
+                      'Create an Account',
                       style: TextStyle(fontSize: 20),
                     )),
                 Container(
@@ -35,7 +35,17 @@ class Login extends StatelessWidget {
                   ),
                 ),
                 Container(
-                  padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
+                  padding: EdgeInsets.all(10),
+                  child: TextField(
+                    // controller: emailController,
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(),
+                      labelText: 'Email Address',
+                    ),
+                  ),
+                ),
+                Container(
+                  padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
                   child: TextField(
                     obscureText: true,
                     // controller: passwordController,
@@ -45,36 +55,38 @@ class Login extends StatelessWidget {
                       child: const Icon(Icons.visibility)),
                       border: OutlineInputBorder(),
                       labelText: 'Password',
-                      
                     ),
                   ),
-                ),
-                Align(
-                alignment: Alignment.topRight,
-                child: Container(
-                  padding: EdgeInsets.fromLTRB(0, 0, 10, 0),
-                  child:TextButton(
-                  onPressed: (){
-                  },
-                  child: Text('Forgot Password?'),
-                        ),
-                      ),
-                ),               
+                ),     
+                Container(
+                  padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
+                  child: TextField(
+                    obscureText: true,
+                    // controller: confirmpasswordController,
+                    decoration: InputDecoration(
+                      suffixIcon: const Padding(
+                      padding: const EdgeInsets.only(right: 0),
+                      child: const Icon(Icons.visibility)),
+                      border: OutlineInputBorder(),
+                      labelText: 'Confirm Password',
+                    ),
+                  ),
+                ),              
                 Container(
                   height: 50,
-                    padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
-                    child: ElevatedButton(
-                      child: Text('Login'),
+                    padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
+                    child: ElevatedButton(                  
+                      child: Text('Sign Up'),
                       onPressed: () {
                       },
                     )),
                 Container(
                   child: Row(
                     children: <Widget>[
-                      Text('Don\'t have an account?'),
+                      Text('Already have an account?'),
                       TextButton(
                       child: Text(
-                          'Sign Up',
+                          'Sign In',
                           style: TextStyle(fontSize: 15),
                         ),
                         onPressed: () {
