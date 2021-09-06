@@ -141,7 +141,7 @@ class InstDescription extends StatelessWidget {
             //   color: Colors.white,
             // )
             child: Image.asset(
-              "images/aau.png",
+              "image/aau.png",
               width: 120,
               height: 120,
               fit: BoxFit.cover,

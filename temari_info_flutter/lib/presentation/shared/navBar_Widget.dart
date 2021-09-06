@@ -72,6 +72,8 @@ Widget drawer(BuildContext context) {
   );
 }
 
+
+
 Widget navtop() {
   return AppBar(
     backgroundColor: Colors.black12,
@@ -95,6 +97,7 @@ Widget navtop() {
     ],
   );
 }
+
 
 Widget bottomnav() {
   return BottomNavigationBar(
