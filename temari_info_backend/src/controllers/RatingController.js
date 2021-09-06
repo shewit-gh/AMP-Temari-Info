@@ -1,11 +1,11 @@
 const express=require('express');
 const Rating = require('../models/RatingModel');
-const Universities=require('../models/UniversityModel')
+const University=require('../models/UniversityModel')
 
 module.exports ={
     //GET ALL    
         getAll:(req, res) =>{
-            Institute.find().populate("univ_id").exec()
+            Rating.find().populate("univ_id").exec()
             .then(result =>{
                 console.log(result);
                 res.status(200).json({
@@ -21,8 +21,8 @@ module.exports ={
         },
     //GET BY ID
         getOne: (req, res)=>{
-            const id = req.params.instId;
-            Institute.find({_id:id}).populate("univ_id").exec()
+            const id = req.params.rateId;
+            Rating.find({_id:id}).populate("univ_id").exec()
             .then(result =>{
                 if(result){
                     console.log(result)
@@ -48,7 +48,7 @@ module.exports ={
     //DELETE
         delete: (req, res)=>{
             const id = req.params.instId;
-            Institute.remove({_id: id}).exec()
+            Rating.remove({_id: id}).exec()
             .then(result => {
                 if(result){
                     console.log(result);
@@ -75,18 +75,17 @@ module.exports ={
         },
     //POST
         post: (req, res)=>{
-            const institute = new Institute({
+            
+            const rating = new Rating({
                 _id: new mongoose.Types.ObjectId,
+                rating:req.body.rating,
                 univ_id: req.body.univ_id,
-                inst_name: req.body.inst_name,
-                phone: req.body.phone,
-                email: req.body.email,
-                inst_description: req.body.inst_description
-    
+                user_id: req.body.univ_id,
+                rating_count: req.body.rating_count,
             })
-            institute.save()
+            rating.save()
             .then(result => {
-                University.updateOne({_id: req.body.univ_id}, {$push:{institute: institute._id }}).exec();
+                University.updateOne({_id: req.body.univ_id}, {$push:{rating: rating._id }}).exec();
                 res.status(200).json({
                     message:'Posted successfully',
                     PostedData: result
@@ -104,12 +103,12 @@ module.exports ={
     
      //UPDATE   
         patch: (req, res)=>{
-            const id = req.params.instId;
+            const id = req.params.rateId;
             const UpdateOps = {};
             for (const ops of req.body){
                 UpdateOps[ops.propName] = ops.value;
             }
-            Institute.updateMany({_id:id}, {$set: UpdateOps}).exec()
+            Rating.updateMany({_id:id}, {$set: UpdateOps}).exec()
             .then(result =>{
                 console.log(result);
                 res.status(200).json({

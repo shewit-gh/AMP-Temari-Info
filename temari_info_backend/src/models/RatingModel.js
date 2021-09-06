@@ -16,6 +16,10 @@ const RatingSchema = mongoose.Schema({
         ref: "User",
         required: true,
     },
+    rating_count:{
+        type: Number,
+        required: true,
+    }
     
 });
 
