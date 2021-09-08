@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:temari_info_flutter/presentation/add_department/add_department_screen.dart';
 import 'package:temari_info_flutter/presentation/add_inst/add_inst_screen.dart';
 import 'package:temari_info_flutter/presentation/admin/admin_screen.dart';
@@ -21,45 +22,68 @@ import 'package:temari_info_flutter/presentation/login/forgot_password_screen.da
 import 'package:temari_info_flutter/presentation/login/reset_password_screen.dart';
 import 'package:temari_info_flutter/presentation/login/set_new_password_screen.dart';
 import 'package:temari_info_flutter/presentation/universities/universities.dart';
+import 'package:temari_info_flutter/rating/blocs/rating_bloc.dart';
+import 'package:temari_info_flutter/rating/data_provider/data_provider.dart';
+import 'package:temari_info_flutter/rating/repo/rating_repo.dart';
+import 'package:http/http.dart' as http;
 void main() {
   runApp(MyApp());
 }
 
+final RatingRepo _ratingRepo = RatingRepo(dataProvider: RatingDataProvider(httpClient: http.Client()));
+
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: 'Temari Info',
-        theme: ThemeData(
-          // primarySwatch: Colors.blue,
-          primarySwatch: Colors.teal,
-          brightness: Brightness.dark,
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<RatingBloc>(
+          create: (context) => RatingBloc(_ratingRepo),
         ),
-        initialRoute: EditProfile.routeName,
-        routes: {
-          University.routeName: (BuildContext context) => University(),
-          Institute.routeName: (BuildContext context) => Institute(),
-          Home.routeName: (BuildContext context) => Home(),
-          Admin.routeName: (BuildContext context) => Admin(),
-          Login.routeName: (BuildContext context) => Login(),
-          Signup.routeName: (BuildContext context) => Signup(),
-          EditUniv.routeName: (BuildContext context) => EditUniv(),
-          EditInst.routeName: (BuildContext context) => EditInst(),
-          User.routeName: (BuildContext context) => User(),
-          Search.routeName: (BuildContext context) => Search(),
-          Report.routeName: (BuildContext context) => Report(),
-          AddDepartment.routeName: (BuildContext context) => AddDepartment(),
-          AddInst.routeName: (BuildContext context) => AddInst(),
-          Contact.routeName: (BuildContext context) => Contact(),
-          About.routeName: (BuildContext context) => About(),
-          EditProfile.routeName: (BuildContext context) => EditProfile(),
-          ForgotPassword.routeName: (BuildContext context) => ForgotPassword(),
-          ResetPassword.routeName: (BuildContext context) => ResetPassword(),
-          SetNewPassword.routeName: (BuildContext context) => SetNewPassword(),
-          Universities.routeName: (BuildContext context) => Universities(),
-          Reports.routeName: (BuildContext context) => Universities(),
-         
-        });
+
+        //  BlocProvider<RatingBloc>(
+        //   create: (context) => RatingBloc(_ratingRepo),
+        // ), BlocProvider<RatingBloc>(
+        //   create: (context) => RatingBloc(_ratingRepo),
+        // ), BlocProvider<RatingBloc>(
+        //   create: (context) => RatingBloc(_ratingRepo),
+        // ), BlocProvider<RatingBloc>(
+        //   create: (context) => RatingBloc(_ratingRepo),
+        // ),
+      ],
+      child: MaterialApp(
+          debugShowCheckedModeBanner: false,
+          title: 'Temari Info',
+          theme: ThemeData(
+            // primarySwatch: Colors.blue,
+            primarySwatch: Colors.teal,
+            brightness: Brightness.dark,
+          ),
+          initialRoute: Home.routeName,
+          routes: {
+            University.routeName: (BuildContext context) => University(),
+            Institute.routeName: (BuildContext context) => Institute(),
+            Home.routeName: (BuildContext context) => Home(),
+            Admin.routeName: (BuildContext context) => Admin(),
+            // Login.routeName: (BuildContext context) => Login(),
+            Signup.routeName: (BuildContext context) => Signup(),
+            EditUniv.routeName: (BuildContext context) => EditUniv(),
+            EditInst.routeName: (BuildContext context) => EditInst(),
+            User.routeName: (BuildContext context) => User(),
+            Search.routeName: (BuildContext context) => Search(),
+            Report.routeName: (BuildContext context) => Report(),
+            AddDepartment.routeName: (BuildContext context) => AddDepartment(),
+            AddInst.routeName: (BuildContext context) => AddInst(),
+            Contact.routeName: (BuildContext context) => Contact(),
+            About.routeName: (BuildContext context) => About(),
+            EditProfile.routeName: (BuildContext context) => EditProfile(),
+            ForgotPassword.routeName: (BuildContext context) => ForgotPassword(),
+            ResetPassword.routeName: (BuildContext context) => ResetPassword(),
+            SetNewPassword.routeName: (BuildContext context) => SetNewPassword(),
+            Universities.routeName: (BuildContext context) => Universities(),
+             Reports.routeName: (BuildContext context) => Universities(),
+          }),
+    );
+
   }
 }
