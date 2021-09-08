@@ -1,6 +1,7 @@
 const express=require('express');
 const Rating = require('../models/RatingModel');
 const University=require('../models/UniversityModel')
+const mongoose=require('mongoose');
 
 module.exports ={
     //GET ALL    
@@ -79,9 +80,9 @@ module.exports ={
             const rating = new Rating({
                 _id: new mongoose.Types.ObjectId,
                 rating:req.body.rating,
-                univ_id: req.body.univ_id,
-                user_id: req.body.univ_id,
-                rating_count: req.body.rating_count,
+                university_id: req.body.university_id,
+                user_id: req.body.user_id,
+        
             })
             rating.save()
             .then(result => {
