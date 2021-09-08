@@ -34,7 +34,7 @@ const universitySchema = mongoose.Schema({
         {
             type: mongoose.Schema.Types.ObjectId,
             ref: "Institute",
-            required: true,
+            required: false,
         },
     ],
     comment: [

@@ -39,6 +39,26 @@ async function signIn(req, res) {
     }
 };
 
+async function signOut(req, res) {
+  try {
+    const {id} = req.body;
+
+    if (!(email && password)) {
+      res.status(400).send("All input is required");
+    }
+  
+    const user = await User.findOne({ "_id":id });
+    if (user) {
+      user.token = token;
+    res.status(200).json(user);
+    }
+    
+    res.status(400).send("Unable to do operation");
+  } catch (error) {
+    res.status(500)
+    }
+};
+
 async function signUp(req, res) {
   try {
     
@@ -163,6 +183,7 @@ async function forgotPassword (req, res) {
 module.exports = {
     signUp,
     signIn,
+    signOut,
     forgotPassword,
     resetPassword,
     sendEmail

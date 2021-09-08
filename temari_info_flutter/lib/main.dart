@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:temari_info_flutter/presentation/add_department/add_department_screen.dart';
 import 'package:temari_info_flutter/presentation/add_inst/add_inst_screen.dart';
 import 'package:temari_info_flutter/presentation/admin/admin_screen.dart';
+import 'package:temari_info_flutter/presentation/admin/reports_list_screen.dart';
 import 'package:temari_info_flutter/presentation/contact/contact_screen.dart';
 import 'package:temari_info_flutter/presentation/home/home_screen.dart';
 import 'package:temari_info_flutter/presentation/institute/institute_screen.dart';
@@ -35,13 +36,13 @@ class MyApp extends StatelessWidget {
           primarySwatch: Colors.teal,
           brightness: Brightness.dark,
         ),
-        initialRoute: Universities.routeName,
+        initialRoute: EditProfile.routeName,
         routes: {
           University.routeName: (BuildContext context) => University(),
           Institute.routeName: (BuildContext context) => Institute(),
           Home.routeName: (BuildContext context) => Home(),
           Admin.routeName: (BuildContext context) => Admin(),
-          // Login.routeName: (BuildContext context) => Login(),
+          Login.routeName: (BuildContext context) => Login(),
           Signup.routeName: (BuildContext context) => Signup(),
           EditUniv.routeName: (BuildContext context) => EditUniv(),
           EditInst.routeName: (BuildContext context) => EditInst(),
@@ -52,12 +53,13 @@ class MyApp extends StatelessWidget {
           AddInst.routeName: (BuildContext context) => AddInst(),
           Contact.routeName: (BuildContext context) => Contact(),
           About.routeName: (BuildContext context) => About(),
-          // EditProfile.routeName: (BuildContext context) => EditProfile(),
-          // ForgotPassword.routeName: (BuildContext context) => ForgotPassword(),
+          EditProfile.routeName: (BuildContext context) => EditProfile(),
+          ForgotPassword.routeName: (BuildContext context) => ForgotPassword(),
           ResetPassword.routeName: (BuildContext context) => ResetPassword(),
-          // SetNewPassword.routeName: (BuildContext context) => SetNewPassword(),
+          SetNewPassword.routeName: (BuildContext context) => SetNewPassword(),
           Universities.routeName: (BuildContext context) => Universities(),
-          
+          Reports.routeName: (BuildContext context) => Universities(),
+         
         });
   }
 }

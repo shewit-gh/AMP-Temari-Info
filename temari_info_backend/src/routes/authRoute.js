@@ -5,6 +5,7 @@ var auth = require('../middlewares/auth')
 //pass auth between url and function for routes that require being logged in
 
 router.post('/signUp',authController.signUp );
+router.post('/signOut',authController.signOut );
 router.post('/signIn',authController.signIn );
 router.put('/forgot-Password',authController.forgotPassword);
 router.put('/reset-Password',authController.resetPassword);
