@@ -26,18 +26,20 @@ const getReport = async (req, res, next) => {
 
 const sendReport = async ( req, res, next) => {
   try {
-      const discription =req.body.discription;
-      const user_id =req.params.user_id;
-      const comment_id =req.params.comment_id;
-      const reporter_id = req.params.reporter_id;
-    const report =await new Report({
+      const description =req.body.description;
+      const user_id =req.body.user_id;
+      const comment_id =req.body.comment_id;
+      const reporter_id = req.body.reporter_id;
+    
+      const report =await new Report({
         _id: mongoose.Types.ObjectId(),
-        discription: discription,
+        description: description,
         user_id: user_id,
         reporter_id: reporter_id,
         comment_id: comment_id,
       }).save();
 
+      console.log("hereeee")
     res.status(200).send(report)
 
   } catch (error) {

@@ -1,23 +1,37 @@
-class Course {
-  final int? id;
-  final String code;
-  final String title;
-  final int ects;
-  final String? description;
+// import 'dart:ffi';
 
-  Course(
-      {required this.id,
-      required this.code,
-      required this.title,
-      required this.ects,
-      this.description});
+class User {
+  final String? id;
+  final String? username;
+  final String email;
+  final String password;
+  final String? role;
+  final List? comments;
+  final String? rating_id;
+  final String? token;
+  final String? resetLink;
 
-  factory Course.fromJson(Map<String, dynamic> json) {
-    return Course(
+  User(
+      {this.id,
+      this.username,
+      required this.email,
+      required this.password,
+      this.role,
+      this.comments,
+      this.rating_id,
+      this.token,
+      this.resetLink});
+
+  factory User.fromJson(Map<String, dynamic> json) {
+    return User(
         id: json['id'],
-        code: json['code'],
-        title: json['title'],
-        ects: json['ects'],
-        description: json['description']);
+        username: json['username'],
+        email: json['email'],
+        password: json['password'],
+        role: json['role'],
+        comments: json['comments'],
+        rating_id: json['rating_id'],
+        token: json['token'],
+        resetLink: json['resetLink']);
   }
 }

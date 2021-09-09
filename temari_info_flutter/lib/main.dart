@@ -25,22 +25,28 @@ import 'package:temari_info_flutter/presentation/universities/universities.dart'
 import 'package:temari_info_flutter/rating/blocs/rating_bloc.dart';
 import 'package:temari_info_flutter/rating/data_provider/data_provider.dart';
 import 'package:temari_info_flutter/rating/repo/rating_repo.dart';
+import 'package:temari_info_flutter/auth/bloc/auth_bloc.dart';
+import 'package:temari_info_flutter/auth/data_providers/auth_provider.dart';
+import 'package:temari_info_flutter/auth/repository/auth_repo.dart';
 import 'package:http/http.dart' as http;
 void main() {
   runApp(MyApp());
 }
 
 final RatingRepo _ratingRepo = RatingRepo(dataProvider: RatingDataProvider(httpClient: http.Client()));
-
+final AuthRepository _authRepo = AuthRepository(dataProvider: AuthDataProvider());
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
+        BlocProvider<AuthBloc>(
+          create: (context) => AuthBloc(authRepository: _authRepo),
+        ),
         BlocProvider<RatingBloc>(
           create: (context) => RatingBloc(_ratingRepo),
         ),
-
+        
         //  BlocProvider<RatingBloc>(
         //   create: (context) => RatingBloc(_ratingRepo),
         // ), BlocProvider<RatingBloc>(
@@ -59,13 +65,13 @@ class MyApp extends StatelessWidget {
             primarySwatch: Colors.teal,
             brightness: Brightness.dark,
           ),
-          initialRoute: Home.routeName,
+          initialRoute: Login.routeName,
           routes: {
             University.routeName: (BuildContext context) => University(),
             Institute.routeName: (BuildContext context) => Institute(),
             Home.routeName: (BuildContext context) => Home(),
             Admin.routeName: (BuildContext context) => Admin(),
-            // Login.routeName: (BuildContext context) => Login(),
+            Login.routeName: (BuildContext context) => Login(),
             Signup.routeName: (BuildContext context) => Signup(),
             EditUniv.routeName: (BuildContext context) => EditUniv(),
             EditInst.routeName: (BuildContext context) => EditInst(),

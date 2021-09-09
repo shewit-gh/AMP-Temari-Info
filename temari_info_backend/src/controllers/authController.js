@@ -11,6 +11,7 @@ const TOKEN_KEY=process.env.TOKEN_KEY
 
 async function signIn(req, res) {
   try {
+    print("I was called")
     const { email, password } = req.body;
 
     if (!(email && password)) {
@@ -19,9 +20,9 @@ async function signIn(req, res) {
   
     const user = await User.findOne({ "email":email });
     if (user && (await bcrypt.compare(password, user.password))) {
-      
+      console.log(user)
       const token = jwt.sign(
-        { user_id: user._id, email },
+        { user_id: user._id, email:email, role:user.role },
         TOKEN_KEY,
         {
           expiresIn: "2h",
@@ -30,7 +31,7 @@ async function signIn(req, res) {
 
       
       user.token = token;
-    res.status(200).json(user);
+    res.status(200).json(user.token);
     }
     
     res.status(400).send("Invalid Credentials");
@@ -41,16 +42,13 @@ async function signIn(req, res) {
 
 async function signOut(req, res) {
   try {
-    const {id} = req.body;
+    const {email} = req.body;
 
-    if (!(email && password)) {
-      res.status(400).send("All input is required");
-    }
   
-    const user = await User.findOne({ "_id":id });
+    const user = await User.findOne({ "email":email });
     if (user) {
-      user.token = token;
-    res.status(200).json(user);
+      user.token = "";
+    res.status(200).json(user.token);
     }
     
     res.status(400).send("Unable to do operation");
@@ -83,7 +81,7 @@ async function signUp(req, res) {
 
       
       const token = jwt.sign(
-        { user_id: user._id, email },
+        { user_id: user._id,email: email,role:user.role },
         TOKEN_KEY,
         {
           expiresIn: "2h",
@@ -91,7 +89,7 @@ async function signUp(req, res) {
       );
       user.token = token;
       
-      res.status(201).json(user);
+      res.status(201).json(user.token);
   } catch (error) {
     res.status(500)
   }
@@ -142,7 +140,7 @@ async function forgotPassword (req, res) {
       };
       
       let user = await User.findOneAndUpdate({"email":email },updateLink, {new: true});
-      return res.status(201).json({ message: user, success: true });
+      return res.status(200).json({ message: user.resetLink, success: true });
 
     } catch (error) {
       return res.status(400).json({ message: error.message, success: false });
@@ -174,7 +172,7 @@ async function forgotPassword (req, res) {
         if (!user){
           return res.status(404).json({ message: "account not found...try again!", success: false });
         }
-      return res.status(201).json({ message: user, success: true });
+      return res.status(200).json({ message: 'updated', success: true });
     } catch (error) {
       return res.status(401).json({ message: error.message, success: false });
     }
