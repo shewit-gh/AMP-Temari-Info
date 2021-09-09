@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
@@ -86,93 +84,97 @@ Widget _searchButton() {
   return ElevatedButton(onPressed: () {}, child: Text('Search'));
 }
 
-final RatingRepo _ratingRepo = RatingRepo(dataProvider: RatingDataProvider(httpClient: http.Client()));
+final RatingRepo _ratingRepo =
+    RatingRepo(dataProvider: RatingDataProvider(httpClient: http.Client()));
 //university
 Widget _univCard(String univ_name, int totalRating) {
   final RatingBloc ratingBloc = RatingBloc(_ratingRepo);
 
   return BlocBuilder<RatingBloc, RatingState>(
-    bloc: ratingBloc,
-    builder: (context, state) {
-      return Container(
+      bloc: ratingBloc,
+      builder: (context, state) {
+        return Container(
           width: 400,
           height: 150,
           padding: EdgeInsets.all(20),
           margin: EdgeInsets.only(top: 40, left: 10, right: 10),
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(20), color: Colors.white),
-          child: ListTile(title: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              ClipRRect(
-                borderRadius: BorderRadius.circular(100),
-                // child:Image.asset('image/aau.png', width: 110, height: 110, fit: BoxFit.cover,)
-              ),
-              Column(
-                children: [
-                  Container(
-                    padding: EdgeInsets.only(bottom: 40),
-                    child: Text(univ_name, style: TextStyle(color: Colors.black)),
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      Container(
-                        child: state is LoadingState ? CircularProgressIndicator() : RatingBar.builder(
-                          itemSize: 20,
-                          
-       initialRating: 1,
-       minRating: 0,
-       direction: Axis.horizontal,
-       allowHalfRating: false,
-       itemCount: 5,
-       itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
-       itemBuilder: (context, _) => Icon(
-         Icons.star,
-         size: 8,
-         color: Colors.amber,
-       ),
-       unratedColor: Colors.black,
-       onRatingUpdate: (rating) {
-        ratingBloc.add(AddRating(Rating(id: '61391ec0968b715656c208b5', rating: rating.toInt(), university_id: '61391ec0968b715656c208b5', user_id: '61392336968b715656c208b9')));
-       }
-  ),
-                      ),
-                     
-                      state is AddingRatingSuccess ? Container(
-                        padding: EdgeInsets.only(left: 20),
-                        child: Text(
-                          "${totalRating++}",
-                          style: TextStyle(color: Colors.black),
+          child: ListTile(
+            title: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(100),
+                  // child:Image.asset('image/aau.png', width: 110, height: 110, fit: BoxFit.cover,)
+                ),
+                Column(
+                  children: [
+                    Container(
+                      padding: EdgeInsets.only(bottom: 40),
+                      child: Text(univ_name,
+                          style: TextStyle(color: Colors.black)),
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Container(
+                          child: state is LoadingState
+                              ? CircularProgressIndicator()
+                              : RatingBar.builder(
+                                  itemSize: 20,
+                                  initialRating: 1,
+                                  minRating: 0,
+                                  direction: Axis.horizontal,
+                                  allowHalfRating: false,
+                                  itemCount: 5,
+                                  itemPadding:
+                                      EdgeInsets.symmetric(horizontal: 4.0),
+                                  itemBuilder: (context, _) => Icon(
+                                        Icons.star,
+                                        size: 8,
+                                        color: Colors.amber,
+                                      ),
+                                  unratedColor: Colors.black,
+                                  onRatingUpdate: (rating) {
+                                    ratingBloc.add(AddRating(Rating(
+                                        id: '61391ec0968b715656c208b5',
+                                        rating: rating.toInt(),
+                                        university_id:
+                                            '61391ec0968b715656c208b5',
+                                        user_id: '61392336968b715656c208b9')));
+                                  }),
                         ),
-                      ) : Container(
-                        padding: EdgeInsets.only(left: 20),
-                        child: Text(
-                          "${totalRating}",
-                          style: TextStyle(color: Colors.black),
-                        ),
-                      )
-                    ],
-                  )
-                ],
-              )
-            ],
+                        state is AddingRatingSuccess
+                            ? Container(
+                                padding: EdgeInsets.only(left: 20),
+                                child: Text(
+                                  "${totalRating++}",
+                                  style: TextStyle(color: Colors.black),
+                                ),
+                              )
+                            : Container(
+                                padding: EdgeInsets.only(left: 20),
+                                child: Text(
+                                  "${totalRating}",
+                                  style: TextStyle(color: Colors.black),
+                                ),
+                              )
+                      ],
+                    )
+                  ],
+                )
+              ],
+            ),
+            onTap: () {
+              print('tapped');
+            },
           ),
-           onTap: () {
-          print('tapped');
-        },
-        ),
-       
-      );
-    }
-  );
+        );
+      });
 }
 
 //star icon
 Widget _starIcon() {
-  return Icon(
-    Icons.star_outline,
-    color: Colors.blueGrey
-    
-  );
+  return Icon(Icons.star_outline, color: Colors.blueGrey);
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:temari_info_flutter/University/repository/university_repository.dart';
 import 'package:temari_info_flutter/presentation/add_department/add_department_screen.dart';
 import 'package:temari_info_flutter/presentation/add_inst/add_inst_screen.dart';
 import 'package:temari_info_flutter/presentation/admin/admin_screen.dart';
@@ -25,11 +26,21 @@ import 'package:temari_info_flutter/rating/blocs/rating_bloc.dart';
 import 'package:temari_info_flutter/rating/data_provider/data_provider.dart';
 import 'package:temari_info_flutter/rating/repo/rating_repo.dart';
 import 'package:http/http.dart' as http;
+
+import 'package:temari_info_flutter/University/data_provider/university_data_provider.dart';
+import 'package:temari_info_flutter/University/bloc/university_bloc.dart';
+
+import 'University/bloc/new.dart';
+
 void main() {
   runApp(MyApp());
 }
 
-final RatingRepo _ratingRepo = RatingRepo(dataProvider: RatingDataProvider(httpClient: http.Client()));
+final RatingRepo _ratingRepo =
+    RatingRepo(dataProvider: RatingDataProvider(httpClient: http.Client()));
+
+final UniversityRepository _univRepo = UniversityRepository(
+    dataProvider: UniversityDataProvider(httpClient: http.Client()));
 
 class MyApp extends StatelessWidget {
   @override
@@ -38,6 +49,9 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider<RatingBloc>(
           create: (context) => RatingBloc(_ratingRepo),
+        ),
+        BlocProvider(
+          create: (ctx) => UniBloc(_univRepo),
         ),
         //  BlocProvider<RatingBloc>(
         //   create: (context) => RatingBloc(_ratingRepo),
@@ -50,37 +64,37 @@ class MyApp extends StatelessWidget {
         // ),
       ],
       child: MaterialApp(
-          debugShowCheckedModeBanner: false,
-          title: 'Temari Info',
-          theme: ThemeData(
-            // primarySwatch: Colors.blue,
-            primarySwatch: Colors.teal,
-            brightness: Brightness.dark,
-          ),
-          initialRoute: Home.routeName,
-          routes: {
-            University.routeName: (BuildContext context) => University(),
-            Institute.routeName: (BuildContext context) => Institute(),
-            Home.routeName: (BuildContext context) => Home(),
-            Admin.routeName: (BuildContext context) => Admin(),
-            // Login.routeName: (BuildContext context) => Login(),
-            Signup.routeName: (BuildContext context) => Signup(),
-            EditUniv.routeName: (BuildContext context) => EditUniv(),
-            EditInst.routeName: (BuildContext context) => EditInst(),
-            User.routeName: (BuildContext context) => User(),
-            Search.routeName: (BuildContext context) => Search(),
-            Report.routeName: (BuildContext context) => Report(),
-            AddDepartment.routeName: (BuildContext context) => AddDepartment(),
-            AddInst.routeName: (BuildContext context) => AddInst(),
-            Contact.routeName: (BuildContext context) => Contact(),
-            About.routeName: (BuildContext context) => About(),
-            // EditProfile.routeName: (BuildContext context) => EditProfile(),
-            // ForgotPassword.routeName: (BuildContext context) => ForgotPassword(),
-            ResetPassword.routeName: (BuildContext context) => ResetPassword(),
-            // SetNewPassword.routeName: (BuildContext context) => SetNewPassword(),
-            Universities.routeName: (BuildContext context) => Universities(),
-            
-          }),
+        debugShowCheckedModeBanner: false,
+        title: 'Temari Info',
+        theme: ThemeData(
+          // primarySwatch: Colors.blue,
+          primarySwatch: Colors.teal,
+          brightness: Brightness.dark,
+        ),
+        initialRoute: Universities.routeName,
+        routes: {
+          University.routeName: (BuildContext context) => University(),
+          Institute.routeName: (BuildContext context) => Institute(),
+          Home.routeName: (BuildContext context) => Home(),
+          Admin.routeName: (BuildContext context) => Admin(),
+          // Login.routeName: (BuildContext context) => Login(),
+          Signup.routeName: (BuildContext context) => Signup(),
+          EditUniv.routeName: (BuildContext context) => EditUniv(),
+          EditInst.routeName: (BuildContext context) => EditInst(),
+          User.routeName: (BuildContext context) => User(),
+          Search.routeName: (BuildContext context) => Search(),
+          Report.routeName: (BuildContext context) => Report(),
+          AddDepartment.routeName: (BuildContext context) => AddDepartment(),
+          AddInst.routeName: (BuildContext context) => AddInst(),
+          Contact.routeName: (BuildContext context) => Contact(),
+          About.routeName: (BuildContext context) => About(),
+          // EditProfile.routeName: (BuildContext context) => EditProfile(),
+          // ForgotPassword.routeName: (BuildContext context) => ForgotPassword(),
+          ResetPassword.routeName: (BuildContext context) => ResetPassword(),
+          // SetNewPassword.routeName: (BuildContext context) => SetNewPassword(),
+          Universities.routeName: (BuildContext context) => Universities(),
+        },
+      ),
     );
   }
 }
