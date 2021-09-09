@@ -15,6 +15,8 @@ UserRouter = require('./routes/UserRoute')
 CommentRouter = require('./routes/CommentRoute')
 RatingRouter = require('./routes/RatingRoute');
 AuthRouter = require('./routes/authRoute');
+ReportRouter = require('./routes/ReportRoute');
+
 
 app.use("/api/University", UniversityRouter);
 app.use("/api/Institute", InstituteRouter);
@@ -23,6 +25,7 @@ app.use("/api/User", UserRouter);
 app.use("/api/Comment", CommentRouter);
 app.use("/api/Rating", RatingRouter);
 app.use("/api/auth", AuthRouter);
+app.use("/api/Report", ReportRouter);
 
 
 

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:temari_info_flutter/presentation/shared/navBar_Widget.dart';
 
-class SetNewPassword extends StatelessWidget {
-  static const String routeName = "/setNewPassword";
+class EditProfile extends StatelessWidget {
+  static const String routeName = "/EditProfile";
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,14 +21,36 @@ class SetNewPassword extends StatelessWidget {
                     alignment: Alignment.center,
                     padding: EdgeInsets.all(10),
                     child: Text(
-                      'Enter your new password',
+                      'Edit your profile',
                       style: TextStyle(fontSize: 20),
                     )),
-                
+                Container(
+                  padding: EdgeInsets.all(10),
+                  child: TextFormField(
+                    // controller: nameController,
+                    initialValue: "Abebe",
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(),
+                      labelText: 'User Name',
+                    ),
+                  ),
+                ),
+                Container(
+                  padding: EdgeInsets.all(10),
+                  child: TextFormField(
+                    // controller: emailController,
+                    initialValue: "abebe@gmail.com",
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(),
+                      labelText: 'Email Address',
+                    ),
+                  ),
+                ),
                 Container(
                   padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
-                  child: TextField(
+                  child: TextFormField(
                     obscureText: true,
+                    initialValue: "abcd",
                     // controller: passwordController,
                     decoration: InputDecoration(
                       suffixIcon: const Padding(
@@ -41,8 +63,9 @@ class SetNewPassword extends StatelessWidget {
                 ),     
                 Container(
                   padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
-                  child: TextField(
+                  child: TextFormField(
                     obscureText: true,
+                    initialValue: "abcd",
                     // controller: confirmpasswordController,
                     decoration: InputDecoration(
                       suffixIcon: const Padding(
@@ -61,6 +84,7 @@ class SetNewPassword extends StatelessWidget {
                       onPressed: () {
                       },
                     )),
+                
               ],
             ))
     );
