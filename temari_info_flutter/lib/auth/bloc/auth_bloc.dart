@@ -14,22 +14,24 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   Stream<AuthState> mapEventToState(AuthEvent event) async* {
     if (event is SignInEvent) {
       final User user = event.user;
+      print(user);
       // reaching to the backend
       yield SigninInprogress();
       final response = await authRepository.signIn(user);
 
-      if (response == "Failure") {
+      if (response.value == "Failure") {
         yield AuthFailed(errorMsg: 'Failed to Sign in');
         await Future.delayed(Duration(seconds: 2));
            yield SignedOut();
       }
-      if (response == "Invalid Credentials") {
+      if (response.value == "Invalid Credentials") {
         yield AuthFailed(errorMsg: 'Incorrect Username or password');
         await Future.delayed(Duration(seconds: 2));
            yield SignedOut();
       }
 
       final Map current = Jwt.parseJwt(response.value);
+      print(current);
       final role =current['role'];
       if (role == "Normal User"){
         yield SignedInAsNormalUser();
@@ -40,7 +42,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       if (role == "Admin User"){
         yield SignedInAsAdminUser();
       }
-        
+      yield SignedOut();
+  
     }
 
     if (event is SignUpEvent) {
@@ -49,20 +52,15 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       yield SignUpInprogress();
       final response = await authRepository.signUp(user);
 
-      if (response == "Failure") {
+      if (response.value == "Failure") {
         yield AuthFailed(errorMsg: 'Operation failed please try again');
-        await Future.delayed(Duration(seconds: 2));
-           yield SignedOut();
-      }
-      if (response == "Invalid Credentials") {
-        yield AuthFailed(errorMsg: 'Incorrect Username or password');
         await Future.delayed(Duration(seconds: 2));
            yield SignedOut();
       }
 
       final Map current = Jwt.parseJwt(response.value);
      
-        yield SignedInAsNormalUser();
+      yield SignedInAsNormalUser();
       
     }
     if (event is SignOutEvent) {
