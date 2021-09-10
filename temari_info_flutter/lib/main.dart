@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:temari_info_flutter/University/repository/university_repository.dart';
+import 'package:temari_info_flutter/institute/blocs/institute_bloc.dart';
+import 'package:temari_info_flutter/institute/data_provider/institute_data.dart';
+import 'package:temari_info_flutter/institute/repo/institute_repo.dart';
 import 'package:temari_info_flutter/presentation/add_department/add_department_screen.dart';
 import 'package:temari_info_flutter/presentation/add_inst/add_inst_screen.dart';
 import 'package:temari_info_flutter/presentation/admin/admin_screen.dart';
@@ -32,16 +35,19 @@ import 'package:temari_info_flutter/auth/repository/auth_repo.dart';
 import 'package:http/http.dart' as http;
 
 import 'package:temari_info_flutter/University/data_provider/university_data_provider.dart';
-import 'package:temari_info_flutter/University/bloc/university_bloc.dart';
-
-import 'University/bloc/new.dart';
+import 'package:temari_info_flutter/University/bloc/uni_bloc.dart';
 
 void main() {
   runApp(MyApp());
 }
 
-final RatingRepo _ratingRepo = RatingRepo(dataProvider: RatingDataProvider(httpClient: http.Client()));
-final AuthRepository _authRepo = AuthRepository(dataProvider: AuthDataProvider());
+final RatingRepo _ratingRepo =
+    RatingRepo(dataProvider: RatingDataProvider(httpClient: http.Client()));
+final AuthRepository _authRepo =
+    AuthRepository(dataProvider: AuthDataProvider());
+final InstituteRepository instRepo = InstituteRepository(
+    dataProvider: InstituteDataProvider(httpClient: http.Client()));
+
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -53,7 +59,7 @@ class MyApp extends StatelessWidget {
         BlocProvider<RatingBloc>(
           create: (context) => RatingBloc(_ratingRepo),
         ),
-        
+        BlocProvider<InstituteBloc>(create: (context) =>InstituteBloc(instRepo)),
         //  BlocProvider<RatingBloc>(
         //   create: (context) => RatingBloc(_ratingRepo),
         // ), BlocProvider<RatingBloc>(
@@ -90,13 +96,14 @@ class MyApp extends StatelessWidget {
             Contact.routeName: (BuildContext context) => Contact(),
             About.routeName: (BuildContext context) => About(),
             EditProfile.routeName: (BuildContext context) => EditProfile(),
-            ForgotPassword.routeName: (BuildContext context) => ForgotPassword(),
+            ForgotPassword.routeName: (BuildContext context) =>
+                ForgotPassword(),
             ResetPassword.routeName: (BuildContext context) => ResetPassword(),
-            SetNewPassword.routeName: (BuildContext context) => SetNewPassword(),
+            SetNewPassword.routeName: (BuildContext context) =>
+                SetNewPassword(),
             Universities.routeName: (BuildContext context) => Universities(),
-             Reports.routeName: (BuildContext context) => Universities(),
+            Reports.routeName: (BuildContext context) => Universities(),
           }),
     );
-
   }
 }

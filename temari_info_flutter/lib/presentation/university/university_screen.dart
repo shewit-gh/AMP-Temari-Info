@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:temari_info_flutter/University/bloc/new.dart';
+import 'package:temari_info_flutter/University/bloc/uni_bloc.dart';
 import 'package:temari_info_flutter/University/bloc/university_event.dart';
 import 'package:temari_info_flutter/University/bloc/university_state.dart';
+import 'package:temari_info_flutter/presentation/institute/institute_screen.dart';
 
 import 'package:temari_info_flutter/presentation/shared/navBar_Widget.dart';
 
@@ -103,8 +104,20 @@ class University extends StatelessWidget {
                       itemCount: univ[0]['institute'].length,
                       scrollDirection: Axis.horizontal,
                       itemBuilder: (context, index) {
-                        return InstituteList(
+                        return ListTile(
+                          title:InstituteList(
                           institutes: univ[0]['institute'][index],
+                          ),
+                          onTap: (){
+
+                          Navigator.pushNamed(
+                                  context,
+                                  Institute.routeName,
+                                  arguments: univ[0]['institute'][index]['_id'],
+                                  
+                                );
+
+                          },
                         );
                       },
                     ),

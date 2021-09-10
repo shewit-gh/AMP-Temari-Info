@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:temari_info_flutter/University/bloc/new.dart';
+import 'package:temari_info_flutter/University/bloc/uni_bloc.dart';
 import 'package:temari_info_flutter/University/bloc/university_event.dart';
 import 'package:temari_info_flutter/University/bloc/university_state.dart';
 import 'package:temari_info_flutter/presentation/shared/navBar_Widget.dart';
