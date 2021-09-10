@@ -12,51 +12,47 @@ class AddDepartment extends StatelessWidget {
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(60.0),
         child: navtop()),
-       body: Center(
-        child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 50.0,horizontal: 25.0),
-         child: Card(  
-          shape: RoundedRectangleBorder(  
-            borderRadius: BorderRadius.circular(15.0), 
-             
-          ),
-          color: Colors.white,
-        child: Form(
-      
-          child: Column(
-            
-           crossAxisAlignment: CrossAxisAlignment.stretch,
+ body:Padding(
+         padding: EdgeInsets.all(10),
+         child: ListView(
+           children: <Widget>[
+          Container(
+          padding: EdgeInsets.all(10),
+          child:
            
-            children: [
               Text('Add Department', 
               textAlign:TextAlign.center, 
               style:TextStyle(
-                color: Colors.black,
-                fontSize: 30 ),),
-              Padding(
-              padding: const EdgeInsets.all(25)),
+                fontSize: 30 ),),),
+                   Container(
+          padding: EdgeInsets.all(10),
+          child:
             
               Text('Name',
               textAlign: TextAlign.left,
               textDirection:TextDirection.ltr,
-              style: TextStyle(color: Colors.black,
-              fontSize:22.0,
-              )),
+              ),),
+            Container(
+          padding: EdgeInsets.all(10),
+          child:
               
               TextFormField(
                obscureText: true,   
               decoration: InputDecoration(
                 border: OutlineInputBorder(),
                 hintText: 'Enter name',
-                labelText: 'Name',)
-
+                labelText: 'Name',)),
               ),
+        Container(
+          padding: EdgeInsets.all(10),
+          child:
               Text('Years',
               textAlign: TextAlign.left,
               textDirection:TextDirection.ltr,
-               style: TextStyle(color: Colors.black,
-              fontSize:22.0,
-              )),
+             ),),
+        Container(
+          padding: EdgeInsets.all(10),
+          child:
               TextFormField(
                 obscureText: true,  
               decoration: InputDecoration(
@@ -64,15 +60,18 @@ class AddDepartment extends StatelessWidget {
                 hintText: 'Enter Years',
                 labelText: 'Year',)
 
-              ),
+              ),),
           
 
-            
+        Container(
+          padding: EdgeInsets.all(10),
+          child:   
               Text('Description',
               textAlign: TextAlign.left,
-              textDirection:TextDirection.ltr, style: TextStyle(color: Colors.black,
-              fontSize:22.0,
-              )),
+              textDirection:TextDirection.ltr,),),
+        Container(
+          padding: EdgeInsets.all(10),
+          child:
               Container( 
                 
                 child:TextFormField(
@@ -82,7 +81,7 @@ class AddDepartment extends StatelessWidget {
                 hintText: 'Enter description',
                 labelText: 'Description',)
 
-              )),
+              )),),
                Container(
                   height: 50.0,
                   decoration: BoxDecoration(
@@ -92,16 +91,13 @@ class AddDepartment extends StatelessWidget {
                   alignment: Alignment.center,
                   child: Text(
                     "submit",
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 22.0,
-                    ),
+                    
                   ),
                 ),
               
             ],
           ),
-    )))),
+    ),
     bottomNavigationBar: bottomnav(),);
   }
 }
