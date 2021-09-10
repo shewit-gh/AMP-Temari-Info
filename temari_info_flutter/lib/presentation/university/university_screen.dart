@@ -1,4 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:http/http.dart' as http;
+import 'package:temari_info_flutter/comment/blocs/comment_bloc.dart';
+import 'package:temari_info_flutter/comment/blocs/comment_event.dart';
+import 'package:temari_info_flutter/comment/blocs/comment_state.dart';
+import 'package:temari_info_flutter/comment/data_provider/comment_data.dart';
+import 'package:temari_info_flutter/comment/repo/comment_repo2.dart';
 import 'package:temari_info_flutter/presentation/shared/navBar_Widget.dart';
 
 class University extends StatelessWidget {
@@ -249,11 +256,23 @@ class InsertComment extends StatelessWidget {
   }
 }
 
-class CommentList extends StatelessWidget {
-  const CommentList({Key? key}) : super(key: key);
+
+class CommentList extends StatefulWidget {
+ CommentList({Key? key}) : super(key: key);
 
   @override
+  State<CommentList> createState() => _CommentListState();
+}
+
+class _CommentListState extends State<CommentList> {
+ final CommentRepo2 commentRepo=CommentRepo2(
+  dataProvider: CommentDataProvider(httpClient: http.Client()));
+
   Widget build(BuildContext context) {
+   final CommentBloc commentBloc= CommentBloc(commentRepo: commentRepo);
+  return BlocBuilder <CommentBloc, CommentState>(
+    bloc:commentBloc,
+    builder:(context,state) {
     return Container(
       child: Stack(
         children: [
@@ -306,7 +325,8 @@ class CommentList extends StatelessWidget {
               height: 70,
               padding: EdgeInsets.fromLTRB(3, 5, 0, 5),
               child: Text(
-                "Addis Ababa Institute of Technology Addis Ababa Institute of Technology ",
+                commentBloc.add(CommentEvent( GetComment)),
+               
                 style: TextStyle(
                   fontSize: 16,
                   decoration: TextDecoration.none,
@@ -319,5 +339,7 @@ class CommentList extends StatelessWidget {
         ],
       ),
     );
-  }
+    });
+    }
 }
+

@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:temari_info_flutter/comment/blocs/comment_bloc.dart';
+import 'package:temari_info_flutter/comment/data_provider/data_provider.dart';
+import 'package:temari_info_flutter/comment/repo/comment_repo2.dart';
+import 'package:temari_info_flutter/comment/repo/comment_repo2.dart';
 import 'package:temari_info_flutter/presentation/add_department/add_department_screen.dart';
 import 'package:temari_info_flutter/presentation/add_inst/add_inst_screen.dart';
 import 'package:temari_info_flutter/presentation/admin/admin_screen.dart';
@@ -24,12 +28,16 @@ import 'package:temari_info_flutter/presentation/universities/universities.dart'
 import 'package:temari_info_flutter/rating/blocs/rating_bloc.dart';
 import 'package:temari_info_flutter/rating/data_provider/data_provider.dart';
 import 'package:temari_info_flutter/rating/repo/rating_repo.dart';
+import 'package:temari_info_flutter/comment/repo/repo.dart';
+
 import 'package:http/http.dart' as http;
 void main() {
   runApp(MyApp());
 }
 
 final RatingRepo _ratingRepo = RatingRepo(dataProvider: RatingDataProvider(httpClient: http.Client()));
+final CommentRepo2 commentRepo=CommentRepo2(
+  dataProvider: CommentDataProvider(httpClient: http.Client()));
 
 class MyApp extends StatelessWidget {
   @override
@@ -39,8 +47,8 @@ class MyApp extends StatelessWidget {
         BlocProvider<RatingBloc>(
           create: (context) => RatingBloc(_ratingRepo),
         ),
-        //  BlocProvider<RatingBloc>(
-        //   create: (context) => RatingBloc(_ratingRepo),
+
+        BlocProvider(create: (_) => CommentBloc(commentRepo: CommentRepo2(dataProvider:CommentDataProvider(httpClient: http.Client()) )))
         // ), BlocProvider<RatingBloc>(
         //   create: (context) => RatingBloc(_ratingRepo),
         // ), BlocProvider<RatingBloc>(
@@ -57,13 +65,13 @@ class MyApp extends StatelessWidget {
             primarySwatch: Colors.teal,
             brightness: Brightness.dark,
           ),
-          initialRoute: Home.routeName,
+          initialRoute: University.routeName,
           routes: {
             University.routeName: (BuildContext context) => University(),
             Institute.routeName: (BuildContext context) => Institute(),
             Home.routeName: (BuildContext context) => Home(),
             Admin.routeName: (BuildContext context) => Admin(),
-            // Login.routeName: (BuildContext context) => Login(),
+           // Login.routeName: (BuildContext context) => Login(),
             Signup.routeName: (BuildContext context) => Signup(),
             EditUniv.routeName: (BuildContext context) => EditUniv(),
             EditInst.routeName: (BuildContext context) => EditInst(),
@@ -74,10 +82,10 @@ class MyApp extends StatelessWidget {
             AddInst.routeName: (BuildContext context) => AddInst(),
             Contact.routeName: (BuildContext context) => Contact(),
             About.routeName: (BuildContext context) => About(),
-            // EditProfile.routeName: (BuildContext context) => EditProfile(),
-            // ForgotPassword.routeName: (BuildContext context) => ForgotPassword(),
+            //EditProfile.routeName: (BuildContext context) => EditProfile(),
+            //ForgotPassword.routeName: (BuildContext context) => ForgotPassword(),
             ResetPassword.routeName: (BuildContext context) => ResetPassword(),
-            // SetNewPassword.routeName: (BuildContext context) => SetNewPassword(),
+            //SetNewPassword.routeName: (BuildContext context) => SetNewPassword(),
             Universities.routeName: (BuildContext context) => Universities(),
             
           }),

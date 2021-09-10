@@ -51,12 +51,11 @@ module.exports ={
     //POST
         post: (req, res)=>{
             let date_ob=Date.now();
-            const comment = new Institute({
+            const comment = new Comment({
                 _id: new mongoose.Types.ObjectId,
                 comment:req.body.comment,
-                univ_id: req.body.univ_id,
+                university_id: req.body.university_id,
                 user_id: req.body.user_id, 
-                timestamps: req.body.date_ob,  
     
             })
             comment.save()

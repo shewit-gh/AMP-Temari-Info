@@ -118,25 +118,27 @@ Widget _univCard(String univ_name, int totalRating) {
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       Container(
-                        child: state is LoadingState ? CircularProgressIndicator() : RatingBar.builder(
-                          itemSize: 20,
-                          
-       initialRating: 1,
-       minRating: 0,
-       direction: Axis.horizontal,
-       allowHalfRating: false,
-       itemCount: 5,
-       itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
-       itemBuilder: (context, _) => Icon(
-         Icons.star,
-         size: 8,
-         color: Colors.amber,
-       ),
-       unratedColor: Colors.black,
-       onRatingUpdate: (rating) {
-        ratingBloc.add(AddRating(Rating(id: '61391ec0968b715656c208b5', rating: rating.toInt(), university_id: '61391ec0968b715656c208b5', user_id: '61392336968b715656c208b9')));
-       }
-  ),
+                        child: state is LoadingState ? CircularProgressIndicator() : BlocBuilder<RatingBloc, RatingState>(
+                          builder: (context, state) => RatingBar.builder(
+                            itemSize: 20,
+                            
+                               initialRating: (state is UpdateSuccess) ? state.rating.toDouble() : 1,
+                               minRating: 0,
+                               direction: Axis.horizontal,
+                               allowHalfRating: false,
+                               itemCount: 5,
+                               itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
+                               itemBuilder: (context, _) => Icon(
+                                 Icons.star,
+                                 size: 8,
+                                 color: Colors.amber,
+                               ),
+                               unratedColor: Colors.black,
+                               onRatingUpdate: (rating) {
+                                ratingBloc.add(AddRating(Rating(id: '61391ec0968b715656c208b5', rating: rating.toInt(), university_id: '61391ec0968b715656c208b5', user_id: '61392336968b715656c208b9')));
+                               }
+                          ),
+                        ),
                       ),
                      
                       state is AddingRatingSuccess ? Container(
