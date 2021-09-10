@@ -1,19 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-<<<<<<< HEAD
 import 'package:http/http.dart' as http;
 import 'package:temari_info_flutter/comment/blocs/comment_bloc.dart';
 import 'package:temari_info_flutter/comment/blocs/comment_event.dart';
 import 'package:temari_info_flutter/comment/blocs/comment_state.dart';
 import 'package:temari_info_flutter/comment/data_provider/comment_data.dart';
 import 'package:temari_info_flutter/comment/repo/comment_repo2.dart';
-=======
-import 'package:temari_info_flutter/University/bloc/new.dart';
-import 'package:temari_info_flutter/University/bloc/university_event.dart';
-import 'package:temari_info_flutter/University/bloc/university_state.dart';
-
->>>>>>> 5291ade6df2e46bd0e08dc95bcf2de033a3b319d
 import 'package:temari_info_flutter/presentation/shared/navBar_Widget.dart';
+
 
 class University extends StatelessWidget {
   static const String routeName = "/university";
