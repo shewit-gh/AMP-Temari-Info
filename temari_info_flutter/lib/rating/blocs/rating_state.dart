@@ -16,7 +16,10 @@ class LoadedRating extends RatingState {
   LoadedRating(this.rating);
 }
 
-class UpdateSuccess extends RatingState {}
+class UpdateSuccess extends RatingState {
+  final int rating;
+  UpdateSuccess(this.rating);
+}
 
 class AddingRatingSuccess extends RatingState {}
 

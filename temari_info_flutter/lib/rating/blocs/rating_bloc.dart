@@ -23,7 +23,7 @@ class RatingBloc extends Bloc<RatingEvent, RatingState> {
       yield LoadingState();
       try {
         await ratingRepo.updateRating(event.rating, event.id);
-        yield UpdateSuccess();
+        yield UpdateSuccess(event.rating.rating);
         add(GetRating(event.id));
       } catch (e) {
         yield LoadingRatingError('Error Updating Rating!');
@@ -35,7 +35,7 @@ class RatingBloc extends Bloc<RatingEvent, RatingState> {
       Rating rating = await ratingRepo.createRating(event.rating);
       yield AddingRatingSuccess();
       add(GetRating(rating.id));
-        yield UpdateSuccess();
+        yield UpdateSuccess(rating.rating);
       } catch (e) {
         yield LoadingRatingError('Error Updating Rating!');
       }

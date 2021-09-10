@@ -1,123 +1,147 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:temari_info_flutter/institute/blocs/institute_bloc.dart';
+import 'package:temari_info_flutter/institute/blocs/institute_event.dart';
+import 'package:temari_info_flutter/institute/blocs/institute_state.dart';
 import 'package:temari_info_flutter/presentation/shared/navBar_Widget.dart';
 
 class Institute extends StatelessWidget {
   static const String routeName = "/institute";
   @override
   Widget build(BuildContext context) {
+    final instId = ModalRoute.of(context)?.settings.arguments as String;
+
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(60.0),
         child: navtop(),
       ),
-      body: SingleChildScrollView(
-        physics: ScrollPhysics(),
-        child: Column(
-          children: [
-            // university name
+      body: BlocConsumer<InstituteBloc, InstituteState>(
+        listener: (context, state) {
+          // TODO: implement listener
+        },
+        builder: (context, state) {
+          final bloc = BlocProvider.of<InstituteBloc>(context);
+          if (state is InstituteLoading) {
+            bloc.add(InstituteDetail(instId));
+            return CircularProgressIndicator();
+          }
+          if (state is InstituteLoadFail) {
+            return Center(child: Text("Sorry loading failed"));
+          }
+          if (state is InstituteLoaded) {
+            final inst = state.institute[0];
+            print(inst);
+            return SingleChildScrollView(
+              physics: ScrollPhysics(),
+              child: Column(
+                children: [
+                  // university name
 
-            Padding(
-              padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
-              child: Center(
-                child: Text(
-                  "Addis Ababa University",
-                  style: TextStyle(
-                    fontSize: 18,
-                  ),
-                  textAlign: TextAlign.end,
-                ),
-              ),
-            ),
-
-            // institute name
-
-            Padding(
-              padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
-              child: Center(
-                child: Text(
-                  "Addis Ababa institute of technology",
-                  style: TextStyle(
-                    fontSize: 23,
-                  ),
-                  textAlign: TextAlign.end,
-                ),
-              ),
-            ),
-
-            // email
-
-            Padding(
-              padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
-              child: Center(
-                child: Text(
-                  "infoaau@gmail.com",
-                  style: TextStyle(
-                    fontSize: 16,
-                  ),
-                  textAlign: TextAlign.end,
-                ),
-              ),
-            ),
-
-            // phone
-
-            Stack(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Icon(
-                    Icons.phone,
-                    color: Colors.teal,
-                    // color: Colors.black54,
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(40, 10, 0, 8),
-                  child: Text(
-                    "0911234567",
-                    style: TextStyle(
-                      fontSize: 16,
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
+                    child: Center(
+                      child: Text(inst['univ_id']['univ_name'],
+                        style: TextStyle(
+                          fontSize: 18,
+                        ),
+                        textAlign: TextAlign.end,
+                      ),
                     ),
                   ),
-                ),
-              ],
-            ),
 
-            // side image and description
+                  // institute name
 
-            Container(
-              child: InstDescription(),
-            ),
-
-            Row(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(30, 10, 10, 0),
-                  child: Text(
-                    "Departments",
-                    style: TextStyle(
-                      fontSize: 23,
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
+                    child: Center(
+                      child: Text(inst['inst_name'],
+                        style: TextStyle(
+                          fontSize: 23,
+                        ),
+                        textAlign: TextAlign.end,
+                      ),
                     ),
                   ),
-                ),
-              ],
-            ),
 
-            // list of departments
+                  // email
 
-            Container(
-              width: 500,
-              height: 600,
-              child: ListView.builder(
-                itemCount: 10,
-                scrollDirection: Axis.vertical,
-                itemBuilder: (context, index) {
-                  return DepartmnetList();
-                },
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
+                    child: Center(
+                      child: Text( inst['email'],
+                        style: TextStyle(
+                          fontSize: 16,
+                        ),
+                        textAlign: TextAlign.end,
+                      ),
+                    ),
+                  ),
+
+                  // phone
+
+                  Stack(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Icon(
+                          Icons.phone,
+                          color: Colors.teal,
+                          // color: Colors.black54,
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(40, 10, 0, 8),
+                        child: Text(inst['phone'],
+                          style: TextStyle(
+                            fontSize: 16,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+
+                  // side image and description
+
+                  Container(
+                    child: InstDescription(inst['inst_description']),
+                  ),
+
+                  Row(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(30, 10, 10, 0),
+                        child: Text(
+                          "Departments",
+                          style: TextStyle(
+                            fontSize: 23,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+
+                  // list of departments
+
+                  Container(
+                    width: 500,
+                    height: 600,
+                    child: ListView.builder(
+                      itemCount: 10,
+                      scrollDirection: Axis.vertical,
+                      itemBuilder: (context, index) {
+                        return DepartmnetList(inst['department_id'][index]['dept_name'], inst['department_id'][index][' objective'], inst['department_id'][index]['years']);
+                      },
+                    ),
+                  ),
+                ],
               ),
-            ),
-          ],
-        ),
+            );
+          }
+          return Center(
+            child: CircularProgressIndicator(),
+          );
+        },
       ),
       bottomNavigationBar: bottomnav(),
     );
@@ -125,6 +149,8 @@ class Institute extends StatelessWidget {
 }
 
 class InstDescription extends StatelessWidget {
+  final String description;
+  InstDescription(this.description);
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -153,10 +179,7 @@ class InstDescription extends StatelessWidget {
           width: 300,
           child: Center(
             child: Text(
-              "Addis Ababa University (AAU), is the oldest and the "
-              "research institution in Ethiopia. largest higher learning and"
-              " Since its inception, the University has been the"
-              "leading center in teaching-learning, research and community services.",
+              description,
               style: TextStyle(
                 fontSize: 16,
                 letterSpacing: 1,
@@ -170,7 +193,10 @@ class InstDescription extends StatelessWidget {
 }
 
 class DepartmnetList extends StatelessWidget {
-  const DepartmnetList({Key? key}) : super(key: key);
+  final String name;
+  final String description;
+  final int year;
+  const DepartmnetList(this.name, this.description, this.year);
 
   @override
   Widget build(BuildContext context) {
@@ -197,7 +223,7 @@ class DepartmnetList extends StatelessWidget {
               margin: EdgeInsets.all(25.0),
               padding: EdgeInsets.all(5.0),
               child: Text(
-                "Software Engineering ",
+                name,
                 style: TextStyle(
                   fontSize: 22,
                   decoration: TextDecoration.none,
@@ -216,7 +242,7 @@ class DepartmnetList extends StatelessWidget {
               margin: EdgeInsets.all(10.0),
               padding: EdgeInsets.all(5.0),
               child: Text(
-                "* 5 years to finish",
+                "* $year years to finish",
                 style: TextStyle(
                   fontSize: 16,
                   decoration: TextDecoration.none,
@@ -235,10 +261,7 @@ class DepartmnetList extends StatelessWidget {
               padding: EdgeInsets.all(5.0),
               child: Center(
                 child: Text(
-                  "Addis Ababa University (AAU), is the oldest and the "
-                  "research institution in Ethiopia. largest higher learning and"
-                  " Since its inception, the University has been the"
-                  "leading center in teaching-learning, research and community services.",
+                  description,
                   style: TextStyle(
                     fontSize: 16,
                     decoration: TextDecoration.none,
