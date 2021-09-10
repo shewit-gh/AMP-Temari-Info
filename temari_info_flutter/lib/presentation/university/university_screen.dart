@@ -6,6 +6,11 @@ import 'package:temari_info_flutter/comment/blocs/comment_event.dart';
 import 'package:temari_info_flutter/comment/blocs/comment_state.dart';
 import 'package:temari_info_flutter/comment/data_provider/comment_data.dart';
 import 'package:temari_info_flutter/comment/repo/comment_repo2.dart';
+import 'package:temari_info_flutter/University/bloc/uni_bloc.dart';
+import 'package:temari_info_flutter/University/bloc/university_event.dart';
+import 'package:temari_info_flutter/University/bloc/university_state.dart';
+import 'package:temari_info_flutter/presentation/institute/institute_screen.dart';
+
 import 'package:temari_info_flutter/presentation/shared/navBar_Widget.dart';
 
 
@@ -106,8 +111,20 @@ class University extends StatelessWidget {
                       itemCount: univ[0]['institute'].length,
                       scrollDirection: Axis.horizontal,
                       itemBuilder: (context, index) {
-                        return InstituteList(
+                        return ListTile(
+                          title:InstituteList(
                           institutes: univ[0]['institute'][index],
+                          ),
+                          onTap: (){
+
+                          Navigator.pushNamed(
+                                  context,
+                                  Institute.routeName,
+                                  arguments: univ[0]['institute'][index]['_id'],
+                                  
+                                );
+
+                          },
                         );
                       },
                     ),
@@ -295,29 +312,12 @@ class InsertComment extends StatelessWidget {
   }
 }
 
-<<<<<<< HEAD
-
-class CommentList extends StatefulWidget {
- CommentList({Key? key}) : super(key: key);
-=======
 class CommentList extends StatelessWidget {
   final List comments;
   const CommentList({Key? key, required this.comments}) : super(key: key);
->>>>>>> 5291ade6df2e46bd0e08dc95bcf2de033a3b319d
 
   @override
-  State<CommentList> createState() => _CommentListState();
-}
-
-class _CommentListState extends State<CommentList> {
- final CommentRepo2 commentRepo=CommentRepo2(
-  dataProvider: CommentDataProvider(httpClient: http.Client()));
-
   Widget build(BuildContext context) {
-   final CommentBloc commentBloc= CommentBloc(commentRepo: commentRepo);
-  return BlocBuilder <CommentBloc, CommentState>(
-    bloc:commentBloc,
-    builder:(context,state) {
     return Container(
       child: Stack(
         children: [
@@ -370,8 +370,7 @@ class _CommentListState extends State<CommentList> {
               height: 70,
               padding: EdgeInsets.fromLTRB(3, 5, 0, 5),
               child: Text(
-                commentBloc.add(CommentEvent( GetComment)),
-               
+                "Addis Ababa Institute of Technology Addis Ababa Institute of Technology ",
                 style: TextStyle(
                   fontSize: 16,
                   decoration: TextDecoration.none,
@@ -384,7 +383,5 @@ class _CommentListState extends State<CommentList> {
         ],
       ),
     );
-    });
-    }
+  }
 }
-

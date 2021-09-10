@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:temari_info_flutter/comment/blocs/comment_bloc.dart';
-import 'package:temari_info_flutter/comment/data_provider/data_provider.dart';
-import 'package:temari_info_flutter/comment/repo/comment_repo2.dart';
-import 'package:temari_info_flutter/comment/repo/comment_repo2.dart';
+import 'package:temari_info_flutter/University/repository/university_repository.dart';
+import 'package:temari_info_flutter/institute/blocs/institute_bloc.dart';
+import 'package:temari_info_flutter/institute/data_provider/institute_data.dart';
+import 'package:temari_info_flutter/institute/repo/institute_repo.dart';
 import 'package:temari_info_flutter/presentation/add_department/add_department_screen.dart';
 import 'package:temari_info_flutter/presentation/add_inst/add_inst_screen.dart';
 import 'package:temari_info_flutter/presentation/admin/admin_screen.dart';
@@ -29,33 +29,25 @@ import 'package:temari_info_flutter/presentation/universities/universities.dart'
 import 'package:temari_info_flutter/rating/blocs/rating_bloc.dart';
 import 'package:temari_info_flutter/rating/data_provider/data_provider.dart';
 import 'package:temari_info_flutter/rating/repo/rating_repo.dart';
-<<<<<<< HEAD
-import 'package:temari_info_flutter/comment/repo/repo.dart';
-
-=======
 import 'package:temari_info_flutter/auth/bloc/auth_bloc.dart';
 import 'package:temari_info_flutter/auth/data_providers/auth_provider.dart';
 import 'package:temari_info_flutter/auth/repository/auth_repo.dart';
->>>>>>> 5291ade6df2e46bd0e08dc95bcf2de033a3b319d
 import 'package:http/http.dart' as http;
 
 import 'package:temari_info_flutter/University/data_provider/university_data_provider.dart';
-import 'package:temari_info_flutter/University/bloc/university_bloc.dart';
-
-import 'University/bloc/new.dart';
+import 'package:temari_info_flutter/University/bloc/uni_bloc.dart';
 
 void main() {
   runApp(MyApp());
 }
 
-final RatingRepo _ratingRepo = RatingRepo(dataProvider: RatingDataProvider(httpClient: http.Client()));
-<<<<<<< HEAD
-final CommentRepo2 commentRepo=CommentRepo2(
-  dataProvider: CommentDataProvider(httpClient: http.Client()));
+final RatingRepo _ratingRepo =
+    RatingRepo(dataProvider: RatingDataProvider(httpClient: http.Client()));
+final AuthRepository _authRepo =
+    AuthRepository(dataProvider: AuthDataProvider());
+final InstituteRepository instRepo = InstituteRepository(
+    dataProvider: InstituteDataProvider(httpClient: http.Client()));
 
-=======
-final AuthRepository _authRepo = AuthRepository(dataProvider: AuthDataProvider());
->>>>>>> 5291ade6df2e46bd0e08dc95bcf2de033a3b319d
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -67,14 +59,9 @@ class MyApp extends StatelessWidget {
         BlocProvider<RatingBloc>(
           create: (context) => RatingBloc(_ratingRepo),
         ),
-<<<<<<< HEAD
-
-        BlocProvider(create: (_) => CommentBloc(commentRepo: CommentRepo2(dataProvider:CommentDataProvider(httpClient: http.Client()) )))
-=======
-        
+        BlocProvider<InstituteBloc>(create: (context) =>InstituteBloc(instRepo)),
         //  BlocProvider<RatingBloc>(
         //   create: (context) => RatingBloc(_ratingRepo),
->>>>>>> 5291ade6df2e46bd0e08dc95bcf2de033a3b319d
         // ), BlocProvider<RatingBloc>(
         //   create: (context) => RatingBloc(_ratingRepo),
         // ), BlocProvider<RatingBloc>(
@@ -91,21 +78,13 @@ class MyApp extends StatelessWidget {
             primarySwatch: Colors.teal,
             brightness: Brightness.dark,
           ),
-<<<<<<< HEAD
-          initialRoute: University.routeName,
-=======
           initialRoute: Login.routeName,
->>>>>>> 5291ade6df2e46bd0e08dc95bcf2de033a3b319d
           routes: {
             University.routeName: (BuildContext context) => University(),
             Institute.routeName: (BuildContext context) => Institute(),
             Home.routeName: (BuildContext context) => Home(),
             Admin.routeName: (BuildContext context) => Admin(),
-<<<<<<< HEAD
-           // Login.routeName: (BuildContext context) => Login(),
-=======
             Login.routeName: (BuildContext context) => Login(),
->>>>>>> 5291ade6df2e46bd0e08dc95bcf2de033a3b319d
             Signup.routeName: (BuildContext context) => Signup(),
             EditUniv.routeName: (BuildContext context) => EditUniv(),
             EditInst.routeName: (BuildContext context) => EditInst(),
@@ -116,21 +95,15 @@ class MyApp extends StatelessWidget {
             AddInst.routeName: (BuildContext context) => AddInst(),
             Contact.routeName: (BuildContext context) => Contact(),
             About.routeName: (BuildContext context) => About(),
-<<<<<<< HEAD
-            //EditProfile.routeName: (BuildContext context) => EditProfile(),
-            //ForgotPassword.routeName: (BuildContext context) => ForgotPassword(),
-            ResetPassword.routeName: (BuildContext context) => ResetPassword(),
-            //SetNewPassword.routeName: (BuildContext context) => SetNewPassword(),
-=======
             EditProfile.routeName: (BuildContext context) => EditProfile(),
-            ForgotPassword.routeName: (BuildContext context) => ForgotPassword(),
+            ForgotPassword.routeName: (BuildContext context) =>
+                ForgotPassword(),
             ResetPassword.routeName: (BuildContext context) => ResetPassword(),
-            SetNewPassword.routeName: (BuildContext context) => SetNewPassword(),
->>>>>>> 5291ade6df2e46bd0e08dc95bcf2de033a3b319d
+            SetNewPassword.routeName: (BuildContext context) =>
+                SetNewPassword(),
             Universities.routeName: (BuildContext context) => Universities(),
-             Reports.routeName: (BuildContext context) => Universities(),
+            Reports.routeName: (BuildContext context) => Universities(),
           }),
     );
-
   }
 }

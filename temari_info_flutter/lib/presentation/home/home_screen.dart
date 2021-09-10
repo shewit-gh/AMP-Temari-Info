@@ -151,7 +151,7 @@ Widget _univCard(String univ_name, int totalRating) {
                         child: Text(
                           "${totalRating}",
                           style: TextStyle(color: Colors.black),
-                        ),
+                        )),
                         state is AddingRatingSuccess
                             ? Container(
                                 padding: EdgeInsets.only(left: 20),
