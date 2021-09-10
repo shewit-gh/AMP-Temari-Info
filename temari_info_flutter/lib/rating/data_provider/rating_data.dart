@@ -8,16 +8,15 @@ import 'package:temari_info_flutter/rating/models/rating.dart';
 import 'package:http/http.dart' as http;
 import 'package:path/path.dart';
 
-
 class RatingDataProvider {
   final http.Client httpClient;
-  final _baseUrl = 'http://10.6.213.25:3000/api/Rating';  
-  
+  final _baseUrl = 'http://192.168.174.232:3000/api/Rating';
 
   RatingDataProvider({required this.httpClient}) : assert(httpClient != null);
 
   Future<Rating> createRating(Rating rating) async {
-    final response = await httpClient.post(Uri.parse("$_baseUrl/"),
+    final response = await httpClient.post(
+      Uri.parse("$_baseUrl/"),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },
@@ -36,11 +35,10 @@ class RatingDataProvider {
   }
 
   Future<List<Rating>> getRating(String id) async {
-    
     final response = await httpClient.get(Uri.parse('$_baseUrl'));
 
     if (response.statusCode == 200) {
-      final rating = jsonDecode(response.body) ['data'] as List;
+      final rating = jsonDecode(response.body)['data'] as List;
       return rating.map((rating) => Rating.fromJson(rating)).toList();
     } else {
       throw Exception('Failed to fetch rating');
@@ -48,7 +46,8 @@ class RatingDataProvider {
   }
 
   Future<void> deleteRating(String id) async {
-    final http.Response response = await httpClient.delete(Uri.parse('$_baseUrl/$id'),
+    final http.Response response = await httpClient.delete(
+      Uri.parse('$_baseUrl/$id'),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },
@@ -60,7 +59,8 @@ class RatingDataProvider {
   }
 
   Future<void> updateRating(Rating rating, String id) async {
-    final http.Response response = await httpClient.patch(Uri.parse('$_baseUrl/${rating.id}'),
+    final http.Response response = await httpClient.patch(
+      Uri.parse('$_baseUrl/${rating.id}'),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },

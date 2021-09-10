@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:temari_info_flutter/presentation/shared/navBar_Widget.dart';
 
-class Login extends StatelessWidget {
-  static const String routeName = "/login";
+class ForgotPassword extends StatelessWidget {
+  static const String routeName = "/forgotPassword";
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,7 +21,7 @@ class Login extends StatelessWidget {
                     alignment: Alignment.center,
                     padding: EdgeInsets.all(10),
                     child: Text(
-                      'Sign in',
+                      'Enter your email address',
                       style: TextStyle(fontSize: 20),
                     )),
                 Container(
@@ -30,60 +30,20 @@ class Login extends StatelessWidget {
                     // controller: nameController,
                     decoration: InputDecoration(
                       border: OutlineInputBorder(),
-                      labelText: 'User Name',
+                      labelText: 'Email Address',
                     ),
                   ),
                 ),
-                Container(
-                  padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
-                  child: TextField(
-                    obscureText: true,
-                    // controller: passwordController,
-                    decoration: InputDecoration(
-                      suffixIcon: const Padding(
-                      padding: const EdgeInsets.only(right: 0),
-                      child: const Icon(Icons.visibility)),
-                      border: OutlineInputBorder(),
-                      labelText: 'Password',
                       
-                    ),
-                  ),
-                ),
-                Align(
-                alignment: Alignment.topRight,
-                child: Container(
-                  padding: EdgeInsets.fromLTRB(0, 0, 10, 0),
-                  child:TextButton(
-                  onPressed: (){
-                  },
-                  child: Text('Forgot Password?'),
-                        ),
-                      ),
-                ),               
                 Container(
                   height: 50,
                     padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
                     child: ElevatedButton(
-                      child: Text('Login'),
+                      child: Text('Submit'),
                       onPressed: () {
                       },
                     )),
-                Container(
-                  child: Row(
-                    children: <Widget>[
-                      Text('Don\'t have an account?'),
-                      TextButton(
-                      child: Text(
-                          'Sign Up',
-                          style: TextStyle(fontSize: 15),
-                        ),
-                        onPressed: () {
-                        },
-                    ),
-                      
-                    ],
-                    mainAxisAlignment: MainAxisAlignment.center,
-                ))
+                
               ],
             ))
     );

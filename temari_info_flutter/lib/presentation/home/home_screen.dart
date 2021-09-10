@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
@@ -86,15 +84,16 @@ Widget _searchButton() {
   return ElevatedButton(onPressed: () {}, child: Text('Search'));
 }
 
-final RatingRepo _ratingRepo = RatingRepo(dataProvider: RatingDataProvider(httpClient: http.Client()));
+final RatingRepo _ratingRepo =
+    RatingRepo(dataProvider: RatingDataProvider(httpClient: http.Client()));
 //university
 Widget _univCard(String univ_name, int totalRating) {
   final RatingBloc ratingBloc = RatingBloc(_ratingRepo);
 
   return BlocBuilder<RatingBloc, RatingState>(
-    bloc: ratingBloc,
-    builder: (context, state) {
-      return Container(
+      bloc: ratingBloc,
+      builder: (context, state) {
+        return Container(
           width: 400,
           height: 150,
           padding: EdgeInsets.all(20),
@@ -153,28 +152,36 @@ Widget _univCard(String univ_name, int totalRating) {
                           "${totalRating}",
                           style: TextStyle(color: Colors.black),
                         ),
-                      )
-                    ],
-                  )
-                ],
-              )
-            ],
+                        state is AddingRatingSuccess
+                            ? Container(
+                                padding: EdgeInsets.only(left: 20),
+                                child: Text(
+                                  "${totalRating++}",
+                                  style: TextStyle(color: Colors.black),
+                                ),
+                              )
+                            : Container(
+                                padding: EdgeInsets.only(left: 20),
+                                child: Text(
+                                  "${totalRating}",
+                                  style: TextStyle(color: Colors.black),
+                                ),
+                              )
+                      ],
+                    )
+                  ],
+                )
+              ],
+            ),
+            onTap: () {
+              print('tapped');
+            },
           ),
-           onTap: () {
-          print('tapped');
-        },
-        ),
-       
-      );
-    }
-  );
+        );
+      });
 }
 
 //star icon
 Widget _starIcon() {
-  return Icon(
-    Icons.star_outline,
-    color: Colors.blueGrey
-    
-  );
+  return Icon(Icons.star_outline, color: Colors.blueGrey);
 }
