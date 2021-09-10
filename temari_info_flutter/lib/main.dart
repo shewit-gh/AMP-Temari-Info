@@ -44,7 +44,7 @@ void main() {
 final RatingRepo _ratingRepo =
     RatingRepo(dataProvider: RatingDataProvider(httpClient: http.Client()));
 final AuthRepository _authRepo =
-    AuthRepository(dataProvider: AuthDataProvider());
+    AuthRepository(dataProvider: AuthDataProvider(httpClient: http.Client()));
 final InstituteRepository instRepo = InstituteRepository(
     dataProvider: InstituteDataProvider(httpClient: http.Client()));
 
@@ -78,7 +78,7 @@ class MyApp extends StatelessWidget {
             primarySwatch: Colors.teal,
             brightness: Brightness.dark,
           ),
-          initialRoute: Login.routeName,
+          initialRoute: Signup.routeName,
           routes: {
             University.routeName: (BuildContext context) => University(),
             Institute.routeName: (BuildContext context) => Institute(),
