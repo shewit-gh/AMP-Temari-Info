@@ -6,7 +6,7 @@ import 'package:temari_info_flutter/auth/models/auth_token_model.dart';
 
 class AuthDataProvider {
   final http.Client httpClient;
-  static final String _baseUrl = "http://192.168.137.1:3000/api";
+  static final String _baseUrl = "http://192.168.8.100:3000/api";
 AuthDataProvider({required this.httpClient});
 
   Future<Token> signUp(User user) async {

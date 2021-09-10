@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:temari_info_flutter/auth/bloc/auth_bloc.dart';
+import 'package:temari_info_flutter/auth/bloc/auth_state.dart';
+import 'package:temari_info_flutter/presentation/login/login_screen.dart';
 
 Widget drawer(BuildContext context) {
   return Drawer(
@@ -58,10 +62,21 @@ Widget drawer(BuildContext context) {
           },
         ),
         ListTile(
+  
           leading: Icon(Icons.logout),
           title: const Text('Log out'),
           onTap: () {
             // Update the state of the app
+            BlocConsumer<AuthBloc, AuthState>(
+                listener: (ctx, authState) {
+                  if (authState is SignOutInprogress)
+                  Navigator.of(context).pushNamed(Login.routeName);
+                },
+                builder: (ctx, authState) {
+                 
+                  return CircularProgressIndicator();
+                },
+              );
             // ...
             // Then close the drawer
             Navigator.pop(context);
