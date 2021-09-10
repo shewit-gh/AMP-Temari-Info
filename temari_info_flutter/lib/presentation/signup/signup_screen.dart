@@ -127,7 +127,7 @@ Signup({Key? key}) : super(key: key);
                       final authBloc = BlocProvider.of<AuthBloc>(context);
 
                       authBloc.add(
-                        SignInEvent(user:
+                        SignUpEvent(user:
                           User(username: userameTextController.text,
                             email: emailTextController.text,
                           password: passwordTextController.text
