@@ -22,15 +22,18 @@ class Institute extends StatelessWidget {
         },
         builder: (context, state) {
           final bloc = BlocProvider.of<InstituteBloc>(context);
+          print(state);
           if (state is InstituteLoading) {
             bloc.add(InstituteDetail(instId));
+            
             return CircularProgressIndicator();
           }
           if (state is InstituteLoadFail) {
             return Center(child: Text("Sorry loading failed"));
           }
           if (state is InstituteLoaded) {
-            final inst = state.institute[0];
+            
+            final inst = state.institute[0]['data'][0];
             print(inst);
             return SingleChildScrollView(
               physics: ScrollPhysics(),
@@ -127,10 +130,11 @@ class Institute extends StatelessWidget {
                     width: 500,
                     height: 600,
                     child: ListView.builder(
-                      itemCount: 10,
+                      itemCount: inst['department_id'].length,
                       scrollDirection: Axis.vertical,
                       itemBuilder: (context, index) {
-                        return DepartmnetList(inst['department_id'][index]['dept_name'], inst['department_id'][index][' objective'], inst['department_id'][index]['years']);
+                       return DepartmnetList( department_id: inst['department_id'][index],);
+                        
                       },
                     ),
                   ),
@@ -157,32 +161,36 @@ class InstDescription extends StatelessWidget {
       children: [
         // university image
 
+        // Padding(
+        //   padding: const EdgeInsets.all(30.0),
+        //   child: 
+        //   ClipRRect(
+        //     borderRadius: BorderRadius.circular(100.0),
+        //     // child: Container(
+        //     //   height: 120,
+        //     //   width: 120,
+        //     //   color: Colors.white,
+        //     // )
+        //     child: Image.asset(
+        //       "image/aau.png",
+        //       width: 120,
+        //       height: 120,
+        //       fit: BoxFit.cover,
+        //     ),
+        //   ),
+        // ),
+        // university description
         Padding(
           padding: const EdgeInsets.all(30.0),
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(100.0),
-            // child: Container(
-            //   height: 120,
-            //   width: 120,
-            //   color: Colors.white,
-            // )
-            child: Image.asset(
-              "image/aau.png",
-              width: 120,
-              height: 120,
-              fit: BoxFit.cover,
-            ),
-          ),
-        ),
-        // university description
-        Container(
-          width: 300,
-          child: Center(
-            child: Text(
-              description,
-              style: TextStyle(
-                fontSize: 16,
-                letterSpacing: 1,
+          child: Container(
+            width: 300,
+            child: Center(
+              child: Text(
+                description,
+                style: TextStyle(
+                  fontSize: 16,
+                  letterSpacing: 1,
+                ),
               ),
             ),
           ),
@@ -193,10 +201,9 @@ class InstDescription extends StatelessWidget {
 }
 
 class DepartmnetList extends StatelessWidget {
-  final String name;
-  final String description;
-  final int year;
-  const DepartmnetList(this.name, this.description, this.year);
+  final Map<String, dynamic> department_id;
+
+    const DepartmnetList({Key? key, required this.department_id}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -223,7 +230,7 @@ class DepartmnetList extends StatelessWidget {
               margin: EdgeInsets.all(25.0),
               padding: EdgeInsets.all(5.0),
               child: Text(
-                name,
+                department_id['dept_name'],
                 style: TextStyle(
                   fontSize: 22,
                   decoration: TextDecoration.none,
@@ -242,7 +249,7 @@ class DepartmnetList extends StatelessWidget {
               margin: EdgeInsets.all(10.0),
               padding: EdgeInsets.all(5.0),
               child: Text(
-                "* $year years to finish",
+                "* ${department_id['years']} years to finish",
                 style: TextStyle(
                   fontSize: 16,
                   decoration: TextDecoration.none,
@@ -261,7 +268,7 @@ class DepartmnetList extends StatelessWidget {
               padding: EdgeInsets.all(5.0),
               child: Center(
                 child: Text(
-                  description,
+                  department_id['objective'],
                   style: TextStyle(
                     fontSize: 16,
                     decoration: TextDecoration.none,

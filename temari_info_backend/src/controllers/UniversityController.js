@@ -7,7 +7,7 @@ const University = require('../models/UniversityModel');
 // Get all University
 
 function getUniversity(req, res) {
-    University.find().populate("institute").populate("comment").populate("rating")
+    University.find().populate("institute").populate({path:"comment", populate: "user_id"}).populate("rating")
         .exec()
         .then(doc => {
             if (doc) {

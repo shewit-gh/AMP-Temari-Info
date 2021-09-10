@@ -4,7 +4,7 @@ class University {
   final String short_name;
   final String location;
   final String? description;
-  final List<Object> institute;
+  final List<Object>? institute;
   final List<Object>? comment;
   final List<Object>? rating;
 
@@ -14,7 +14,7 @@ class University {
       required this.short_name,
       required this.location,
       this.description,
-      required this.institute,
+      this.institute,
       this.comment,
       this.rating});
 

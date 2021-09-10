@@ -47,6 +47,8 @@ final AuthRepository _authRepo =
     AuthRepository(dataProvider: AuthDataProvider());
 final InstituteRepository instRepo = InstituteRepository(
     dataProvider: InstituteDataProvider(httpClient: http.Client()));
+final UniversityRepository uniRepo = UniversityRepository(
+    dataProvider: UniversityDataProvider(httpClient: http.Client()));
 
 class MyApp extends StatelessWidget {
   @override
@@ -56,10 +58,14 @@ class MyApp extends StatelessWidget {
         BlocProvider<AuthBloc>(
           create: (context) => AuthBloc(authRepository: _authRepo),
         ),
+        BlocProvider<UniBloc>(
+          create: (context) => UniBloc(uniRepo),
+        ),
         BlocProvider<RatingBloc>(
           create: (context) => RatingBloc(_ratingRepo),
         ),
-        BlocProvider<InstituteBloc>(create: (context) =>InstituteBloc(instRepo)),
+        BlocProvider<InstituteBloc>(
+            create: (context) => InstituteBloc(instRepo)),
         //  BlocProvider<RatingBloc>(
         //   create: (context) => RatingBloc(_ratingRepo),
         // ), BlocProvider<RatingBloc>(
@@ -78,7 +84,7 @@ class MyApp extends StatelessWidget {
             primarySwatch: Colors.teal,
             brightness: Brightness.dark,
           ),
-          initialRoute: Login.routeName,
+          initialRoute: Home.routeName,
           routes: {
             University.routeName: (BuildContext context) => University(),
             Institute.routeName: (BuildContext context) => Institute(),

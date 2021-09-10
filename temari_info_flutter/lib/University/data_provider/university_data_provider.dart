@@ -5,7 +5,7 @@ import 'package:temari_info_flutter/University/model/university.dart';
 
 class UniversityDataProvider {
   final http.Client httpClient;
-  static final String _baseUrl = "http://192.168.174.232:3000/api/University";
+  static final String _baseUrl = "http://10.5.197.146:3000/api/University";
 
   UniversityDataProvider({required this.httpClient})
       : assert(httpClient != null);

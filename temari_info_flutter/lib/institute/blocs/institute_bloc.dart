@@ -6,15 +6,17 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class InstituteBloc extends Bloc<InstituteDetail, InstituteState> {
   final InstituteRepository instituteRepository;
 
-  InstituteBloc(this.instituteRepository) : super(InstituteUnloaded());
+  InstituteBloc(this.instituteRepository) : super(InstituteLoading());
   @override
   Stream<InstituteState> mapEventToState(InstituteEvent event) async* {
     if (event is InstituteDetail) {
+      // yield InstituteLoading();
       try {
-        yield InstituteLoading();
         final institute =
             await instituteRepository.fetchById(event.institute_id);
+            
         yield InstituteLoaded(institute);
+        // print(institute);
       } catch (_) {
         yield InstituteLoadFail(_);
       }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:temari_info_flutter/presentation/universities/universities.dart';
 
 Widget drawer(BuildContext context) {
   return Drawer(
@@ -29,12 +30,15 @@ Widget drawer(BuildContext context) {
           leading: Icon(Icons.school),
           title: const Text('Universities'),
           onTap: () {
+            
             // Update the state of the app
-            // ...
-            // Then close the drawer
-            Navigator.pop(
+            Navigator.pushNamed(
               context,
+              Universities.routeName
+              
             );
+            
+            
           },
         ),
         ListTile(

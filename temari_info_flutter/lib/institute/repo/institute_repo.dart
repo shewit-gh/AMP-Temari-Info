@@ -13,7 +13,7 @@ class InstituteRepository {
     return this.dataProvider.update(id, institute);
   }
 
-  Future<List<Institute>> fetchAll() async {
+  Future<List> fetchAll() async {
     return this.dataProvider.fetchAll();
   }
 

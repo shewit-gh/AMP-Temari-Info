@@ -5,7 +5,7 @@ import 'package:temari_info_flutter/institute/model/institute_model.dart';
 import 'package:http/http.dart' as http;
 
 class InstituteDataProvider {
-  static final String _baseUrl = "http://10.9.215.16//api/Institute";
+  static final String _baseUrl = "http://10.5.197.146:3000/api/Institute";
   final http.Client httpClient;
   InstituteDataProvider({required this.httpClient});
 
@@ -38,11 +38,11 @@ class InstituteDataProvider {
   //   }
   }
 
-  Future<List<Institute>> fetchAll() async {
+  Future<List> fetchAll() async {
     final response = await http.get(Uri.parse(_baseUrl));
     if (response.statusCode == 200) {
       final institutes = jsonDecode(response.body) as List;
-      return institutes.map((c) => Institute.fromJson(c)).toList();
+      return institutes;
     } else {
       throw Exception("Could not fetch institutes");
     }

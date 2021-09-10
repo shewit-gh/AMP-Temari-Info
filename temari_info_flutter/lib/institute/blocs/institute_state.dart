@@ -22,4 +22,4 @@ class InstituteLoadFail extends InstituteState {
   InstituteLoadFail(this.error);
 }
 
-class InstituteUnloaded extends InstituteState {}
+
