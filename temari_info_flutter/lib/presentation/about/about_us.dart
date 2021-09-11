@@ -21,7 +21,7 @@ Widget about() {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
-          padding: EdgeInsets.only(top:20, left:20, bottom: 20),
+          padding: EdgeInsets.only(top:20, left:10, bottom: 20),
           child:Text("Dedicated Team"
           "For Your Dedicated Dream", style: TextStyle(color:Colors.teal, fontSize: 20, fontWeight:FontWeight.w600,))
           ),
@@ -53,7 +53,7 @@ Widget about() {
                 ),
                 SizedBox(width: 50),
                 Container(
-                   width: 210,
+                   width: 110,
                   child:  Text(
                 "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, "
                 "when an unknown printer took a galley of type and scrambled it to make a type specimen book."
