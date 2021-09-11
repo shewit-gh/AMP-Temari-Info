@@ -6,10 +6,11 @@ import 'package:temari_info_flutter/auth/models/auth_token_model.dart';
 
 class AuthDataProvider {
   final http.Client httpClient;
-  static final String _baseUrl = "http://192.168.137.1:3000/api";
+  static final String _baseUrl = "http://10.9.209.202:3000/api";
 AuthDataProvider({required this.httpClient});
 
   Future<Token> signUp(User user) async {
+    
     final http.Response response = await http.post(Uri.parse("$_baseUrl/auth/signUp"),
         headers: <String, String>{"Content-Type": "application/json"},
         body: jsonEncode({
@@ -17,7 +18,7 @@ AuthDataProvider({required this.httpClient});
           "email": user.email,
           "password": user.password,
         }));
-
+  print("madeit");
     if (response.statusCode == 201) {
       return Token.fromJson(jsonDecode(response.body));
     }

@@ -31,6 +31,7 @@ async function signIn(req, res) {
 
       
       user.token = token;
+      console.log(user.token)
     res.status(200).json({"token":user.token});
     }
     
@@ -59,7 +60,8 @@ async function signOut(req, res) {
 
 async function signUp(req, res) {
   try {
-    
+    console.log("----------here --------------------")
+
       const { username, email, password,} = req.body;
       if (!(username && email && password)) {
         res.status(400).send("All input is required");
@@ -70,7 +72,6 @@ async function signUp(req, res) {
     }
     
     encryptedPassword = await bcrypt.hash(password, 10);
-    
       const user =await new User({
         _id: mongoose.Types.ObjectId(),
         username: username,
