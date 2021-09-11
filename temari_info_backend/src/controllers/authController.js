@@ -11,7 +11,7 @@ const TOKEN_KEY=process.env.TOKEN_KEY
 
 async function signIn(req, res) {
   try {
-    print("I was called")
+    console.log("I was called")
     const { email, password } = req.body;
 
     if (!(email && password)) {
@@ -22,7 +22,7 @@ async function signIn(req, res) {
     if (user && (await bcrypt.compare(password, user.password))) {
       console.log(user)
       const token = jwt.sign(
-        { user_id: user._id, email:user.email, role:user.role },
+        { user_id: user._id, email:user.email, role:user.role, username:user.username },
         TOKEN_KEY,
         {
           expiresIn: "2h",
@@ -31,6 +31,7 @@ async function signIn(req, res) {
 
       
       user.token = token;
+      console.log(user.token)
     res.status(200).json({"token":user.token});
     }
     
@@ -59,7 +60,9 @@ async function signOut(req, res) {
 
 async function signUp(req, res) {
   try {
-    
+    console.log("----------here --------------------")
+
+    print('connected')
       const { username, email, password,} = req.body;
       if (!(username && email && password)) {
         res.status(400).send("All input is required");
@@ -70,7 +73,6 @@ async function signUp(req, res) {
     }
     
     encryptedPassword = await bcrypt.hash(password, 10);
-    
       const user =await new User({
         _id: mongoose.Types.ObjectId(),
         username: username,
@@ -81,7 +83,7 @@ async function signUp(req, res) {
 
       
       const token = jwt.sign(
-        { user_id: user._id,email: user.email,role:user.role },
+        { user_id: user._id,email: user.email,role:user.role,username:user.username },
         TOKEN_KEY,
         {
           expiresIn: "2h",

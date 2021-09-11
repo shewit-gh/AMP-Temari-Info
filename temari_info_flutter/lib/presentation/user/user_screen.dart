@@ -1,9 +1,35 @@
 
 import 'package:flutter/material.dart';
 import 'package:temari_info_flutter/presentation/shared/navBar_Widget.dart';
+import 'package:temari_info_flutter/auth/user_secure_storage.dart';
+import 'package:temari_info_flutter/presentation/user/edit_profile_screen.dart';
 
-class Userp extends StatelessWidget {
-  static const String routeName = "/user";
+class Userp extends StatefulWidget {
+  const Userp({Key? key}) : super(key: key);
+static const String routeName = "/user";
+  @override
+  UserState createState() {
+    return UserState();
+  }
+}
+
+class UserState extends State {
+   
+   var curr_username, curr_email;
+
+@override
+void initState(){
+  super.initState();
+  init();
+}
+Future init() async{
+  final current_username = UserSecureStorage.getUsername();
+  setState((){
+    curr_username =current_username;
+  });
+}
+  
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -14,7 +40,7 @@ class Userp extends StatelessWidget {
 
 
       body: Container(
-        child: profile("Abebe","abebe@gmail.com", " "),
+        child: profile(curr_username,curr_email, context),
       ),
       
 
@@ -26,7 +52,7 @@ class Userp extends StatelessWidget {
 }
 
 
-Widget profile(String username, String email, String? bio ){
+Widget profile(Future? username, Future? email, BuildContext context ){
   return Container(
     child: Column(
       children: [
@@ -57,7 +83,10 @@ Widget profile(String username, String email, String? bio ){
               child:SizedBox(
               width: 200,
               height: 40,
-              child:ElevatedButton(onPressed: (){}, child:  Text('Edit Profile')) ,
+              child:ElevatedButton(onPressed: (){
+                                          Navigator.of(context).pushNamed(EditProfile.routeName);
+
+              }, child:  Text('Edit Profile')) ,
             )
              )
             
@@ -95,20 +124,20 @@ Widget profile(String username, String email, String? bio ){
           ],
         ),
         SizedBox(height: 30,),
-        Row(
-          children: [
-            Icon(Icons.edit_rounded),
-            SizedBox(width: 50,),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text('${bio}'),
-                SizedBox(height: 10,),
-                Text("Bio", style: TextStyle(color: Colors.blueGrey),)
-              ],
-            )
-          ],
-        )
+        // Row(
+        //   children: [
+        //     Icon(Icons.edit_rounded),
+        //     SizedBox(width: 50,),
+        //     Column(
+        //       crossAxisAlignment: CrossAxisAlignment.start,
+        //       children: [
+        //         Text('${bio}'),
+        //         SizedBox(height: 10,),
+        //         Text("Bio", style: TextStyle(color: Colors.blueGrey),)
+        //       ],
+        //     )
+        //   ],
+        // )
       ],
 
     ));
