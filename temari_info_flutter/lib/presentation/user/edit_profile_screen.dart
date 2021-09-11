@@ -63,7 +63,7 @@ class EditProfile extends StatelessWidget {
                  BlocConsumer<AuthBloc, AuthState>(
                 listener: (ctx, authState) {
                   if (authState is EditProfileSuccess) {
-                    Navigator.of(context).pushNamed(User.routeName);
+                    Navigator.of(context).pushNamed(Userp.routeName);
                   };
                 },
                 builder: (ctx, authState) {

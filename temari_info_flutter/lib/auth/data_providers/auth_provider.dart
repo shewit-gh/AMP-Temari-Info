@@ -7,20 +7,12 @@ import 'package:temari_info_flutter/auth/user_secure_storage.dart';
 
 class AuthDataProvider {
   final http.Client httpClient;
-<<<<<<< HEAD
-  static final String _baseUrl = "http://10.9.209.202:3000/api";
-AuthDataProvider({required this.httpClient});
-
-  Future<Token> signUp(User user) async {
-    
-=======
 
   static final String _baseUrl = "http://192.168.137.85:3000/api";
 AuthDataProvider({required this.httpClient});
 
   Future<Token> signUp(User user) async {
     print('here');
->>>>>>> d3cf1e8d0c17136d97b033e3b9ff984a8a6fa2d8
     final http.Response response = await http.post(Uri.parse("$_baseUrl/auth/signUp"),
         headers: <String, String>{"Content-Type": "application/json"},
         body: jsonEncode({
