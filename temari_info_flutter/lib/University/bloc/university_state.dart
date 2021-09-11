@@ -45,3 +45,22 @@ class UnivSearchSuccess extends SearchState {
 }
 
 class UnivSearchFailure extends SearchState {}
+
+
+
+
+//university add state
+abstract class UnivAddState {
+  const UnivAddState();
+  @override
+  List<Object> get props => [];
+}
+
+class UnivAddLoading extends UnivAddState {}
+
+class UnivAddSuccess extends UnivAddState {
+  final University univ;
+  UnivAddSuccess(this.univ);
+}
+
+class UnivAddFailure extends UnivAddState {}

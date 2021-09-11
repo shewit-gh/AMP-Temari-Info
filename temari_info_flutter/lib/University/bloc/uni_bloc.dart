@@ -31,19 +31,7 @@ class UniBloc extends Bloc<UniversityEvent, UniversityState> {
       }
     }
 
-    if (event is UniversityCreate) {
-      try {
-        //await universityRepository.create(event.university);
-
-        final Universitys = await universityRepository
-            .create(event.university); //await universityRepository.fetchAll();
-        print(Universitys);
-        yield UniversityPosted(Universitys);
-      } catch (_) {
-        print("fao");
-        yield UniversityOperationFailure();
-      }
-    }
+    
 
     if (event is UniversityUpdate) {
       try {
@@ -92,3 +80,37 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
     // }
   }
 }
+
+
+
+//university add bloc
+class UnivAddBloc extends Bloc<UniversityAddEvent, UnivAddState> {
+  final UniversityRepository universityRepository;
+
+  UnivAddBloc(this.universityRepository) : super(UnivAddLoading());
+
+  @override
+  Stream<UnivAddState> mapEventToState(UniversityAddEvent event) async* {
+    
+    if (event is UniversityCreate) {
+      try {
+        //await universityRepository.create(event.university);
+
+        final Universitys = await universityRepository.create(event.university); 
+            await universityRepository.fetchAll();
+        print(Universitys);
+        yield UnivAddSuccess(Universitys);
+      } catch (_) {
+        print("fao");
+        yield UnivAddFailure();
+      }
+    }
+    // if (event is SearchRefresh){
+    //   yield (UnivSearchLoading());
+    // }
+  }
+}
+
+
+
+

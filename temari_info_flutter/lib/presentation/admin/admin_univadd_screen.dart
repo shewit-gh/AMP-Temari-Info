@@ -48,12 +48,12 @@ class UnivAdd extends StatelessWidget {
       resizeToAvoidBottomInset: false,
       appBar:
           PreferredSize(preferredSize: Size.fromHeight(60.0), child: navtop()),
-      body: BlocConsumer<UniBloc, UniversityState>(
+      body: BlocConsumer<UnivAddBloc, UnivAddState>(
         listener: (context, state) {
-          if (state is UniversityOperationFailure) {
+          if (state is UnivAddFailure) {
             print("failed fetchig");
           }
-          if (state is UniversityPosted) {
+          if (state is UnivAddSuccess) {
             print(state);
             Navigator.of(context).pushNamed(Home.routeName);
           }
@@ -155,7 +155,7 @@ class UnivAdd extends StatelessWidget {
                                       onPressed: () {
                                         print(firstcontroller.text);
                                         final uniBloc =
-                                            BlocProvider.of<UniBloc>(context);
+                                            BlocProvider.of<UnivAddBloc>(context);
                                         uniBloc.add(UniversityCreate(University(
                                             univ_name: firstcontroller.text,
                                             short_name: secondcontroller.text,

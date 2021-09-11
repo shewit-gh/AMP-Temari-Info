@@ -65,6 +65,9 @@ class MyApp extends StatelessWidget {
         BlocProvider<SearchBloc>(
           create: (context) => SearchBloc(uniRepo),
         ),
+        BlocProvider<UnivAddBloc>(
+          create: (context) => UnivAddBloc(uniRepo),
+        ),
         BlocProvider<RatingBloc>(
           create: (context) => RatingBloc(_ratingRepo),
         ),
