@@ -3,19 +3,19 @@ import 'package:flutter/material.dart';
 
 @immutable
 class Comment extends Equatable {
-  final String id;
+  final String? id;
   final String comment;
   final String user_id;
   final String university_id;
   Comment(
-      {required this.id,
+      { this.id,
       required this.comment,
       required this.user_id,
       required this.university_id});
 
 
   @override
-  List<Object> get props => [id, comment, user_id, university_id];
+  List<Object> get props => [ comment, user_id, university_id];
 
   factory Comment.fromJson(Map<String, dynamic> json) {
     return Comment(

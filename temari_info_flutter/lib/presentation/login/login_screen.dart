@@ -37,9 +37,9 @@ class LoginState extends State {
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(60.0),
         child: navtop()),
-      bottomNavigationBar:PreferredSize(
-        preferredSize: Size.fromHeight(60.0),
-        child: bottomnav(context)),
+      // bottomNavigationBar:PreferredSize(
+      //   preferredSize: Size.fromHeight(60.0),
+      //   child: bottomnav(context)),
       body: Padding(
             padding: EdgeInsets.all(10),
             child: ListView(
@@ -65,7 +65,7 @@ class LoginState extends State {
                             labelText: 'Email',
                           ),
                           validator: (value) {
-                            if (value == null || value.isEmpty) {
+                            if (value == null || value.isEmpty || !(value.contains('@'))) {
                               return 'Invalid email';
                             }
                             return null;
@@ -78,9 +78,9 @@ class LoginState extends State {
                           obscureText: true,
                           controller: passwordTextController,
                           decoration: InputDecoration(
-                            suffixIcon: const Padding(
-                            padding: const EdgeInsets.only(right: 0),
-                            child: const Icon(Icons.visibility)),
+                            // suffixIcon: const Padding(
+                            // padding: const EdgeInsets.only(right: 0),
+                            // child: const Icon(Icons.visibility)),
                             border: OutlineInputBorder(),
                             labelText: 'Password',
                             

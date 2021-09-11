@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:http/http.dart' as http;
+import 'package:temari_info_flutter/auth/user_secure_storage.dart';
 import 'package:temari_info_flutter/comment/blocs/comment_bloc.dart';
 import 'package:temari_info_flutter/comment/blocs/comment_event.dart';
 import 'package:temari_info_flutter/comment/blocs/comment_state.dart';
 import 'package:temari_info_flutter/comment/data_provider/comment_data.dart';
+import 'package:temari_info_flutter/comment/models/comment.dart';
 import 'package:temari_info_flutter/comment/repo/comment_repo2.dart';
 import 'package:temari_info_flutter/University/bloc/uni_bloc.dart';
 import 'package:temari_info_flutter/University/bloc/university_event.dart';
@@ -270,8 +272,8 @@ class InstituteList extends StatelessWidget {
 }
 
 class InsertComment extends StatelessWidget {
-  const InsertComment({Key? key}) : super(key: key);
-
+  InsertComment({Key? key}) : super(key: key);
+  final commentTextController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -295,12 +297,58 @@ class InsertComment extends StatelessWidget {
             decoration: InputDecoration(
               hintText: 'comment here',
             ),
+            controller: commentTextController,
           ),
         ),
+        BlocConsumer<CommentBloc, CommentState>(
+                listener: (ctx, authState) {
+                  if (authState is AddingCommentSuccess) {
+                    Navigator.of(context).pushNamed(UniversityDetail.routeName);
+                  };
+                  
+                },
+                builder: (ctx, authState) {
+                 
+                  if (authState is LoadedState) {
+                    return SizedBox(
+                      
+                      child: Row(children:[CircularProgressIndicator(
+                        color: Colors.white,
+                      ),
+                      Text("...")
+                    ]));
+                  }
+  
+                  
+         
+                  return Container(
+                  height: 50,
+                    padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+                    child:IconButton(
+                    onPressed: () {
+                      final authBloc = BlocProvider.of<CommentBloc>(context);
+
+                      authBloc.add(
+                        AddComment(comment:
+                        Comment(comment: commentTextController.text,
+                        university_id:ModalRoute.of(context)?.settings.arguments as String,
+                        user_id:UserSecureStorage.getUsername() as String)),
+                         
+                      );
+                    },
+                    icon: Icon(
+                Icons.send, size: 30,
+                color: Colors.teal
+              ),
+                  ));
+                },
+              ),
         Container(
           margin: EdgeInsets.only(left: 20, bottom: 0),
           child: IconButton(
-            onPressed: () {},
+            onPressed: () {
+
+            },
              icon: Icon(
                 Icons.send, size: 30,
                 color: Colors.teal

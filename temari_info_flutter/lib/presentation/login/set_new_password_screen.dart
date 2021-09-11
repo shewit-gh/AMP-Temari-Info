@@ -9,9 +9,9 @@ class SetNewPassword extends StatelessWidget {
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(60.0),
         child: navtop()),
-      bottomNavigationBar:PreferredSize(
-        preferredSize: Size.fromHeight(60.0),
-        child: bottomnav(context)),
+      // bottomNavigationBar:PreferredSize(
+      //   preferredSize: Size.fromHeight(60.0),
+      //   child: bottomnav(context)),
       body: Padding(
             padding: EdgeInsets.all(10),
             child: ListView(
@@ -31,9 +31,9 @@ class SetNewPassword extends StatelessWidget {
                     obscureText: true,
                     // controller: passwordController,
                     decoration: InputDecoration(
-                      suffixIcon: const Padding(
-                      padding: const EdgeInsets.only(right: 0),
-                      child: const Icon(Icons.visibility)),
+                      // suffixIcon: const Padding(
+                      // padding: const EdgeInsets.only(right: 0),
+                       // child: const Icon(Icons.visibility)),
                       border: OutlineInputBorder(),
                       labelText: 'Password',
                     ),
@@ -45,9 +45,9 @@ class SetNewPassword extends StatelessWidget {
                     obscureText: true,
                     // controller: confirmpasswordController,
                     decoration: InputDecoration(
-                      suffixIcon: const Padding(
-                      padding: const EdgeInsets.only(right: 0),
-                      child: const Icon(Icons.visibility)),
+                      // suffixIcon: const Padding(
+                      // padding: const EdgeInsets.only(right: 0),
+                      // child: const Icon(Icons.visibility)),
                       border: OutlineInputBorder(),
                       labelText: 'Confirm Password',
                     ),

@@ -34,7 +34,7 @@ ChangePassword({Key? key}) : super(key: key);
         child: navtop()),
       bottomNavigationBar:PreferredSize(
         preferredSize: Size.fromHeight(60.0),
-        child: bottomnav()),
+        child: bottomnav(context)),
       body: Padding(
             padding: EdgeInsets.all(10),
             child: ListView(
@@ -78,7 +78,7 @@ ChangePassword({Key? key}) : super(key: key);
                 ), BlocConsumer<AuthBloc, AuthState>(
                 listener: (ctx, authState) {
                   if (authState is changePasswordSuccess) {
-                    Navigator.of(context).pushNamed(User.routeName);
+                    Navigator.of(context).pushNamed(Userp.routeName);
                   };
                   
                 },

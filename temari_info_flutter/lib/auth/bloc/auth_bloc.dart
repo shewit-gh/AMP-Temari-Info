@@ -25,12 +25,13 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         await Future.delayed(Duration(seconds: 2));
            yield SignedOut();
       }
-      if (response.value == "Invalid Credentials") {
+      else if (response.value == "Invalid Credentials") {
         yield AuthFailed(errorMsg: 'Incorrect Username or password');
         await Future.delayed(Duration(seconds: 2));
            yield SignedOut();
       }
-
+      else{
+        print(response.value);
       final Map current = Jwt.parseJwt(response.value);
       print(current);
       final role =current['role'];
@@ -43,7 +44,11 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       if (role == "Admin User"){
         yield SignedInAsAdminUser();
       }
-      yield SignedOut();
+
+
+      }
+    
+      // yield SignedOut();
   
     }
 
@@ -58,11 +63,11 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         await Future.delayed(Duration(seconds: 2));
            yield SignedOut();
       }
-
+      else{
       final Map current = Jwt.parseJwt(response.value);
      
       yield SignedInAsNormalUser();
-      
+      }
     }
     if (event is SignOutEvent) {
       // reaching to the backend

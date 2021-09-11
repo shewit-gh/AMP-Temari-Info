@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:temari_info_flutter/University/repository/university_repository.dart';
+import 'package:temari_info_flutter/comment/blocs/comment_bloc.dart';
+import 'package:temari_info_flutter/comment/data_provider/comment_data.dart';
+import 'package:temari_info_flutter/comment/repo/repo.dart';
 import 'package:temari_info_flutter/institute/blocs/institute_bloc.dart';
 import 'package:temari_info_flutter/institute/data_provider/institute_data.dart';
 import 'package:temari_info_flutter/institute/repo/institute_repo.dart';
@@ -39,6 +42,8 @@ import 'package:http/http.dart' as http;
 
 import 'package:temari_info_flutter/University/data_provider/university_data_provider.dart';
 import 'package:temari_info_flutter/University/bloc/uni_bloc.dart';
+import 'package:temari_info_flutter/comment/data_provider/comment_data.dart';
+import 'package:temari_info_flutter/comment/repo/comment_repo2.dart';
 
 void main() {
   runApp(MyApp());
@@ -52,6 +57,8 @@ final InstituteRepository instRepo = InstituteRepository(
     dataProvider: InstituteDataProvider(httpClient: http.Client()));
 final UniversityRepository uniRepo = UniversityRepository(
     dataProvider: UniversityDataProvider(httpClient: http.Client()));
+final CommentRepo2 commentRepo = CommentRepo2(
+  dataProvider: CommentDataProvider(httpClient: http.Client()));
 
 class MyApp extends StatelessWidget {
   @override
@@ -75,6 +82,8 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider<InstituteBloc>(
             create: (context) => InstituteBloc(instRepo)),
+        BlocProvider<CommentBloc>(
+            create: (context) => CommentBloc(commentRepo:commentRepo)),
         //  BlocProvider<RatingBloc>(
         //   create: (context) => RatingBloc(_ratingRepo),
         // ), BlocProvider<RatingBloc>(
@@ -94,7 +103,7 @@ class MyApp extends StatelessWidget {
             brightness: Brightness.dark,
           ),
 
-          initialRoute: UnivAdd.routeName,
+          initialRoute: Signup.routeName,
             routes: {
             UniversityDetail.routeName: (BuildContext context) =>
                 UniversityDetail(),
