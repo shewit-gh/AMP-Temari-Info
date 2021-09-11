@@ -1,8 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:temari_info_flutter/auth/bloc/auth_bloc.dart';
+import 'package:temari_info_flutter/auth/bloc/auth_event.dart';
+import 'package:temari_info_flutter/auth/bloc/auth_state.dart';
 import 'package:temari_info_flutter/presentation/shared/navBar_Widget.dart';
+import 'package:temari_info_flutter/auth/user_secure_storage.dart';
+import 'package:temari_info_flutter/presentation/user/user_screen.dart';
+
 
 class EditProfile extends StatelessWidget {
   static const String routeName = "/EditProfile";
+  final emailTextController = TextEditingController();
+  final userTextController = TextEditingController();
+  final formKey = GlobalKey<FormState>();
+
+  final current_username = UserSecureStorage.getUsername();
+  final current_email = UserSecureStorage.getEmail();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,8 +40,8 @@ class EditProfile extends StatelessWidget {
                 Container(
                   padding: EdgeInsets.all(10),
                   child: TextFormField(
-                    // controller: nameController,
-                    initialValue: "Abebe",
+                  controller: userTextController,
+                    // initialValue: current_username,
                     decoration: InputDecoration(
                       border: OutlineInputBorder(),
                       labelText: 'User Name',
@@ -38,52 +51,54 @@ class EditProfile extends StatelessWidget {
                 Container(
                   padding: EdgeInsets.all(10),
                   child: TextFormField(
-                    // controller: emailController,
-                    initialValue: "abebe@gmail.com",
+                  controller: emailTextController,
+                    // initialValue: "abebe@gmail.com",
                     decoration: InputDecoration(
                       border: OutlineInputBorder(),
                       labelText: 'Email Address',
                     ),
                   ),
                 ),
-                Container(
-                  padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
-                  child: TextFormField(
-                    obscureText: true,
-                    initialValue: "abcd",
-                    // controller: passwordController,
-                    decoration: InputDecoration(
-                      suffixIcon: const Padding(
-                      padding: const EdgeInsets.only(right: 0),
-                      child: const Icon(Icons.visibility)),
-                      border: OutlineInputBorder(),
-                      labelText: 'Password',
-                    ),
-                  ),
-                ),     
-                Container(
-                  padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
-                  child: TextFormField(
-                    obscureText: true,
-                    initialValue: "abcd",
-                    // controller: confirmpasswordController,
-                    decoration: InputDecoration(
-                      suffixIcon: const Padding(
-                      padding: const EdgeInsets.only(right: 0),
-                      child: const Icon(Icons.visibility)),
-                      border: OutlineInputBorder(),
-                      labelText: 'Confirm Password',
-                    ),
-                  ),
-                ),              
-                Container(
+                       
+                 BlocConsumer<AuthBloc, AuthState>(
+                listener: (ctx, authState) {
+                  if (authState is EditProfileSuccess) {
+                    Navigator.of(context).pushNamed(User.routeName);
+                  };
+                },
+                builder: (ctx, authState) {
+                  Widget buttonChild = Text("Edit Profile");
+                 
+                  if (authState is EditProfileInProgress) {
+                    buttonChild = SizedBox(
+                
+                      child: Row(children:[CircularProgressIndicator(
+                        color: Colors.white,
+                      ),
+                      Text("...")
+                    ]));
+                  }
+  
+                  if (authState is EditProfileFailed) {
+                    buttonChild = Text(authState.editErrorMsg);
+                  }
+  
+                  return Container(
                   height: 50,
-                    padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
-                    child: ElevatedButton(                  
-                      child: Text('Submit'),
-                      onPressed: () {
-                      },
-                    )),
+                    padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+                    child:ElevatedButton(
+                    onPressed: () {
+                      final authBloc = BlocProvider.of<AuthBloc>(context);
+
+                      authBloc.add(
+                        EditProfileEvent(username: userTextController.text, email: emailTextController.text),
+                         
+                      );
+                    },
+                    child: buttonChild,
+                  ));
+                },
+              ),      
                 
               ],
             ))

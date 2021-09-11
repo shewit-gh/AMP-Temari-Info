@@ -13,15 +13,23 @@ import 'package:temari_info_flutter/auth/repository/auth_repo.dart';
 import 'package:http/http.dart' as http;
 import 'package:temari_info_flutter/presentation/signup/signup_screen.dart';
 import 'package:temari_info_flutter/presentation/univ_admin/edit_univ_screen.dart';
+class Login extends StatefulWidget {
+  const Login({Key? key}) : super(key: key);
+static const String routeName = "/login";
+  @override
+  LoginState createState() {
+    return LoginState();
+  }
+}
 
-class Login extends StatelessWidget {
-  static const String routeName = "/login";
+class LoginState extends State {
+  
 
-  Login({Key? key}) : super(key: key);
+  // Login({Key? key}) : super(key: key);
 
   final emailTextController = TextEditingController();
   final passwordTextController = TextEditingController();
-  final formKey = GlobalKey<FormState>();
+  final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -44,113 +52,136 @@ class Login extends StatelessWidget {
                       'Sign in',
                       style: TextStyle(fontSize: 20),
                     )),
-                Container(
-                  padding: EdgeInsets.all(10),
-                  child: TextField(
-                  controller: emailTextController,
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(),
-                      labelText: 'User Name',
-                    ),
-                  ),
-                ),
-                Container(
-                  padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
-                  child: TextField(
-                    obscureText: true,
-                    controller: passwordTextController,
-                    decoration: InputDecoration(
-                      suffixIcon: const Padding(
-                      padding: const EdgeInsets.only(right: 0),
-                      child: const Icon(Icons.visibility)),
-                      border: OutlineInputBorder(),
-                      labelText: 'Password',
-                      
-                    ),
-                  ),
-                ),
-                Align(
-                alignment: Alignment.topRight,
-                child: Container(
-                  padding: EdgeInsets.fromLTRB(0, 0, 10, 0),
-                  child:TextButton(
-                  onPressed: (){
-                    Navigator.of(context).pushNamed(ForgotPassword.routeName);
-
-                  },
-                  child: Text('Forgot Password?'),
-                        ),
-                      ),
-                ), 
-                BlocConsumer<AuthBloc, AuthState>(
-                listener: (ctx, authState) {
-                  if (authState is SignedInAsNormalUser) {
-                    Navigator.of(context).pushNamed(Home.routeName);
-                  };
-                  if (authState is SignedInAsAdminUser) {
-                    Navigator.of(context).pushNamed(UnivAdd.routeName);
-                  };
-                  if (authState is SignedInAsUnivUser) {
-                    Navigator.of(context).pushNamed(EditUniv.routeName);
-                  };
-                },
-                builder: (ctx, authState) {
-                  Widget buttonChild = Text("Login");
-                 
-                  if (authState is SigninInprogress) {
-                    buttonChild = SizedBox(
-                      height: 4,
-                      width: 4,
-                      child: Row(children:[CircularProgressIndicator(
-                        color: Colors.white,
-                      ),
-                      Text("Logging In")
-                    ]));
-                  }
-  
-                  if (authState is AuthFailed) {
-                    buttonChild = Text(authState.errorMsg);
-                  }
-                  
-          final disabled = authState is SigninInprogress || authState is AuthFailed;
-
-                  return Container(
-                  height: 50,
-                    padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
-                    child:ElevatedButton(
-                    onPressed: () {
-                      final authBloc = BlocProvider.of<AuthBloc>(context);
-
-                      authBloc.add(
-                        SignInEvent(user:
-                          User(email: emailTextController.text,
-                          password: passwordTextController.text
+                Form(
+                  key: _formKey,
+                  child: Column(
+                    children: [
+                      Container(
+                        padding: EdgeInsets.all(10),
+                        child: TextFormField(
+                        controller: emailTextController,
+                          decoration: InputDecoration(
+                            border: OutlineInputBorder(),
+                            labelText: 'Email',
                           ),
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Invalid email';
+                            }
+                            return null;
+                          },
                         ),
-                      );
-                    },
-                    child: buttonChild,
-                  ));
-                },
-              ),
-                Container(
-                  child: Row(
-                    children: <Widget>[
-                      Text('Don\'t have an account?'),
-                      TextButton(
-                      child: Text(
-                          'Sign Up',
-                          style: TextStyle(fontSize: 15),
+                      ),
+                      Container(
+                        padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
+                        child: TextFormField(
+                          obscureText: true,
+                          controller: passwordTextController,
+                          decoration: InputDecoration(
+                            suffixIcon: const Padding(
+                            padding: const EdgeInsets.only(right: 0),
+                            child: const Icon(Icons.visibility)),
+                            border: OutlineInputBorder(),
+                            labelText: 'Password',
+                            
+                          ),
+                          validator: (value) {
+                            if (value == null || value.length < 6) {
+                              return 'Password should have minimum length of 6';
+                            }
+                            return null;
+                          },
                         ),
-                        onPressed: () {
-                        Navigator.of(context).pushNamed(Signup.routeName);
-
+                      ),
+                      Align(
+                      alignment: Alignment.topRight,
+                      child: Container(
+                        padding: EdgeInsets.fromLTRB(0, 0, 10, 0),
+                        child:TextButton(
+                        onPressed: (){
+                          Navigator.of(context).pushNamed(ForgotPassword.routeName);
+                
                         },
-                    ),
-                      
+                        child: Text('Forgot Password?'),
+                              ),
+                            ),
+                      ), 
+                      BlocConsumer<AuthBloc, AuthState>(
+                      listener: (ctx, authState) {
+                        if (authState is SignedInAsNormalUser) {
+                          Navigator.of(context).pushNamed(Home.routeName);
+                        };
+                        if (authState is SignedInAsAdminUser) {
+                          Navigator.of(context).pushNamed(UnivAdd.routeName);
+                        };
+                        if (authState is SignedInAsUnivUser) {
+                          Navigator.of(context).pushNamed(EditUniv.routeName);
+                        };
+                      },
+                      builder: (ctx, authState) {
+                        Widget buttonChild = Text("Login");
+                       
+                        if (authState is SigninInprogress) {
+                          buttonChild = SizedBox(
+                            // height: 4,
+                            // width: 4,
+                            child: Row(children:[
+                            //   CircularProgressIndicator(
+                            //   color: Colors.white,
+                            // ),
+                            Text("...")
+                          ]));
+                        }
+                  
+                        if (authState is AuthFailed) {
+                          buttonChild = Text(authState.errorMsg);
+                        }
+                        
+                          final disabled = authState is SigninInprogress || authState is AuthFailed;
+                
+                        return Container(
+                        height: 50,
+                        width: 350,
+                          padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+                          child:ElevatedButton(
+                          onPressed: () {
+                            if (_formKey.currentState!.validate()) {
+                            final authBloc = BlocProvider.of<AuthBloc>(context);
+                
+                            authBloc.add(
+                              SignInEvent(user:
+                                User(email: emailTextController.text,
+                                password: passwordTextController.text
+                                ),
+                              ),
+                            );
+                          }
+                          },
+                          child: buttonChild,
+                        ));
+                      },
+                              ),
+                      Container(
+                        child: Row(
+                          children: <Widget>[
+                            Text('Don\'t have an account?'),
+                            TextButton(
+                            child: Text(
+                                'Sign Up',
+                                style: TextStyle(fontSize: 15),
+                              ),
+                              onPressed: () {
+                              Navigator.of(context).pushNamed(Signup.routeName);
+                
+                              },
+                          ),
+                            
+                          ],
+                          mainAxisAlignment: MainAxisAlignment.center,
+                      )),
                     ],
-                    mainAxisAlignment: MainAxisAlignment.center,
-                ))
+                  ),
+                )
               ],
             ))
     );

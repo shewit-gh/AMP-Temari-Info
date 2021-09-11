@@ -16,7 +16,7 @@ import 'package:temari_info_flutter/presentation/univ_admin/edit_univ_screen.dar
 
 class Signup extends StatelessWidget {
   static const String routeName = "/signup";
-Signup({Key? key}) : super(key: key);
+  Signup({Key? key}) : super(key: key);
 
   final emailTextController = TextEditingController();
   final passwordTextController = TextEditingController();
@@ -106,10 +106,11 @@ Signup({Key? key}) : super(key: key);
                     buttonChild = SizedBox(
                       height: 4,
                       width: 4,
-                      child: Row(children:[CircularProgressIndicator(
-                        color: Colors.white,
-                      ),
-                      Text("Sign up in progress")
+                      child: Row(children:[
+                      //   CircularProgressIndicator(
+                      //   color: Colors.white,
+                      // ),
+                      Text(".")
                     ]));
                   }
   

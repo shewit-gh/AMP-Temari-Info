@@ -1,9 +1,12 @@
 
 import 'package:flutter/material.dart';
 import 'package:temari_info_flutter/presentation/shared/navBar_Widget.dart';
+import 'package:temari_info_flutter/auth/user_secure_storage.dart';
 
 class User extends StatelessWidget {
   static const String routeName = "/user";
+  final current_username = UserSecureStorage.getUsername();
+  final current_email = UserSecureStorage.getEmail();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -14,7 +17,7 @@ class User extends StatelessWidget {
 
 
       body: Container(
-        child: profile("Abebe","abebe@gmail.com", " "),
+        child: profile(current_username,current_email),
       ),
       
 
@@ -26,7 +29,7 @@ class User extends StatelessWidget {
 }
 
 
-Widget profile(String username, String email, String? bio ){
+Widget profile(Future username, Future email ){
   return Container(
     child: Column(
       children: [
@@ -95,20 +98,20 @@ Widget profile(String username, String email, String? bio ){
           ],
         ),
         SizedBox(height: 30,),
-        Row(
-          children: [
-            Icon(Icons.edit_rounded),
-            SizedBox(width: 50,),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text('${bio}'),
-                SizedBox(height: 10,),
-                Text("Bio", style: TextStyle(color: Colors.blueGrey),)
-              ],
-            )
-          ],
-        )
+        // Row(
+        //   children: [
+        //     Icon(Icons.edit_rounded),
+        //     SizedBox(width: 50,),
+        //     Column(
+        //       crossAxisAlignment: CrossAxisAlignment.start,
+        //       children: [
+        //         Text('${bio}'),
+        //         SizedBox(height: 10,),
+        //         Text("Bio", style: TextStyle(color: Colors.blueGrey),)
+        //       ],
+        //     )
+        //   ],
+        // )
       ],
 
     ));

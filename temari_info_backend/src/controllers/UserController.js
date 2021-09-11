@@ -28,15 +28,32 @@ const getUser = async (req, res, next) => {
 const updateUser = async ( req, res, next) => {
   try {
     userId = req.params.userId
-    const { email, username, password } = req.body;
+    
+    const updatedUser = { };
+    for (const ops of req.body) {
+      updatedUser[ops.propName] = ops.value;
+  }
+  if (password in updatedUser){
     encryptedPassword = await bcrypt.hash(password, 10);
-    const updatedUser = {
-      email: email,
-      username: username,
-      password: encryptedPassword
-    };
-    user = await User.findOneAndUpdate({"_id":userId},updatedUser, {new: true})
-    res.status(200).send(user)
+    updatedUser[password] = encryptedPassword
+  }
+  if (username in updatedUser){
+    const oldUser = await User.findOne({"email": updatedUser[email] },);
+
+  if (oldUser._id != userId) {
+    return res.status(409).send("Email Already Exist");
+  }
+  }
+    user = await User.findOneAndUpdate({"_id":userId},{$set:updatedUser}, {new: true})
+
+    const token = jwt.sign(
+      { user_id: user._id,email: user.email,role:user.role,username:user.username },
+      process.env.TOKEN_KEY,
+      {
+        expiresIn: "2h",
+      }
+    );
+    res.status(200).send(token)
 
   } catch (error) {
     res.status(500)
@@ -76,7 +93,7 @@ const addUniversityUser = async (req, res, next) => {
             }).save();
       
             const token = jwt.sign(
-              { user_id: user._id, email },
+              { user_id: user._id,email: user.email,role:user.role,username:user.username },
               process.env.TOKEN_KEY,
               {
                 expiresIn: "2h",
