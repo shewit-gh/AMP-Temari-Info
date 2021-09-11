@@ -102,7 +102,7 @@ class UnivAdd extends StatelessWidget {
                       ),
                     ),
                   ]))),
-      bottomNavigationBar: bottomnav(),
+      bottomNavigationBar: bottomnav(context),
     );
   }
 }

@@ -61,6 +61,9 @@ class MyApp extends StatelessWidget {
         BlocProvider<UniBloc>(
           create: (context) => UniBloc(uniRepo),
         ),
+        BlocProvider<SearchBloc>(
+          create: (context) => SearchBloc(uniRepo),
+        ),
         BlocProvider<RatingBloc>(
           create: (context) => RatingBloc(_ratingRepo),
         ),
@@ -86,7 +89,7 @@ class MyApp extends StatelessWidget {
           ),
           initialRoute: Home.routeName,
           routes: {
-            University.routeName: (BuildContext context) => University(),
+            UniversityDetail.routeName: (BuildContext context) => UniversityDetail(),
             Institute.routeName: (BuildContext context) => Institute(),
             Home.routeName: (BuildContext context) => Home(),
             Admin.routeName: (BuildContext context) => Admin(),
@@ -94,7 +97,7 @@ class MyApp extends StatelessWidget {
             Signup.routeName: (BuildContext context) => Signup(),
             EditUniv.routeName: (BuildContext context) => EditUniv(),
             EditInst.routeName: (BuildContext context) => EditInst(),
-            User.routeName: (BuildContext context) => User(),
+            Userp.routeName: (BuildContext context) => Userp(),
             Search.routeName: (BuildContext context) => Search(),
             Report.routeName: (BuildContext context) => Report(),
             AddDepartment.routeName: (BuildContext context) => AddDepartment(),

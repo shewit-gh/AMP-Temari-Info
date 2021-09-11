@@ -1,3 +1,5 @@
+import 'dart:html';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:temari_info_flutter/University/bloc/blocs.dart';
 import 'package:temari_info_flutter/University/repository/university_repository.dart';
@@ -21,7 +23,7 @@ class UniBloc extends Bloc<UniversityEvent, UniversityState> {
     }
 
     if (event is UniversityLoad) {
-      yield UniversityLoading();
+      // yield UniversityLoading();
       try {
         final universitys = await universityRepository.fetchByCode(event.id);
         // print(universitys);
@@ -61,5 +63,30 @@ class UniBloc extends Bloc<UniversityEvent, UniversityState> {
         yield UniversityOperationFailure();
       }
     }
+  }
+}
+
+//Search result page bloc
+class SearchBloc extends Bloc<SearchEvent, SearchState> {
+  final UniversityRepository universityRepository;
+
+  SearchBloc(this.universityRepository) : super(UnivSearchLoading());
+
+  @override
+  Stream<SearchState> mapEventToState(SearchEvent event) async* {
+    if (event is UnivSearchLoad) {
+      // yield UniversityLoading()
+      try {
+        final universitys =
+            await universityRepository.fetchByName(event.univName);
+        // print(universitys);
+        yield UnivSearchSuccess(universitys);
+      } catch (_) {
+        yield UnivSearchFailure();
+      }
+    }
+    // if (event is SearchRefresh){
+    //   yield (UnivSearchLoading());
+    // }
   }
 }

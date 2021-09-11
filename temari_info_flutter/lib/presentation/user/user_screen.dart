@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:temari_info_flutter/presentation/shared/navBar_Widget.dart';
 
-class User extends StatelessWidget {
+class Userp extends StatelessWidget {
   static const String routeName = "/user";
   @override
   Widget build(BuildContext context) {
@@ -20,7 +20,7 @@ class User extends StatelessWidget {
 
 
 
-      bottomNavigationBar: bottomnav(),
+      bottomNavigationBar: bottomnav(context),
     );
   }
 }

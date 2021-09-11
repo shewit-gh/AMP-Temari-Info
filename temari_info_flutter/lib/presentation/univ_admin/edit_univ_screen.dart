@@ -127,7 +127,7 @@ class EditUniv extends StatelessWidget {
           ],
         ),
       ),
-      bottomNavigationBar: bottomnav(),
+      bottomNavigationBar: bottomnav(context),
     );
   }
 }

@@ -1,5 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:path/path.dart';
+import 'package:temari_info_flutter/auth/models/auth_model.dart';
+import 'package:temari_info_flutter/presentation/about/about_us.dart';
+import 'package:temari_info_flutter/presentation/contact/contact_screen.dart';
+import 'package:temari_info_flutter/presentation/home/home_screen.dart';
 import 'package:temari_info_flutter/presentation/universities/universities.dart';
+import 'package:temari_info_flutter/presentation/user/edit_profile_screen.dart';
+import 'package:temari_info_flutter/presentation/user/user_screen.dart';
 
 Widget drawer(BuildContext context) {
   return Drawer(
@@ -20,45 +27,29 @@ Widget drawer(BuildContext context) {
           leading: Icon(Icons.info),
           title: const Text('About us'),
           onTap: () {
-            // Update the state of the app
-            // ...
-            // Then close the drawer
-            Navigator.pop(context);
+            Navigator.pushNamed(context, About.routeName);
           },
         ),
         ListTile(
           leading: Icon(Icons.school),
           title: const Text('Universities'),
           onTap: () {
-            
             // Update the state of the app
-            Navigator.pushNamed(
-              context,
-              Universities.routeName
-              
-            );
-            
-            
+            Navigator.pushNamed(context, Universities.routeName);
           },
         ),
         ListTile(
           leading: Icon(Icons.account_circle),
           title: const Text('Profile'),
           onTap: () {
-            // Update the state of the app
-            // ...
-            // Then close the drawer
-            Navigator.pop(context);
+            Navigator.pushNamed(context, Userp.routeName);
           },
         ),
         ListTile(
           leading: Icon(Icons.help_outline),
           title: const Text('contact'),
           onTap: () {
-            // Update the state of the app
-            // ...
-            // Then close the drawer
-            Navigator.pop(context);
+            Navigator.pushNamed(context, Contact.routeName);
           },
         ),
         ListTile(
@@ -75,8 +66,6 @@ Widget drawer(BuildContext context) {
     ),
   );
 }
-
-
 
 Widget navtop() {
   return AppBar(
@@ -103,12 +92,14 @@ Widget navtop() {
 }
 
 
-Widget bottomnav() {
+
+Widget bottomnav2() {
   return BottomNavigationBar(
     backgroundColor: Colors.black12,
     selectedItemColor: Colors.teal,
     items: const <BottomNavigationBarItem>[
       BottomNavigationBarItem(
+        
         icon: Icon(Icons.home),
         label: 'Home',
       ),
@@ -120,6 +111,33 @@ Widget bottomnav() {
         icon: Icon(Icons.person),
         label: 'Profile',
       ),
+    ],
+  );
+}
+
+Widget bottomnav(BuildContext context) {
+  return Row(
+    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+    children: [
+      // SizedBox(width: 5,),
+      IconButton(
+        onPressed: (){
+          Navigator.pushNamed(context, Home.routeName);
+        }, 
+        icon:Icon(Icons.home, size: 30), ),
+      SizedBox(width: 20,),
+      IconButton(
+        onPressed: (){
+            Navigator.pushNamed(context, Home.routeName);
+        }, 
+        icon:Icon(Icons.search, size: 30), ),
+      SizedBox(width: 20,),
+      IconButton(
+        onPressed: (){
+            Navigator.pushNamed(context, Userp.routeName);
+        }, 
+        icon:Icon(Icons.person, size: 30), )
+
     ],
   );
 }

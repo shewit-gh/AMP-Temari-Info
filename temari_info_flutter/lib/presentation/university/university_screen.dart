@@ -7,7 +7,7 @@ import 'package:temari_info_flutter/presentation/institute/institute_screen.dart
 
 import 'package:temari_info_flutter/presentation/shared/navBar_Widget.dart';
 
-class University extends StatelessWidget {
+class UniversityDetail extends StatelessWidget {
   static const String routeName = "/university";
 //  final http.Client ;
 
@@ -152,7 +152,7 @@ class University extends StatelessWidget {
                       itemCount: univ[0]['comment'].length,
                       itemBuilder: (context, index) {
                         print('object');
-                        print(univ[0]['comment'][1]['user_id']);
+                        print(univ[0]['comment']);
                         return CommentList(comments: univ[0]['comment'][index]);
                       },
                     ),
@@ -166,7 +166,7 @@ class University extends StatelessWidget {
           );
         },
       ),
-      bottomNavigationBar: bottomnav(),
+      bottomNavigationBar: bottomnav(context),
     );
   }
 }

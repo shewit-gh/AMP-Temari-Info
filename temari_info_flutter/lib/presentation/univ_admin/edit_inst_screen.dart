@@ -124,7 +124,7 @@ class EditInst extends StatelessWidget {
           ],
         ),
       ),
-      bottomNavigationBar: bottomnav(),
+      bottomNavigationBar: bottomnav(context),
     );
   }
 }

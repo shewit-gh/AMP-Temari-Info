@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:path/path.dart';
+import 'package:temari_info_flutter/presentation/search/search_screen.dart';
 import 'package:temari_info_flutter/presentation/shared/navBar_Widget.dart';
 import 'package:temari_info_flutter/rating/blocs/rating_bloc.dart';
 import 'package:temari_info_flutter/rating/blocs/rating_event.dart';
@@ -23,7 +25,7 @@ class Home extends StatelessWidget {
           child: Column(children: [
             Container(
               margin: EdgeInsets.all(20),
-              child: _search(),
+              child: _search(searchcont, context),
             ),
             ListView.builder(
                 physics: NeverScrollableScrollPhysics(),
@@ -34,13 +36,14 @@ class Home extends StatelessWidget {
                 }),
           ])),
       drawer: drawer(context),
-      bottomNavigationBar: bottomnav(),
+      bottomNavigationBar: bottomnav(context),
     );
   }
 }
 
 //search widget
-Widget _search() {
+TextEditingController searchcont =TextEditingController();
+Widget _search(TextEditingController searchcont, BuildContext context) {
   return Row(
     //arrange the alignment
     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -51,6 +54,13 @@ Widget _search() {
         margin: EdgeInsets.only(bottom: 50, top: 10),
         child: Form(
             child: TextFormField(
+               validator: (value) {
+              if (value == null || value.isEmpty) {
+                return 'Please enter some text';
+              }
+              return null;
+            },
+              controller: searchcont,
           style: TextStyle(color: Colors.black, fontSize: 14),
           decoration: InputDecoration(
               fillColor: Colors.white,
@@ -73,15 +83,18 @@ Widget _search() {
       ),
       Container(
         margin: EdgeInsets.only(bottom: 40),
-        child: _searchButton(),
+        child: _searchButton(context),
       ),
     ],
   );
 }
 
 //search button
-Widget _searchButton() {
-  return ElevatedButton(onPressed: () {}, child: Text('Search'));
+
+Widget _searchButton(BuildContext context) {
+  return ElevatedButton(onPressed: () {
+    Navigator.pushNamed(context, Search.routeName, arguments: searchcont.text);
+  }, child: Text('Search'));
 }
 
 final RatingRepo _ratingRepo =

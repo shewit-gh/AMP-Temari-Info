@@ -98,7 +98,7 @@ class Contact extends StatelessWidget {
                     )
                   ]))),
       drawer: drawer(context),
-      bottomNavigationBar: bottomnav(),
+      bottomNavigationBar: bottomnav(context),
     );
   }
 }

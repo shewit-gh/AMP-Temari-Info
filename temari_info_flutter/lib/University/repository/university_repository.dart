@@ -26,5 +26,9 @@ class UniversityRepository {
     return this.dataProvider.fetchByCode(id);
   }
 
+  Future<List> fetchByName(String univName) async {
+    return this.dataProvider.fetchByName(univName);
+  }
+
 
 }
