@@ -13,21 +13,6 @@ class AddInst extends StatelessWidget {
          padding: EdgeInsets.all(10),
          child: ListView(
            children: <Widget>[
-         
-        // Center(
-        // child: Padding(
-        // padding: const EdgeInsets.symmetric(vertical: 50.0,horizontal: 25.0),
-        //  child: Card(  
-        //   shape: RoundedRectangleBorder(  
-        //     borderRadius: BorderRadius.circular(15.0), 
-             
-        //   ),
-        //   color: Colors.white,
-        // child: Form(
-      
-        //   child: Column(
-            
-        //    crossAxisAlignment: CrossAxisAlignment.stretch,
         SizedBox(height: 50),
         Container(
               child:Text('Add Institue', 

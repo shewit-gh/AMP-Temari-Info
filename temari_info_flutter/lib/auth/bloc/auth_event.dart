@@ -17,11 +17,28 @@ class SignUpEvent extends AuthEvent {
 }
 
 class SignOutEvent extends AuthEvent {
-  final User user;
+  
+  SignOutEvent();
+}
+
+class EditProfileEvent extends AuthEvent {
+  final String username;
+  final String email;
+
+  EditProfileEvent({required this.username,required this.email});
+
+  }
+
+class ChangePasswordEvent extends AuthEvent {
+  final String password;
   
 
-  SignOutEvent({required this.user});
-}
+  ChangePasswordEvent({required this.password});
+  }
+
+class DeleteAccountEvent extends AuthEvent {
+  
+  }
 
 class ForgotPasswordEvent extends AuthEvent {
   final String email;

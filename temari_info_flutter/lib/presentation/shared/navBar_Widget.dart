@@ -1,4 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:temari_info_flutter/auth/bloc/auth_bloc.dart';
+import 'package:temari_info_flutter/auth/bloc/auth_event.dart';
+import 'package:temari_info_flutter/auth/bloc/auth_state.dart';
+import 'package:temari_info_flutter/presentation/login/login_screen.dart';
 import 'package:path/path.dart';
 import 'package:temari_info_flutter/auth/models/auth_model.dart';
 import 'package:temari_info_flutter/presentation/about/about_us.dart';
@@ -42,6 +47,12 @@ Widget drawer(BuildContext context) {
           leading: Icon(Icons.account_circle),
           title: const Text('Profile'),
           onTap: () {
+
+            // Update the state of the app
+            // ...
+            // Then close the drawer
+            Navigator.pop(context);
+
             Navigator.pushNamed(context, Userp.routeName);
           },
         ),
@@ -53,10 +64,23 @@ Widget drawer(BuildContext context) {
           },
         ),
         ListTile(
+  
           leading: Icon(Icons.logout),
           title: const Text('Log out'),
           onTap: () {
             // Update the state of the app
+            BlocConsumer<AuthBloc, AuthState>(
+                listener: (ctx, authState) {},
+                builder: (ctx, authState) {
+                
+                 final authBloc = BlocProvider.of<AuthBloc>(context);
+
+                      authBloc.add(
+                        SignOutEvent(),
+                      );
+                  return CircularProgressIndicator();
+                },
+              );
             // ...
             // Then close the drawer
             Navigator.pop(context);

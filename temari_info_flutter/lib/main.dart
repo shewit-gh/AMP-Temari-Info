@@ -21,6 +21,8 @@ import 'package:temari_info_flutter/presentation/univ_admin/edit_inst_screen.dar
 import 'package:temari_info_flutter/presentation/univ_admin/edit_univ_screen.dart';
 import 'package:temari_info_flutter/presentation/university/university_screen.dart';
 import 'package:temari_info_flutter/presentation/user/user_screen.dart';
+import 'package:temari_info_flutter/presentation/user/change_password_screen.dart';
+
 import 'package:temari_info_flutter/presentation/about/about_us.dart';
 import 'package:temari_info_flutter/presentation/user/edit_profile_screen.dart';
 import 'package:temari_info_flutter/presentation/login/forgot_password_screen.dart';
@@ -91,8 +93,9 @@ class MyApp extends StatelessWidget {
             primarySwatch: Colors.teal,
             brightness: Brightness.dark,
           ),
-          initialRoute: Home.routeName,
-          routes: {
+
+          initialRoute: UnivAdd.routeName,
+            routes: {
             UniversityDetail.routeName: (BuildContext context) =>
                 UniversityDetail(),
             Institute.routeName: (BuildContext context) => Institute(),
@@ -118,6 +121,7 @@ class MyApp extends StatelessWidget {
                 SetNewPassword(),
             Universities.routeName: (BuildContext context) => Universities(),
             Reports.routeName: (BuildContext context) => Universities(),
+            ChangePassword.routeName:(BuildContext context) => ChangePassword()
           }),
     );
   }
