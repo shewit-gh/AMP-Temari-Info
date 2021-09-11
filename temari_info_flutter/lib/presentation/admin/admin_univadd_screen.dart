@@ -1,33 +1,33 @@
-//import 'dart:js';
-
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:temari_info_flutter/University/bloc/uni_bloc.dart';
+import 'package:temari_info_flutter/University/bloc/university_event.dart';
+import 'package:temari_info_flutter/University/model/university.dart';
+import 'package:temari_info_flutter/University/bloc/university_state.dart';
+import 'package:temari_info_flutter/presentation/univ_admin/edit_univ_screen.dart';
+
 import 'package:temari_info_flutter/presentation/shared/navBar_Widget.dart';
 
-Widget text(String text, double fsize) {
-  return Text(
-    text,
-    textAlign: TextAlign.left,
-    textDirection: TextDirection.ltr,
-    style: TextStyle(
-        color: Colors.blueGrey, fontSize: fsize, fontWeight: FontWeight.bold),
-  );
-}
-
-Widget textField(double? height, int? maxline) {
+Widget textField(String text, double? height, int? maxline,
+    TextEditingController controller) {
   return Container(
       height: height,
       child: TextFormField(
+        controller: controller,
         maxLines: maxline,
         style: TextStyle(color: Colors.black, fontSize: 14),
         decoration: InputDecoration(
-          fillColor: Colors.white,
-          filled: true,
+          labelText: text,
+          labelStyle: TextStyle(fontSize: 20),
+          // fillColor: Colors.white,
+          // filled: true,
+          //errorText: validate ? 'Value Can\'t Be Empty' : null,
           enabledBorder: OutlineInputBorder(
-            borderSide: const BorderSide(color: Colors.black38, width: 2.0),
+            //borderSide: const BorderSide(color: Colors.black38, width: 2.0),
             borderRadius: BorderRadius.circular(10.0),
           ),
           focusedBorder: OutlineInputBorder(
-            borderSide: const BorderSide(color: Colors.black12, width: 2.0),
+            // borderSide: const BorderSide(color: Colors.black12, width: 2.0),
             borderRadius: BorderRadius.circular(10.0),
           ),
         ),
@@ -35,6 +35,9 @@ Widget textField(double? height, int? maxline) {
 }
 
 class UnivAdd extends StatelessWidget {
+  TextEditingController firstcontroller = TextEditingController();
+  TextEditingController secondcontroller = TextEditingController();
+
   static const String routeName = "/univadd";
   @override
   Widget build(BuildContext context) {
@@ -47,7 +50,7 @@ class UnivAdd extends StatelessWidget {
               width: 500,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(15),
-                color: Colors.white,
+                //color: Colors.white,
               ),
               margin: EdgeInsets.all(20),
               padding: EdgeInsets.all(20),
@@ -67,8 +70,8 @@ class UnivAdd extends StatelessWidget {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceEvenly,
                                 children: [
-                              text(" Name", 20),
-                              textField(58, 2)
+                              //text(" Name", 20),
+                              textField("your name", 58, 2, firstcontroller)
                             ]),
                       ),
                     ),
@@ -82,21 +85,43 @@ class UnivAdd extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
-                              text("Your Description", 20),
+                              // text("Your Description", 20),
                               SizedBox(
                                 height: 15,
                               ),
-                              textField(150, 25),
+                              textField("your description", 150, 25,
+                                  secondcontroller),
                               SizedBox(
                                 height: 40,
                               ),
-                              SizedBox(
-                                height: 50,
-                                width: double.infinity,
-                                child: ElevatedButton(
-                                  onPressed: () {},
-                                  child: Text('Send message'),
-                                ),
+                              BlocConsumer<UniBloc, UniversityState>(
+                                listener: (context, state) {
+                                  if (state is UniversityOperationFailure) {
+                                    print("failed fetchig");
+                                  }
+                                  if (state is UniversityOperationSuccess) {
+                                    print(state.Universitys);
+                                    Navigator.of(context)
+                                        .pushNamed(EditUniv.routeName);
+                                  }
+                                },
+                                builder: (context, state) {
+                                  return SizedBox(
+                                    height: 50,
+                                    width: double.infinity,
+                                    child: ElevatedButton(
+                                      onPressed: () {
+                                        final uniBloc =
+                                            BlocProvider.of<UniBloc>(context);
+                                        uniBloc.add(UniversityCreate(University(
+                                            univ_name: firstcontroller.text,
+                                            description:
+                                                secondcontroller.text)));
+                                      },
+                                      child: Text('Send message'),
+                                    ),
+                                  );
+                                },
                               )
                             ]),
                       ),

@@ -9,37 +9,43 @@ class AddInst extends StatelessWidget {
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(60.0),
         child: navtop()),
-       body: Center(
-        child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 50.0,horizontal: 25.0),
-         child: Card(  
-          shape: RoundedRectangleBorder(  
-            borderRadius: BorderRadius.circular(15.0), 
+       body:Padding(
+         padding: EdgeInsets.all(10),
+         child: ListView(
+           children: <Widget>[
+         
+        // Center(
+        // child: Padding(
+        // padding: const EdgeInsets.symmetric(vertical: 50.0,horizontal: 25.0),
+        //  child: Card(  
+        //   shape: RoundedRectangleBorder(  
+        //     borderRadius: BorderRadius.circular(15.0), 
              
-          ),
-          color: Colors.white,
-        child: Form(
+        //   ),
+        //   color: Colors.white,
+        // child: Form(
       
-          child: Column(
+        //   child: Column(
             
-           crossAxisAlignment: CrossAxisAlignment.stretch,
-           
-            children: [
-              Text('Add Institue', 
+        //    crossAxisAlignment: CrossAxisAlignment.stretch,
+        SizedBox(height: 50),
+        Container(
+              child:Text('Add Institue', 
               textAlign:TextAlign.center, 
               style:TextStyle(
-                color: Colors.black,
-                fontSize: 30 ),),
-              Padding(
-              padding: const EdgeInsets.all(25)),
-            
-              Text('Name',
+                
+                fontSize: 30 ),)),
+              // Padding(
+              // padding: const EdgeInsets.all(25)),
+        Container(
+          padding: EdgeInsets.all(10),
+          child:Text('Name',
               textAlign: TextAlign.left,
               textDirection:TextDirection.ltr,
-              style: TextStyle(color: Colors.black,
-              fontSize:22.0,
-              )),
-              
+              ),),
+        Container(
+          padding: EdgeInsets.all(10),
+          child:
               TextFormField(
                obscureText: true,   
               decoration: InputDecoration(
@@ -47,13 +53,17 @@ class AddInst extends StatelessWidget {
                 hintText: 'Enter name',
                 labelText: 'Name',)
 
-              ),
+              ),),
+        Container(
+          padding: EdgeInsets.all(10),
+          child:
               Text('Phone',
               textAlign: TextAlign.left,
               textDirection:TextDirection.ltr,
-               style: TextStyle(color: Colors.black,
-              fontSize:22.0,
-              )),
+        ),),
+        Container(
+          padding: EdgeInsets.all(10),
+          child:
               TextFormField(
                 obscureText: true,  
               decoration: InputDecoration(
@@ -61,14 +71,19 @@ class AddInst extends StatelessWidget {
                 hintText: 'Enter Phone',
                 labelText: 'Phone',)
 
-              ),
+              ),),
+        Container(
+          padding: EdgeInsets.all(10),
+          child:
               Text('Email',
 
               textAlign: TextAlign.left,
               textDirection:TextDirection.ltr,
-               style: TextStyle(color: Colors.black,
-              fontSize:22.0,
-              )),
+     
+              ),),
+        Container(
+          padding: EdgeInsets.all(10),
+          child:
               TextFormField(
               obscureText: true,  
               decoration: InputDecoration(
@@ -77,15 +92,17 @@ class AddInst extends StatelessWidget {
                 labelText: 'email',
                  ),
   
-              ),
-
-            
+              ),),
+        Container(
+          padding: EdgeInsets.all(10),
+          child:
               Text('Description',
               textAlign: TextAlign.left,
-              textDirection:TextDirection.ltr, style: TextStyle(color: Colors.black,
-              fontSize:22.0,
-              )),
-              Container( 
+              textDirection:TextDirection.ltr, style: TextStyle(
+
+              )),),
+         Container( 
+           padding: EdgeInsets.all(10),
                 
                 child:TextFormField(
                   obscureText: true,  
@@ -96,24 +113,18 @@ class AddInst extends StatelessWidget {
 
               )),
                Container(
-                  height: 50.0,
-                  decoration: BoxDecoration(
-                    color: Colors.teal,
-                    borderRadius: BorderRadius.circular(100.0),
-                  ),
-                  alignment: Alignment.center,
-                  child: Text(
-                    "submit",
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 22.0,
-                    ),
-                  ),
+                height: 50,
+                    padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
+                    child: ElevatedButton(                  
+                      child: Text('Sumbit'),
+                      onPressed: () {
+                      },
+                    )
                 ),
               
             ],
           ),
-    )))),
+    ),
     bottomNavigationBar: bottomnav(context),);
   }
 }

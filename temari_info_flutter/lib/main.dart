@@ -44,7 +44,7 @@ void main() {
 final RatingRepo _ratingRepo =
     RatingRepo(dataProvider: RatingDataProvider(httpClient: http.Client()));
 final AuthRepository _authRepo =
-    AuthRepository(dataProvider: AuthDataProvider());
+    AuthRepository(dataProvider: AuthDataProvider(httpClient: http.Client()));
 final InstituteRepository instRepo = InstituteRepository(
     dataProvider: InstituteDataProvider(httpClient: http.Client()));
 final UniversityRepository uniRepo = UniversityRepository(

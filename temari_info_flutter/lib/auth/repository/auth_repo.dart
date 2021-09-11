@@ -17,11 +17,11 @@ class AuthRepository {
   Future<String?> signOut(User user) async {
     return this.dataProvider.signOut(user);
   }
-  Future<User> forgotPassword(String email) async {
+  Future<String> forgotPassword(String email) async {
     return this.dataProvider.forgotPassword(email);
   }
 
-  Future<User> resetPassword(String reset_link, String password) async {
+  Future<String> resetPassword(String reset_link, String password) async {
     return this.dataProvider.resetPassword(reset_link, password);
   }
 

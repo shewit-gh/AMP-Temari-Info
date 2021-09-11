@@ -99,8 +99,8 @@ class Login extends StatelessWidget {
                  
                   if (authState is SigninInprogress) {
                     buttonChild = SizedBox(
-                      height: 20,
-                      width: 20,
+                      height: 4,
+                      width: 4,
                       child: Row(children:[CircularProgressIndicator(
                         color: Colors.white,
                       ),
@@ -118,7 +118,7 @@ class Login extends StatelessWidget {
                   height: 50,
                     padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
                     child:ElevatedButton(
-                    onPressed: disabled? (){} : () {
+                    onPressed: () {
                       final authBloc = BlocProvider.of<AuthBloc>(context);
 
                       authBloc.add(

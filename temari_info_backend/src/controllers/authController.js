@@ -22,7 +22,7 @@ async function signIn(req, res) {
     if (user && (await bcrypt.compare(password, user.password))) {
       console.log(user)
       const token = jwt.sign(
-        { user_id: user._id, email:email, role:user.role },
+        { user_id: user._id, email:user.email, role:user.role },
         TOKEN_KEY,
         {
           expiresIn: "2h",
@@ -31,7 +31,7 @@ async function signIn(req, res) {
 
       
       user.token = token;
-    res.status(200).json(user.token);
+    res.status(200).json({"token":user.token});
     }
     
     res.status(400).send("Invalid Credentials");
@@ -47,8 +47,8 @@ async function signOut(req, res) {
   
     const user = await User.findOne({ "email":email });
     if (user) {
-      user.token = "";
-    res.status(200).json(user.token);
+      user.token = null;
+      res.status(200).json({"token":user.token});
     }
     
     res.status(400).send("Unable to do operation");
@@ -81,7 +81,7 @@ async function signUp(req, res) {
 
       
       const token = jwt.sign(
-        { user_id: user._id,email: email,role:user.role },
+        { user_id: user._id,email: user.email,role:user.role },
         TOKEN_KEY,
         {
           expiresIn: "2h",
@@ -89,7 +89,7 @@ async function signUp(req, res) {
       );
       user.token = token;
       
-      res.status(201).json(user.token);
+      res.status(201).json({"token":user.token});
   } catch (error) {
     res.status(500)
   }

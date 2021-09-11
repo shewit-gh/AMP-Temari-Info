@@ -1,18 +1,18 @@
 class University {
   final int? id;
-  final String univ_name;
-  final String short_name;
-  final String location;
+  final String? univ_name;
+  final String? short_name;
+  final String? location;
   final String? description;
   final List<Object>? institute;
   final List<Object>? comment;
   final List<Object>? rating;
 
   University(
-      {required this.id,
-      required this.univ_name,
-      required this.short_name,
-      required this.location,
+      {this.id,
+      this.univ_name,
+      this.short_name,
+      this.location,
       this.description,
       this.institute,
       this.comment,

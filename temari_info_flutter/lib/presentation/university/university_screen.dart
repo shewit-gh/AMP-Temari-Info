@@ -1,5 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:http/http.dart' as http;
+import 'package:temari_info_flutter/comment/blocs/comment_bloc.dart';
+import 'package:temari_info_flutter/comment/blocs/comment_event.dart';
+import 'package:temari_info_flutter/comment/blocs/comment_state.dart';
+import 'package:temari_info_flutter/comment/data_provider/comment_data.dart';
+import 'package:temari_info_flutter/comment/repo/comment_repo2.dart';
 import 'package:temari_info_flutter/University/bloc/uni_bloc.dart';
 import 'package:temari_info_flutter/University/bloc/university_event.dart';
 import 'package:temari_info_flutter/University/bloc/university_state.dart';
