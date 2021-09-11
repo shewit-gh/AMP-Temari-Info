@@ -107,13 +107,11 @@ module.exports ={
     },
 
  //UPDATE   
-    patch: (req, res)=>{
-        const id = req.params.instId;
-        const UpdateOps = {};
-        for (const ops of req.body){
-            UpdateOps[ops.propName] = ops.value;
-        }
-        Institute.updateMany({_id:id}, {$set: UpdateOps}).exec()
+    put: (req, res)=>{
+        
+        Institute.findByIdAndUpdate({ _id: req.params.instId},
+            { $set: req.body})
+        .exec()
         .then(result =>{
             console.log(result);
             res.status(200).json({

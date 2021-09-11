@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:temari_info_flutter/University/bloc/uni_bloc.dart';
-import 'package:temari_info_flutter/editUniversity/blocs/editUniv_event.dart';
-import 'package:temari_info_flutter/editUniversity/blocs/edituniv_bloc.dart';
-import 'package:temari_info_flutter/editUniversity/blocs/edituniv_state.dart';
-import 'package:temari_info_flutter/editUniversity/model/editunivmodel.dart';
+import 'package:temari_info_flutter/editInstitute/bloc/edit_inst_bloc.dart';
+import 'package:temari_info_flutter/editInstitute/bloc/edit_inst_event.dart';
+import 'package:temari_info_flutter/editInstitute/bloc/edit_inst_state.dart';
+import 'package:temari_info_flutter/institute/model/institute_model.dart';
+import 'package:temari_info_flutter/presentation/univ_admin/edit_inst_screen.dart';
 import 'package:temari_info_flutter/presentation/univ_admin/edit_univ_screen.dart';
 
 import 'package:temari_info_flutter/presentation/shared/navBar_Widget.dart';
@@ -35,33 +35,33 @@ Widget textField(String text, double? height, int? maxline,
       ));
 }
 
-class EditUnivForm extends StatelessWidget {
+class EditInstForm extends StatelessWidget {
 
-  static const String routeName = "/univedit";
+  static const String routeName = "/instedit";
   @override
   Widget build(BuildContext context) {
-    final univ = ModalRoute.of(context)?.settings.arguments as Map;
+    final inst = ModalRoute.of(context)?.settings.arguments as Map;
     final TextEditingController firstcontroller =
-        TextEditingController(text: univ['name']);
+        TextEditingController(text: inst['name']);
     final TextEditingController secondcontroller =
-        TextEditingController(text: univ['short_name']);
+        TextEditingController(text: inst['description']);
     final TextEditingController thirdcontroller =
-        TextEditingController(text: univ['location']);
+        TextEditingController(text: inst['email']);
     final TextEditingController forthcontroller =
-        TextEditingController(text: univ['description']);
+        TextEditingController(text: inst['phone']);
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar:
           PreferredSize(preferredSize: Size.fromHeight(60.0), child: navtop()),
-      body: BlocConsumer<EditUnivBloc, UnivEditState>(
+      body: BlocConsumer<EditInstBloc, InstEditState>(
         listener: (context, state) {
           print(state);
-          if (state is EditUnivFailure) {
+          if (state is EditInstFailure) {
             print("failed updating");
           }
-          if (state is EditUnivSuccess) {
+          if (state is EditInstSuccess) {
             print(state);
-            Navigator.of(context).pushNamed(EditUniv.routeName);
+            Navigator.of(context).pushNamed(EditInst.routeName);
           }
         },
         builder: (context, state) {
@@ -94,7 +94,7 @@ class EditUnivForm extends StatelessWidget {
                                     children: [
                                   //text(" Name", 20),
                                   textField(
-                                      "University Name", 58, 2, firstcontroller)
+                                      "Institute Name", 58, 2, firstcontroller)
                                 ]),
                           ),
                         ),
@@ -112,7 +112,7 @@ class EditUnivForm extends StatelessWidget {
                                         MainAxisAlignment.spaceEvenly,
                                     children: [
                                   //text(" Name", 20),
-                                  textField("your short name", 58, 2,
+                                  textField("Description", 58, 2,
                                       secondcontroller)
                                 ]),
                           ),
@@ -132,7 +132,7 @@ class EditUnivForm extends StatelessWidget {
                                     children: [
                                   //text(" Name", 20),
                                   textField(
-                                      "your location", 58, 2, thirdcontroller)
+                                      "Email", 58, 2, thirdcontroller)
                                 ]),
                           ),
                         ),
@@ -150,7 +150,7 @@ class EditUnivForm extends StatelessWidget {
                                   SizedBox(
                                     height: 5,
                                   ),
-                                  textField("your description", 150, 25,
+                                  textField("Phone", 150, 25,
                                       forthcontroller),
                                   SizedBox(
                                     height: 10,
@@ -160,17 +160,18 @@ class EditUnivForm extends StatelessWidget {
                                     width: double.infinity,
                                     child: ElevatedButton(
                                       onPressed: () {
-                                        print(univ["id"]);
+                                        print(inst["id"]);
                                         final bloc =
-                                            BlocProvider.of<EditUnivBloc>(
+                                            BlocProvider.of<EditInstBloc>(
                                                 context);
-                                        bloc.add(UniversityUpdate(
-                                            univ["id"],
-                                            University(
-                                                univ_name:firstcontroller.text,
-                                                short_name:secondcontroller.text,
-                                                location:thirdcontroller.text,
-                                                description:forthcontroller.text)));
+                                        bloc.add(InstituteUpdate(
+                                            inst["id"],
+                                            Institute(
+                                                univ_id: inst['univ_id'],
+                                                inst_name:firstcontroller.text,
+                                                phone:forthcontroller.text,
+                                                email:thirdcontroller.text,
+                                                inst_description:secondcontroller.text,)));
                                       },
                                       child: Text('Update Edit'),
                                     ),

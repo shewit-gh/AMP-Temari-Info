@@ -1,0 +1,1 @@
+export 'package:temari_info_flutter/institute/data_provider/institute_data.dart';

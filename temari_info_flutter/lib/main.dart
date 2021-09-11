@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:temari_info_flutter/University/repository/university_repository.dart';
+import 'package:temari_info_flutter/editInstitute/bloc/edit_inst_bloc.dart';
+import 'package:temari_info_flutter/editInstitute/screen/edit_inst_form.dart';
 import 'package:temari_info_flutter/editUniversity/blocs/edituniv_bloc.dart';
 import 'package:temari_info_flutter/editUniversity/screen/edituniv_form.dart';
 import 'package:temari_info_flutter/institute/blocs/institute_bloc.dart';
@@ -75,10 +77,11 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider<InstituteBloc>(
             create: (context) => InstituteBloc(instRepo)),
+        BlocProvider<EditInstBloc>(
+          create: (context) => EditInstBloc(instRepo)),
         BlocProvider<EditUnivBloc>(
           create: (context) => EditUnivBloc(uniRepo)),
-        // ), BlocProvider<RatingBloc>(
-        //   create: (context) => RatingBloc(_ratingRepo),
+         
         // ), BlocProvider<RatingBloc>(
         //   create: (context) => RatingBloc(_ratingRepo),
         // ), BlocProvider<RatingBloc>(
@@ -93,7 +96,7 @@ class MyApp extends StatelessWidget {
             primarySwatch: Colors.teal,
             brightness: Brightness.dark,
           ), 
-          initialRoute: EditUniv.routeName,
+          initialRoute: EditInst.routeName,
           routes: {
             UniversityDetail.routeName: (BuildContext context) =>
                 UniversityDetail(),
@@ -121,6 +124,8 @@ class MyApp extends StatelessWidget {
             Universities.routeName: (BuildContext context) => Universities(),
             Reports.routeName: (BuildContext context) => Universities(),
             EditUnivForm.routeName:(BuildContext context) => EditUnivForm(),
+            EditInst.routeName:(BuildContext context) => EditInst(),
+            EditInstForm.routeName:(BuildContext context)=>EditInstForm(),
           }),
     );
   }
