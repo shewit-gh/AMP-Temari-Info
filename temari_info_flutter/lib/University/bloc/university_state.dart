@@ -8,7 +8,6 @@ abstract class UniversityState {
   List<Object> get props => [];
 }
 
-
 class UniversityLoading extends UniversityState {}
 
 class UniversityOperationSuccess extends UniversityState {
@@ -19,11 +18,16 @@ class UniversityOperationSuccess extends UniversityState {
   @override
   List<Object> get props => [Universitys];
 }
+
 class UniversityOperationFailure extends UniversityState {}
 
+class UniversityPosted extends UniversityState {
+  final University univ;
+  UniversityPosted(this.univ);
+}
 
 //search page state
-abstract class SearchState{
+abstract class SearchState {
   const SearchState();
   @override
   List<Object> get props => [];

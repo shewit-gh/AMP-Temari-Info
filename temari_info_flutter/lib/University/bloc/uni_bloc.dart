@@ -1,4 +1,3 @@
-
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:temari_info_flutter/University/bloc/blocs.dart';
 import 'package:temari_info_flutter/University/repository/university_repository.dart';
@@ -34,10 +33,14 @@ class UniBloc extends Bloc<UniversityEvent, UniversityState> {
 
     if (event is UniversityCreate) {
       try {
-        await universityRepository.create(event.university);
-        final Universitys = await universityRepository.fetchAll();
-        yield UniversityOperationSuccess(Universitys);
+        //await universityRepository.create(event.university);
+
+        final Universitys = await universityRepository
+            .create(event.university); //await universityRepository.fetchAll();
+        print(Universitys);
+        yield UniversityPosted(Universitys);
       } catch (_) {
+        print("fao");
         yield UniversityOperationFailure();
       }
     }

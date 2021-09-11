@@ -4,6 +4,7 @@ import 'package:temari_info_flutter/University/model/university.dart';
 abstract class UniversityEvent extends Equatable {
   const UniversityEvent();
 }
+
 class UniversityListLoad extends UniversityEvent {
   const UniversityListLoad();
 
@@ -11,19 +12,16 @@ class UniversityListLoad extends UniversityEvent {
   List<Object> get props => [];
 }
 
-
 class UniversityLoad extends UniversityEvent {
   final String id;
 
   // const UniversityLoad();
 
-   const UniversityLoad(this.id);
+  const UniversityLoad(this.id);
 
   @override
   List<Object> get props => [];
 }
-
-
 
 class UniversityCreate extends UniversityEvent {
   final University university;
@@ -61,12 +59,12 @@ class UniversityDelete extends UniversityEvent {
   toString() => 'University Deleted {University Id: $id}';
 }
 
-
 //Search result page event
 
 abstract class SearchEvent extends Equatable {
   const SearchEvent();
 }
+
 // class SearchRefresh extends SearchEvent{
 //   const SearchRefresh();
 //    @override
@@ -77,7 +75,7 @@ class UnivSearchLoad extends SearchEvent {
 
   // const UniversityLoad();
 
-   const UnivSearchLoad (this.univName);
+  const UnivSearchLoad(this.univName);
 
   @override
   List<Object> get props => [];
