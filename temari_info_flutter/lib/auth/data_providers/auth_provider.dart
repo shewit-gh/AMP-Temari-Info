@@ -20,6 +20,7 @@ AuthDataProvider({required this.httpClient});
           "email": user.email,
           "password": user.password,
         }));
+  print("madeit");
  print('here as well');
     if (response.statusCode == 201) {
       final current = Token.fromJson(jsonDecode(response.body));

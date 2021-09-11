@@ -12,7 +12,7 @@ class AddDepartment extends StatelessWidget {
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(60.0),
         child: navtop()),
- body:Padding(
+      body:Padding(
          padding: EdgeInsets.all(10),
          child: ListView(
            children: <Widget>[

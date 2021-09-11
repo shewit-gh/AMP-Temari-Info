@@ -31,6 +31,7 @@ async function signIn(req, res) {
 
       
       user.token = token;
+      console.log(user.token)
     res.status(200).json({"token":user.token});
     }
     
@@ -59,6 +60,8 @@ async function signOut(req, res) {
 
 async function signUp(req, res) {
   try {
+    console.log("----------here --------------------")
+
     print('connected')
       const { username, email, password,} = req.body;
       if (!(username && email && password)) {
@@ -70,7 +73,6 @@ async function signUp(req, res) {
     }
     
     encryptedPassword = await bcrypt.hash(password, 10);
-    
       const user =await new User({
         _id: mongoose.Types.ObjectId(),
         username: username,
