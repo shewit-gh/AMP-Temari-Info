@@ -28,7 +28,7 @@ const instSchema = mongoose.Schema({
         {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Departments",
-        required:true
+        required:false
         }
     ]    
 

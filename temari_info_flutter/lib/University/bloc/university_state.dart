@@ -46,9 +46,6 @@ class UnivSearchSuccess extends SearchState {
 
 class UnivSearchFailure extends SearchState {}
 
-
-
-
 //university add state
 abstract class UnivAddState {
   const UnivAddState();
@@ -64,3 +61,24 @@ class UnivAddSuccess extends UnivAddState {
 }
 
 class UnivAddFailure extends UnivAddState {}
+
+//university fetch state
+abstract class UniversityFetchState {
+  const UniversityFetchState();
+
+  @override
+  List<Object> get props => [];
+}
+
+class UnivFetching extends UniversityFetchState {}
+
+class UniversityFetchSuccess extends UniversityFetchState {
+  final List Universitys;
+
+  UniversityFetchSuccess([this.Universitys = const []]);
+
+  @override
+  List<Object> get props => [Universitys];
+}
+
+class UniversityFetchFailure extends UniversityFetchState {}

@@ -23,8 +23,6 @@ class UniversityLoad extends UniversityEvent {
   List<Object> get props => [];
 }
 
-
-
 class UniversityUpdate extends UniversityEvent {
   final University university;
 
@@ -71,12 +69,12 @@ class UnivSearchLoad extends SearchEvent {
   List<Object> get props => [];
 }
 
-
 //univ add event
 abstract class UniversityAddEvent extends Equatable {
   const UniversityAddEvent();
 }
-class UniversityCreate extends UniversityAddEvent{
+
+class UniversityCreate extends UniversityAddEvent {
   final University university;
 
   const UniversityCreate(this.university);
@@ -86,4 +84,16 @@ class UniversityCreate extends UniversityAddEvent{
 
   @override
   String toString() => 'University Created {University: $university}';
+}
+
+//univ fetch event
+abstract class UniversityFetchEvent extends Equatable {
+  const UniversityFetchEvent();
+}
+
+class UniversityFetch extends UniversityFetchEvent {
+  const UniversityFetch();
+
+  @override
+  List<Object> get props => [];
 }

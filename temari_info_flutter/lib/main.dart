@@ -38,6 +38,10 @@ import 'package:http/http.dart' as http;
 import 'package:temari_info_flutter/University/data_provider/university_data_provider.dart';
 import 'package:temari_info_flutter/University/bloc/uni_bloc.dart';
 
+import 'departments/bloc/dept_bloc.dart';
+import 'departments/data_provider/dept_data.dart';
+import 'departments/repo/dept_repo.dart';
+
 void main() {
   runApp(MyApp());
 }
@@ -50,6 +54,8 @@ final InstituteRepository instRepo = InstituteRepository(
     dataProvider: InstituteDataProvider(httpClient: http.Client()));
 final UniversityRepository uniRepo = UniversityRepository(
     dataProvider: UniversityDataProvider(httpClient: http.Client()));
+final DepartmentRepo deptRepo = DepartmentRepo(
+    dataProvider: DepartmentDataProvider(httpClient: http.Client()));
 
 class MyApp extends StatelessWidget {
   @override
@@ -67,6 +73,12 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider<UnivAddBloc>(
           create: (context) => UnivAddBloc(uniRepo),
+        ),
+        BlocProvider<InstAddBloc>(
+          create: (context) => InstAddBloc(instRepo),
+        ),
+        BlocProvider<DeptAddBloc>(
+          create: (context) => DeptAddBloc(deptRepo),
         ),
         BlocProvider<RatingBloc>(
           create: (context) => RatingBloc(_ratingRepo),
@@ -91,7 +103,7 @@ class MyApp extends StatelessWidget {
             primarySwatch: Colors.teal,
             brightness: Brightness.dark,
           ),
-          initialRoute: UnivAdd.routeName,
+          initialRoute: AddDepartment.routeName,
           routes: {
             UniversityDetail.routeName: (BuildContext context) =>
                 UniversityDetail(),
