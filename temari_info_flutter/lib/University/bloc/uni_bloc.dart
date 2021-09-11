@@ -1,4 +1,3 @@
-import 'dart:html';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:temari_info_flutter/University/bloc/blocs.dart';

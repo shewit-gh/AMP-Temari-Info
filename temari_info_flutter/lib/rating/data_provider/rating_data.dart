@@ -10,7 +10,7 @@ import 'package:path/path.dart';
 
 class RatingDataProvider {
   final http.Client httpClient;
-  final _baseUrl = 'http://10.6.220.12:3000/api/Rating';
+  final _baseUrl = 'http://10.0.2.2:3000/api/Rating';
 
   RatingDataProvider({required this.httpClient}) : assert(httpClient != null);
 

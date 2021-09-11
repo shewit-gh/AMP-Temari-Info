@@ -11,7 +11,7 @@ import 'package:http/http.dart' as http;
 
 class DepartmentDataProvider {
   final http.Client httpClient;
-  final _baseUrl = 'http://10.6.213.25:3000/api/Rating';
+  final _baseUrl = 'http://10.0.2.2:3000/api/Rating';
 
   DepartmentDataProvider({required this.httpClient})
       : assert(httpClient != null);

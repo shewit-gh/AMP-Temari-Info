@@ -87,7 +87,7 @@ class MyApp extends StatelessWidget {
             primarySwatch: Colors.teal,
             brightness: Brightness.dark,
           ),
-          initialRoute: Home.routeName,
+          initialRoute: EditUniv.routeName,
           routes: {
             UniversityDetail.routeName: (BuildContext context) => UniversityDetail(),
             Institute.routeName: (BuildContext context) => Institute(),

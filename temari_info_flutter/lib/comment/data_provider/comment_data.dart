@@ -5,7 +5,7 @@ import 'package:http/http.dart' as http;
 
 class CommentDataProvider {
   final http.Client httpClient;
-  final _baseUrl = 'http://10.6.220.12:3000/api/Comment';
+  final _baseUrl = 'http://10.0.2.2:3000/api/Comment';
 
   CommentDataProvider({required this.httpClient}) : assert(httpClient != null);
 

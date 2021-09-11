@@ -286,7 +286,7 @@ class InsertComment extends StatelessWidget {
           ),
         ),
         Container(
-          width: 300,
+          width: 250,
           height: 40,
           margin: EdgeInsets.only(bottom: 10),
           // decoration: BoxDecoration(
@@ -299,17 +299,15 @@ class InsertComment extends StatelessWidget {
         ),
         Container(
           margin: EdgeInsets.only(left: 20, bottom: 0),
-          child: ElevatedButton(
+          child: IconButton(
             onPressed: () {},
-            child: Padding(
-              padding: const EdgeInsets.all(3.0),
-              child: Icon(
-                Icons.send,
-                // color: Colors.black54,
+             icon: Icon(
+                Icons.send, size: 30,
+                color: Colors.teal
               ),
             ),
           ),
-        ),
+        
       ],
     );
   }

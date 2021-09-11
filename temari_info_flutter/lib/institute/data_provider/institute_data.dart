@@ -5,7 +5,7 @@ import 'package:temari_info_flutter/institute/model/institute_model.dart';
 import 'package:http/http.dart' as http;
 
 class InstituteDataProvider {
-  static final String _baseUrl = "http://10.6.220.12:3000/api/Institute";
+  static final String _baseUrl = "http://10.0.2.2:3000/api/Institute";
   final http.Client httpClient;
   InstituteDataProvider({required this.httpClient});
 

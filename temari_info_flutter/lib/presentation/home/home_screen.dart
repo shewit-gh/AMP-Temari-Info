@@ -24,7 +24,7 @@ class Home extends StatelessWidget {
           physics: ScrollPhysics(),
           child: Column(children: [
             Container(
-              margin: EdgeInsets.all(20),
+              margin: EdgeInsets.all(10),
               child: _search(searchcont, context),
             ),
             ListView.builder(
