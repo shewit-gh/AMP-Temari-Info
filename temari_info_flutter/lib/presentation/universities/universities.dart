@@ -81,44 +81,16 @@ class Universities extends StatelessWidget {
 Widget _univCard(String univ_name, int totalRating) {
   return Container(
     width: 400,
-    height: 150,
+    height: 130,
     padding: EdgeInsets.all(20),
     margin: EdgeInsets.only(top: 40, left: 40, right: 40),
     decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20), color: Colors.white),
-    child: Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        ClipRRect(
-          borderRadius: BorderRadius.circular(100),
-          // child:Image.asset('image/aau.png', width: 110, height: 110, fit: BoxFit.cover,)
-        ),
-        Column(
-          children: [
-            Container(
-              padding: EdgeInsets.only(bottom: 40),
-              child: Text(univ_name, style: TextStyle(color: Colors.black)),
-            ),
-            // Row(
-            //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            //   children: [
-            //     _starIcon(),
-            //     _starIcon(),
-            //     _starIcon(),
-            //     _starIcon(),
-            //     _starIcon(),
-            //     Container(
-            //       padding: EdgeInsets.only(left: 20),
-            //       child: Text(
-            //         "${totalRating}",
-            //         style: TextStyle(color: Colors.black),
-            //       ),
-            //     )
-            //   ],
-            // )
-          ],
-        )
-      ],
+    child: Center(
+      child: Text(
+        univ_name,
+        style: TextStyle(color: Colors.black, fontSize: 25),
+      ),
     ),
   );
 }

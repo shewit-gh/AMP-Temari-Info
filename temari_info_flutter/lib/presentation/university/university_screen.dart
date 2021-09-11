@@ -111,7 +111,7 @@ class UniversityDetail extends StatelessWidget {
                       scrollDirection: Axis.horizontal,
                       itemBuilder: (context, index) {
                         return SizedBox(
-                          width: 150,
+                          width: 200,
                           height: 150,
                           child: ListTile(
                             title: InstituteList(
@@ -237,7 +237,7 @@ class InstituteList extends StatelessWidget {
             child: Container(
               width: 150,
               height: 150,
-              margin: EdgeInsets.all(10.0),
+              margin: EdgeInsets.all(6.0),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(15.0),
                 color: Colors.white,
@@ -248,7 +248,7 @@ class InstituteList extends StatelessWidget {
             top: 0,
             left: 0,
             child: Container(
-              width: 150,
+              width: 130,
               height: 150,
               margin: EdgeInsets.all(25.0),
               padding: EdgeInsets.all(5.0),
