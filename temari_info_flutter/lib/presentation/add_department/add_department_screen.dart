@@ -97,8 +97,8 @@ class AddDepartment extends StatelessWidget {
               
             ],
           ),
-    ),
-    bottomNavigationBar: bottomnav(),);
+ ),
+    bottomNavigationBar: bottomnav(context),);
   }
 }
 

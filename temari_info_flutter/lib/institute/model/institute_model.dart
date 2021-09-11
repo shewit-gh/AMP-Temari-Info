@@ -8,13 +8,13 @@ class Institute {
   final List<Object>? department_id;
 
   Institute(
-      {required this.id,
+      {this.id,
       required this.univ_id,
       required this.inst_name,
       this.phone,
       this.email,
       required this.inst_description,
-      required this.department_id});
+      this.department_id});
 
   factory Institute.fromJson(Map<String, dynamic> json) {
     return Institute(

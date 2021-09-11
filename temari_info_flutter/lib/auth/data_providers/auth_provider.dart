@@ -3,14 +3,24 @@ import 'dart:convert';
 import 'package:temari_info_flutter/auth/models/auth_model.dart';
 import 'package:http/http.dart' as http;
 import 'package:temari_info_flutter/auth/models/auth_token_model.dart';
+import 'package:temari_info_flutter/auth/user_secure_storage.dart';
 
 class AuthDataProvider {
   final http.Client httpClient;
+<<<<<<< HEAD
   static final String _baseUrl = "http://10.9.209.202:3000/api";
 AuthDataProvider({required this.httpClient});
 
   Future<Token> signUp(User user) async {
     
+=======
+
+  static final String _baseUrl = "http://192.168.137.85:3000/api";
+AuthDataProvider({required this.httpClient});
+
+  Future<Token> signUp(User user) async {
+    print('here');
+>>>>>>> d3cf1e8d0c17136d97b033e3b9ff984a8a6fa2d8
     final http.Response response = await http.post(Uri.parse("$_baseUrl/auth/signUp"),
         headers: <String, String>{"Content-Type": "application/json"},
         body: jsonEncode({
@@ -19,8 +29,13 @@ AuthDataProvider({required this.httpClient});
           "password": user.password,
         }));
   print("madeit");
+ print('here as well');
     if (response.statusCode == 201) {
-      return Token.fromJson(jsonDecode(response.body));
+      final current = Token.fromJson(jsonDecode(response.body));
+      await  UserSecureStorage.setToken(current.value);
+        print('Token saved');
+        return current;
+
     }
     {
       return Token.fromJson(jsonDecode('{"token":"Failure"}'));
@@ -39,7 +54,10 @@ Future<Token> signIn(User user) async {
         }));
 
     if (response.statusCode == 200) {
-      return Token.fromJson(jsonDecode(response.body));
+      final current = Token.fromJson(jsonDecode(response.body));
+        await UserSecureStorage.setToken(current.value);
+        print('Token saved');
+       return current;
     }
     if (response.statusCode == 400) {
       return Token.fromJson(jsonDecode('{"token":"Invalid Credentials"}'));
@@ -50,11 +68,12 @@ Future<Token> signIn(User user) async {
     }
   }
 
-  Future<String?> signOut(User user) async {
+  Future<String?> signOut() async {
+    final email = UserSecureStorage.getEmail();
     final http.Response response = await http.put(Uri.parse("$_baseUrl/auth/signIn"),
         headers: <String, String>{"Content-Type": "application/json"},
         body: jsonEncode({
-          "email": user.email,
+          "email": email,
         }));
 
     if (response.statusCode == 200) {
@@ -78,7 +97,7 @@ Future<Token> signIn(User user) async {
     }
     {
       return 'failure';
-      throw Exception("Failed try again");
+      // throw Exception("Failed try again");
     }
   }
 
@@ -94,8 +113,64 @@ Future<String> resetPassword(String reset_link, String password) async {
       return 'success';
     }
     {
-            return 'success';
-      throw Exception("Failed to reset password");
+            return 'failure';
+      // throw Exception("Failed to reset password");
+    }
+  }
+
+  Future<String> editProfile(String username, String email) async {
+    final id = UserSecureStorage.getId();
+    final http.Response response = await http.put(Uri.parse("$_baseUrl/User/$id"),
+        headers: <String, String>{"Content-Type": "application/json"},
+        body: jsonEncode({
+          "username": username,
+          "email": email
+        }));
+
+    if (response.statusCode == 200) {
+      final current = Token.fromJson(jsonDecode(response.body));
+      await  UserSecureStorage.setToken(current.value);
+        print('Token saved');
+      return 'success';
+    }
+    {
+      return 'failure';
+      // throw Exception("Failed to reset password");
+    }
+  }
+  Future<String> changePassword(String password) async {
+    final id = UserSecureStorage.getId();
+    final http.Response response = await http.put(Uri.parse("$_baseUrl/User/$id"),
+        headers: <String, String>{"Content-Type": "application/json"},
+        body: jsonEncode({
+          "password": password
+        }));
+
+    if (response.statusCode == 200) {
+      final current = Token.fromJson(jsonDecode(response.body));
+      await  UserSecureStorage.setToken(current.value);
+      print('Token saved');
+      return 'success';
+    }
+    {
+      return 'failure';
+      // throw Exception("Failed to reset password");
+    }
+  }
+
+  Future<String> deleteAccount() async {
+    final id = UserSecureStorage.getId();
+    final http.Response response = await http.delete(Uri.parse("$_baseUrl/User/$id"),
+        headers: <String, String>{"Content-Type": "application/json"},);
+        
+
+    if (response.statusCode == 200) {
+      await  UserSecureStorage.deleteToken();
+      return 'success';
+    }
+    {
+      return 'failure';
+      // throw Exception("Failed to reset password");
     }
   }
 }

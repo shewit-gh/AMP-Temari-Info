@@ -1,53 +1,86 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:temari_info_flutter/University/bloc/uni_bloc.dart';
+import 'package:temari_info_flutter/University/bloc/university_event.dart';
+import 'package:temari_info_flutter/University/bloc/university_state.dart';
+import 'package:temari_info_flutter/University/model/university.dart';
 import 'package:temari_info_flutter/presentation/shared/navBar_Widget.dart';
+import 'package:temari_info_flutter/presentation/university/university_screen.dart';
 
 class Search extends StatelessWidget {
   static const String routeName = "/search";
   @override
   Widget build(BuildContext context) {
+    final univname = ModalRoute.of(context)?.settings.arguments as String;
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar:
           PreferredSize(preferredSize: Size.fromHeight(60.0), child: navtop()),
+      body: BlocConsumer<SearchBloc, SearchState>(
+        listener: (context, state) {
+          // TODO: implement listener
+        },
+        builder: (context, state) {
+          final bloc = BlocProvider.of<SearchBloc>(context);
+          print(state);
+          if (state is UnivSearchLoading){
+            bloc.add(UnivSearchLoad(univname));
+          }
+           if (state is UnivSearchFailure) {
+            return Center(child: Text("Sorry Searching failed"));
+          }
 
-
-      body: Center(
-        child:  SingleChildScrollView(
-          physics: ScrollPhysics(),
-          child: Column(children: [
-            Container(
-              margin: EdgeInsets.all(25),
-              child: Text("Search Result", style: TextStyle(color: Colors.teal, fontSize:30,)),
+          if(state is UnivSearchSuccess ){
+            final result = state.Universitys[0];
+            // print(result);
+            return Center(
+            child: SingleChildScrollView(
+                physics: ScrollPhysics(),
+                child: Column(children: [
+                  Container(
+                    margin: EdgeInsets.all(25),
+                    child: Text("Search Result",
+                        style: TextStyle(
+                          color: Colors.teal,
+                          fontSize: 30,
+                        )),
+                  ),
+                  ListView.builder(
+                      physics: NeverScrollableScrollPhysics(),
+                      shrinkWrap: true,
+                      itemCount: result.length,
+                      itemBuilder: (BuildContext, index) {
+                        return _univCard(context, result[index]['univ_name'], 450, result[index]['_id']);
+                      }),
+                ])),
+          );
+          }
+          return Container(
+            width: 400,
+            height: 400,
+            child: Center(
+              child: CircularProgressIndicator(),
             ),
-            ListView.builder(
-                physics: NeverScrollableScrollPhysics(),
-                shrinkWrap: true,
-                itemCount: 1,
-                itemBuilder: (BuildContext, index) {
-                  return _univCard("Addis Ababa University", 450);
-                }),
-          ])),
+          );
+        },
+  
       ),
-
-
       drawer: drawer(context),
-      bottomNavigationBar: bottomnav(),
+      bottomNavigationBar: bottomnav(context),
     );
   }
 }
 
-
-
-
-Widget _univCard(String univ_name, int totalRating) {
+Widget _univCard(BuildContext context, String univ_name, int totalRating, String id) {
   return Container(
-      width: 400,
-      height: 150,
-      padding: EdgeInsets.all(20),
-      margin: EdgeInsets.only(top: 40, left: 40, right: 40),
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(20), color: Colors.white),
-      child: ListTile(title: Row(
+    width: 400,
+    height: 150,
+    padding: EdgeInsets.all(20),
+    margin: EdgeInsets.only(top: 40, left: 40, right: 40),
+    decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(20), color: Colors.white),
+    child: ListTile(
+      title: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           ClipRRect(
@@ -81,19 +114,20 @@ Widget _univCard(String univ_name, int totalRating) {
           )
         ],
       ),
-       onTap: () {
-      print('tapped');
-    },
+      onTap: () {
+          // final bloc = BlocProvider.of<SearchBloc>(context);
+          // bloc.add(SearchRefresh());
+        Navigator.pushNamed(
+            context,
+            UniversityDetail.routeName,
+            arguments: id,
+            
+          );
+      },
     ),
-   
   );
 }
 
-
 Widget _starIcon() {
-  return Icon(
-    Icons.star_outline,
-    color: Colors.blueGrey
-    
-  );
+  return Icon(Icons.star_outline, color: Colors.blueGrey);
 }
