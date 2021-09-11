@@ -4,6 +4,7 @@ import 'package:temari_info_flutter/University/bloc/uni_bloc.dart';
 import 'package:temari_info_flutter/University/bloc/university_event.dart';
 import 'package:temari_info_flutter/University/model/university.dart';
 import 'package:temari_info_flutter/University/bloc/university_state.dart';
+import 'package:temari_info_flutter/presentation/home/home_screen.dart';
 import 'package:temari_info_flutter/presentation/univ_admin/edit_univ_screen.dart';
 
 import 'package:temari_info_flutter/presentation/shared/navBar_Widget.dart';
@@ -35,99 +36,143 @@ Widget textField(String text, double? height, int? maxline,
 }
 
 class UnivAdd extends StatelessWidget {
-  TextEditingController firstcontroller = TextEditingController();
-  TextEditingController secondcontroller = TextEditingController();
+  final TextEditingController firstcontroller = TextEditingController();
+  final TextEditingController secondcontroller = TextEditingController();
+  final TextEditingController thirdcontroller = TextEditingController();
+  final TextEditingController forthcontroller = TextEditingController();
 
   static const String routeName = "/univadd";
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar:
           PreferredSize(preferredSize: Size.fromHeight(60.0), child: navtop()),
-      body: Center(
-          child: Container(
-              height: 550,
-              width: 500,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(15),
-                //color: Colors.white,
-              ),
-              margin: EdgeInsets.all(20),
-              padding: EdgeInsets.all(20),
-              child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Expanded(
-                      child: Container(
-                        //height: 200,
-                        width: 200,
-                        //color: Colors.amber,
-                        child:
-                            //color: Colors.blue,
-                            Column(
+      body: BlocConsumer<UnivAddBloc, UnivAddState>(
+        listener: (context, state) {
+          if (state is UnivAddFailure) {
+            print("failed fetchig");
+          }
+          if (state is UnivAddSuccess) {
+            print(state);
+            Navigator.of(context).pushNamed(Home.routeName);
+          }
+        },
+        builder: (context, state) {
+          return Center(
+              child: Container(
+                  height: 550,
+                  width: 500,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(15),
+                    //color: Colors.white,
+                  ),
+                  margin: EdgeInsets.all(20),
+                  padding: EdgeInsets.all(20),
+                  child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Expanded(
+                          child: Container(
+                            //height: 200,
+                            width: 200,
+                            //color: Colors.amber,
+                            child:
+                                //color: Colors.blue,
+                                Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
+                                    children: [
+                                  //text(" Name", 20),
+                                  textField("your name", 58, 2, firstcontroller)
+                                ]),
+                          ),
+                        ),
+                        Expanded(
+                          child: Container(
+                            //height: 200,
+                            width: 200,
+                            //color: Colors.amber,
+                            child:
+                                //color: Colors.blue,
+                                Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
+                                    children: [
+                                  //text(" Name", 20),
+                                  textField("your short name", 58, 2,
+                                      secondcontroller)
+                                ]),
+                          ),
+                        ),
+                        Expanded(
+                          child: Container(
+                            //height: 200,
+                            width: 200,
+                            //color: Colors.amber,
+                            child:
+                                //color: Colors.blue,
+                                Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
+                                    children: [
+                                  //text(" Name", 20),
+                                  textField(
+                                      "your location", 58, 2, thirdcontroller)
+                                ]),
+                          ),
+                        ),
+                        Expanded(
+                          flex: 2,
+                          child: Container(
+                            //height: 200,
+                            width: 200,
+                            //color: Colors.red,
+                            child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
+                                //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                 children: [
-                              //text(" Name", 20),
-                              textField("your name", 58, 2, firstcontroller)
-                            ]),
-                      ),
-                    ),
-                    Expanded(
-                      flex: 2,
-                      child: Container(
-                        //height: 200,
-                        width: 200,
-                        //color: Colors.red,
-                        child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              // text("Your Description", 20),
-                              SizedBox(
-                                height: 15,
-                              ),
-                              textField("your description", 150, 25,
-                                  secondcontroller),
-                              SizedBox(
-                                height: 40,
-                              ),
-                              BlocConsumer<UniBloc, UniversityState>(
-                                listener: (context, state) {
-                                  if (state is UniversityOperationFailure) {
-                                    print("failed fetchig");
-                                  }
-                                  if (state is UniversityOperationSuccess) {
-                                    print(state.Universitys);
-                                    Navigator.of(context)
-                                        .pushNamed(EditUniv.routeName);
-                                  }
-                                },
-                                builder: (context, state) {
-                                  return SizedBox(
-                                    height: 50,
+                                  // text("Your Description", 20),
+                                  SizedBox(
+                                    height: 5,
+                                  ),
+                                  textField("your description", 150, 25,
+                                      forthcontroller),
+                                  SizedBox(
+                                    height: 10,
+                                  ),
+                                  SizedBox(
+                                    height: 25,
                                     width: double.infinity,
                                     child: ElevatedButton(
                                       onPressed: () {
+                                        print(firstcontroller.text);
                                         final uniBloc =
-                                            BlocProvider.of<UniBloc>(context);
+                                            BlocProvider.of<UnivAddBloc>(context);
                                         uniBloc.add(UniversityCreate(University(
                                             univ_name: firstcontroller.text,
+                                            short_name: secondcontroller.text,
+                                            location: thirdcontroller.text,
                                             description:
-                                                secondcontroller.text)));
+                                                forthcontroller.text)));
                                       },
                                       child: Text('Send message'),
                                     ),
-                                  );
-                                },
-                              )
-                            ]),
-                      ),
-                    ),
-                  ]))),
-      bottomNavigationBar: bottomnav(),
+                                  ),
+                                ]),
+                          ),
+                        ),
+                      ])));
+        },
+      ),
+      bottomNavigationBar: bottomnav(context),
     );
   }
 }

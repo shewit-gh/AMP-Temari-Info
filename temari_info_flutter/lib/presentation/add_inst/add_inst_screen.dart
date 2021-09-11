@@ -125,6 +125,6 @@ class AddInst extends StatelessWidget {
             ],
           ),
     ),
-    bottomNavigationBar: bottomnav(),);
+    bottomNavigationBar: bottomnav(context),);
   }
 }

@@ -54,7 +54,7 @@ class Universities extends StatelessWidget {
                               // if (state is UniversityOperationSuccess) {
                                 Navigator.pushNamed(
                                   context,
-                                  University.routeName,
+                                  UniversityDetail.routeName,
                                   arguments: univ[index]['_id'],
                                   
                                 );
@@ -73,7 +73,7 @@ class Universities extends StatelessWidget {
         },
       ),
       drawer: drawer(context),
-      bottomNavigationBar: bottomnav(),
+      bottomNavigationBar: bottomnav(context),
     );
   }
 }

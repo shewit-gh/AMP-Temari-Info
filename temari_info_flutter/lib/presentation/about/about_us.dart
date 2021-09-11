@@ -11,7 +11,7 @@ class About extends StatelessWidget {
           child: navtop(),
         ),
         body: about(),
-        bottomNavigationBar: bottomnav());
+        bottomNavigationBar: bottomnav(context));
   }
 }
 

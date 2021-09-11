@@ -7,6 +7,7 @@ import 'package:temari_info_flutter/auth/user_secure_storage.dart';
 
 class AuthDataProvider {
   final http.Client httpClient;
+
   static final String _baseUrl = "http://192.168.137.85:3000/api";
 AuthDataProvider({required this.httpClient});
 

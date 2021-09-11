@@ -1,8 +1,11 @@
+import 'package:equatable/equatable.dart';
 import 'package:temari_info_flutter/institute/blocs/institute_state.dart';
 import 'package:flutter/material.dart';
 import 'package:temari_info_flutter/institute/model/institute_model.dart';
 
-abstract class InstituteEvent {}
+abstract class InstituteEvent extends Equatable{
+  const InstituteEvent();
+}
 
 
 class InstituteDetail extends InstituteEvent {

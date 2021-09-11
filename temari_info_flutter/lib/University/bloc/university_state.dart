@@ -20,3 +20,47 @@ class UniversityOperationSuccess extends UniversityState {
 }
 
 class UniversityOperationFailure extends UniversityState {}
+
+class UniversityPosted extends UniversityState {
+  final University univ;
+  UniversityPosted(this.univ);
+}
+
+//search page state
+abstract class SearchState {
+  const SearchState();
+  @override
+  List<Object> get props => [];
+}
+
+class UnivSearchLoading extends SearchState {}
+
+class UnivSearchSuccess extends SearchState {
+  final List Universitys;
+
+  UnivSearchSuccess([this.Universitys = const []]);
+
+  @override
+  List<Object> get props => [Universitys];
+}
+
+class UnivSearchFailure extends SearchState {}
+
+
+
+
+//university add state
+abstract class UnivAddState {
+  const UnivAddState();
+  @override
+  List<Object> get props => [];
+}
+
+class UnivAddLoading extends UnivAddState {}
+
+class UnivAddSuccess extends UnivAddState {
+  final University univ;
+  UnivAddSuccess(this.univ);
+}
+
+class UnivAddFailure extends UnivAddState {}

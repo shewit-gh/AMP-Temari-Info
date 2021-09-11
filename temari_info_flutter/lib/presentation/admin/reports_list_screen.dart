@@ -74,7 +74,7 @@ class Reports extends StatelessWidget {
             }),
         ),
       
-      bottomNavigationBar: bottomnav(),
+      bottomNavigationBar: bottomnav(context),
     );
   
     

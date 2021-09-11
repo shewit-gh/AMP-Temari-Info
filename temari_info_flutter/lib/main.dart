@@ -8,6 +8,7 @@ import 'package:temari_info_flutter/institute/repo/institute_repo.dart';
 import 'package:temari_info_flutter/presentation/add_department/add_department_screen.dart';
 import 'package:temari_info_flutter/presentation/add_inst/add_inst_screen.dart';
 import 'package:temari_info_flutter/presentation/admin/admin_screen.dart';
+import 'package:temari_info_flutter/presentation/admin/admin_univadd_screen.dart';
 import 'package:temari_info_flutter/presentation/admin/reports_list_screen.dart';
 import 'package:temari_info_flutter/presentation/contact/contact_screen.dart';
 import 'package:temari_info_flutter/presentation/home/home_screen.dart';
@@ -49,6 +50,8 @@ final AuthRepository _authRepo =
     AuthRepository(dataProvider: AuthDataProvider(httpClient: http.Client()));
 final InstituteRepository instRepo = InstituteRepository(
     dataProvider: InstituteDataProvider(httpClient: http.Client()));
+final UniversityRepository uniRepo = UniversityRepository(
+    dataProvider: UniversityDataProvider(httpClient: http.Client()));
 
 class MyApp extends StatelessWidget {
   @override
@@ -58,10 +61,20 @@ class MyApp extends StatelessWidget {
         BlocProvider<AuthBloc>(
           create: (context) => AuthBloc(authRepository: _authRepo),
         ),
+        BlocProvider<UniBloc>(
+          create: (context) => UniBloc(uniRepo),
+        ),
+        BlocProvider<SearchBloc>(
+          create: (context) => SearchBloc(uniRepo),
+        ),
+        BlocProvider<UnivAddBloc>(
+          create: (context) => UnivAddBloc(uniRepo),
+        ),
         BlocProvider<RatingBloc>(
           create: (context) => RatingBloc(_ratingRepo),
         ),
-        BlocProvider<InstituteBloc>(create: (context) =>InstituteBloc(instRepo)),
+        BlocProvider<InstituteBloc>(
+            create: (context) => InstituteBloc(instRepo)),
         //  BlocProvider<RatingBloc>(
         //   create: (context) => RatingBloc(_ratingRepo),
         // ), BlocProvider<RatingBloc>(
@@ -80,17 +93,20 @@ class MyApp extends StatelessWidget {
             primarySwatch: Colors.teal,
             brightness: Brightness.dark,
           ),
-          initialRoute: ResetPassword.routeName,
-          routes: {
-            University.routeName: (BuildContext context) => University(),
+
+          initialRoute: UnivAdd.routeName,
+            routes: {
+            UniversityDetail.routeName: (BuildContext context) =>
+                UniversityDetail(),
             Institute.routeName: (BuildContext context) => Institute(),
             Home.routeName: (BuildContext context) => Home(),
             Admin.routeName: (BuildContext context) => Admin(),
+            UnivAdd.routeName: (BuildContext context) => UnivAdd(),
             Login.routeName: (BuildContext context) => Login(),
             Signup.routeName: (BuildContext context) => Signup(),
             EditUniv.routeName: (BuildContext context) => EditUniv(),
             EditInst.routeName: (BuildContext context) => EditInst(),
-            User.routeName: (BuildContext context) => User(),
+            Userp.routeName: (BuildContext context) => Userp(),
             Search.routeName: (BuildContext context) => Search(),
             Report.routeName: (BuildContext context) => Report(),
             AddDepartment.routeName: (BuildContext context) => AddDepartment(),

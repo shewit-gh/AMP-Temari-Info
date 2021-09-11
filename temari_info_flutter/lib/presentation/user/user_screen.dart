@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:temari_info_flutter/presentation/shared/navBar_Widget.dart';
 import 'package:temari_info_flutter/auth/user_secure_storage.dart';
 
-class User extends StatelessWidget {
+class Userp extends StatelessWidget {
   static const String routeName = "/user";
   final current_username = UserSecureStorage.getUsername();
   final current_email = UserSecureStorage.getEmail();
@@ -23,7 +23,7 @@ class User extends StatelessWidget {
 
 
 
-      bottomNavigationBar: bottomnav(),
+      bottomNavigationBar: bottomnav(context),
     );
   }
 }

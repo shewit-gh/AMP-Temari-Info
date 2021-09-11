@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:temari_info_flutter/University/bloc/blocs.dart';
+import 'package:temari_info_flutter/presentation/institute/institute_screen.dart';
 import 'package:temari_info_flutter/presentation/shared/navBar_Widget.dart';
 
 class EditUniv extends StatelessWidget {
@@ -10,124 +13,165 @@ class EditUniv extends StatelessWidget {
         preferredSize: Size.fromHeight(60.0),
         child: navtop(),
       ),
-      body: SingleChildScrollView(
-        physics: ScrollPhysics(),
-        child: Column(
-          children: [
-            // university name
+      body: BlocConsumer<UniBloc, UniversityState>(
+        listener: (context, state) {
+          // TODO: implement listener
+        },
+        builder: (context, state) {
+          final bloc = BlocProvider.of<UniBloc>(context);
+          print(state);
+          if (state is UniversityLoading) {
+            // bloc.add(UniversityLoad(univId));
+            return CircularProgressIndicator();
+          }
+          if (state is UniversityOperationFailure) {
+            return Center(child: Text("Sorry loading failed"));
+          }
+          if (state is UniversityOperationSuccess) {
+            final univ = state.Universitys;
+            print(univ[0]);
+            return SingleChildScrollView(
+              physics: ScrollPhysics(),
+              child: Column(
+                children: [
+                  // university name
 
-            Padding(
-              padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
-              child: Center(
-                child: Text(
-                  "Addis Ababa University",
-                  style: TextStyle(
-                    fontSize: 23,
-                  ),
-                  textAlign: TextAlign.end,
-                ),
-              ),
-            ),
-
-            // shoert university name
-            Padding(
-              padding: const EdgeInsets.fromLTRB(0, 10, 0, 20),
-              child: Text(
-                "(AAU)",
-                style: TextStyle(
-                  fontSize: 20,
-                  color: Colors.teal,
-                ),
-              ),
-            ),
-            // edit
-            Container(
-              child: Editdescription(),
-            ),
-
-            // side image and description
-
-            Container(
-              child: UnivDescription(),
-            ),
-
-            Row(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(30, 10, 10, 0),
-                  child: Text(
-                    "Instituties",
-                    style: TextStyle(
-                      fontSize: 23,
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
+                    child: Center(
+                      child: Text(
+                        univ[0]['univ_name'],
+                        style: TextStyle(
+                          fontSize: 23,
+                        ),
+                        textAlign: TextAlign.end,
+                      ),
                     ),
                   ),
-                ),
-                Container(
-                  margin: EdgeInsets.fromLTRB(270, 0, 5, 0),
-                  child: Icon(
-                    Icons.edit,
-                    color: Colors.yellow,
-                  ),
-                ),
-                Container(
-                  margin: EdgeInsets.fromLTRB(5, 0, 0, 0),
-                  child: Icon(
-                    Icons.delete,
-                    color: Colors.red,
-                  ),
-                ),
-              ],
-            ),
 
-            // list of institutes
-
-            Container(
-              width: 500,
-              height: 180,
-              child: ListView.builder(
-                itemCount: 10,
-                scrollDirection: Axis.horizontal,
-                itemBuilder: (context, index) {
-                  return InstituteList();
-                },
-              ),
-            ),
-
-            // number of comments
-
-            Row(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(30, 10, 0, 10),
-                  child: Text(
-                    "0 Coments",
-                    style: TextStyle(
-                      fontSize: 20,
+                  // shoert university name
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(0, 10, 0, 20),
+                    child: Text(
+                      univ[0]['short_name'],
+                      style: TextStyle(
+                        fontSize: 20,
+                        color: Colors.teal,
+                      ),
                     ),
                   ),
-                ),
-              ],
-            ),
+                  // edit
+                  Container(
+                    child: Editdescription(),
+                  ),
 
-            // insert a comment
-            Container(child: InsertComment()),
+                  // side image and description
 
-            //list of comments
+                  Container(
+                    child: UnivDescription(description: univ[0]['description']),
+                  ),
 
-            Container(
-              width: 600,
-              height: 600,
-              child: ListView.builder(
-                itemCount: 10,
-                itemBuilder: (context, index) {
-                  return CommentList();
-                },
+                  Row(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(30, 10, 10, 0),
+                        child: Text(
+                          "Instituties",
+                          style: TextStyle(
+                            fontSize: 23,
+                          ),
+                        ),
+                      ),
+                      // Container(
+                      //   margin: EdgeInsets.fromLTRB(270, 0, 5, 0),
+                      //   child: Icon(
+                      //     Icons.edit,
+                      //     color: Colors.yellow,
+                      //   ),
+                      // ),
+                      // Container(
+                      //   margin: EdgeInsets.fromLTRB(5, 0, 0, 0),
+                      //   child: Icon(
+                      //     Icons.delete,
+                      //     color: Colors.red,
+                      //   ),
+                      // ),
+                    ],
+                  ),
+
+                  // list of institutes
+
+                  Container(
+                    width: 500,
+                    height: 180,
+                    child: ListView.builder(
+                      shrinkWrap: true,
+                      itemCount: univ[0]['institute'].length,
+                      scrollDirection: Axis.horizontal,
+                      itemBuilder: (context, index) {
+                        return SizedBox(
+                          width: 150,
+                          height: 150,
+                          child: ListTile(
+                            title: InstituteList(
+                              institutes: univ[0]['institute'][index],
+                            ),
+                            onTap: () {
+                              Navigator.pushNamed(
+                                context,
+                                Institute.routeName,
+                                arguments: univ[0]['institute'][index]['_id'],
+                              );
+                            },
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+
+                  // number of comments
+
+                  Row(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(30, 10, 0, 10),
+                        child: Text(
+                          "0 Coments",
+                          style: TextStyle(
+                            fontSize: 20,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+
+                  // insert a comment
+                  Container(child: InsertComment()),
+
+                  //list of comments
+
+                  Container(
+                    width: 600,
+                    height: 600,
+                    child:  ListView.builder(
+                      itemCount: univ[0]['comment'].length,
+                      itemBuilder: (context, index) {
+                        print('object');
+                        print(univ[0]['comment']);
+                        return CommentList(comments: univ[0]['comment'][index]);
+                      },
+                    ),
+                  ),
+                ],
               ),
-            ),
-          ],
-        ),
+            );
+          }
+          return Center(
+            child: CircularProgressIndicator(),
+          );
+        },
       ),
-      bottomNavigationBar: bottomnav(),
+      bottomNavigationBar: bottomnav(context),
     );
   }
 }
@@ -140,19 +184,25 @@ class Editdescription extends StatelessWidget {
         Row(
           children: [
             Container(
-              margin: EdgeInsets.fromLTRB(400, 0, 5, 0),
-              child: Icon(
+              margin: EdgeInsets.fromLTRB(300, 0, 5, 0),
+              child: IconButton(
+                onPressed: (){
+
+                  
+                },
+                icon:Icon(
                 Icons.edit,
                 color: Colors.yellow,
-              ),
+              ),),
+              
             ),
-            Container(
-              margin: EdgeInsets.fromLTRB(5, 0, 0, 0),
-              child: Icon(
-                Icons.delete,
-                color: Colors.red,
-              ),
-            ),
+            // Container(
+            //   margin: EdgeInsets.fromLTRB(5, 0, 0, 0),
+            //   child: Icon(
+            //     Icons.delete,
+            //     color: Colors.red,
+            //   ),
+            // ),
           ],
         ),
 
@@ -163,39 +213,41 @@ class Editdescription extends StatelessWidget {
 }
 
 class UnivDescription extends StatelessWidget {
+   final String description;
+   UnivDescription({required this.description});
   @override
   Widget build(BuildContext context) {
     return Row(
       children: [
+        // Padding(
+        //   padding: const EdgeInsets.all(30.0),
+        //   child: ClipRRect(
+        //       borderRadius: BorderRadius.circular(100.0),
+        //       child: Container(
+        //         height: 120,
+        //         width: 120,
+        //         color: Colors.white,
+        //       )
+        //       // child: Image.asset(
+        //       //   "images/aau.png",
+        //       //   width: 120,
+        //       //   height: 120,
+        //       //   fit: BoxFit.cover,
+        //       // ),
+        //       ),
+        // ),
+        // university description
         Padding(
           padding: const EdgeInsets.all(30.0),
-          child: ClipRRect(
-              borderRadius: BorderRadius.circular(100.0),
-              child: Container(
-                height: 120,
-                width: 120,
-                color: Colors.white,
-              )
-              // child: Image.asset(
-              //   "images/aau.png",
-              //   width: 120,
-              //   height: 120,
-              //   fit: BoxFit.cover,
-              // ),
-              ),
-        ),
-        // university description
-        Container(
-          width: 300,
-          child: Center(
-            child: Text(
-              "Addis Ababa University (AAU), is the oldest and the "
-              "research institution in Ethiopia. largest higher learning and"
-              " Since its inception, the University has been the"
-              "leading center in teaching-learning, research and community services.",
-              style: TextStyle(
-                fontSize: 16,
-                letterSpacing: 1,
+          child: Container(
+            width: 300,
+            child: Center(
+              child: Text(
+                description,
+                style: TextStyle(
+                  fontSize: 16,
+                  letterSpacing: 1,
+                ),
               ),
             ),
           ),
@@ -206,7 +258,8 @@ class UnivDescription extends StatelessWidget {
 }
 
 class InstituteList extends StatelessWidget {
-  const InstituteList({Key? key}) : super(key: key);
+  final Map<String, dynamic> institutes;
+  const InstituteList({Key? key, required this.institutes}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -233,7 +286,7 @@ class InstituteList extends StatelessWidget {
               margin: EdgeInsets.all(25.0),
               padding: EdgeInsets.all(5.0),
               child: Text(
-                "Addis Ababa Institute of Technology ",
+                institutes['inst_name'],
                 style: TextStyle(
                   fontSize: 20,
                   decoration: TextDecoration.none,
@@ -250,7 +303,8 @@ class InstituteList extends StatelessWidget {
 }
 
 class InsertComment extends StatelessWidget {
-  const InsertComment({Key? key}) : super(key: key);
+  InsertComment({Key? key}) : super(key: key);
+  final TextEditingController commentcont = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -266,12 +320,13 @@ class InsertComment extends StatelessWidget {
           ),
         ),
         Container(
-          width: 300,
+          width: 250,
           height: 40,
           margin: EdgeInsets.only(bottom: 10),
           // decoration: BoxDecoration(
           //     borderRadius: BorderRadius.circular(20), color: Colors.white),
           child: TextFormField(
+            controller: commentcont,
             decoration: InputDecoration(
               hintText: 'comment here',
             ),
@@ -279,15 +334,9 @@ class InsertComment extends StatelessWidget {
         ),
         Container(
           margin: EdgeInsets.only(left: 20, bottom: 0),
-          child: ElevatedButton(
+          child: IconButton(
             onPressed: () {},
-            child: Padding(
-              padding: const EdgeInsets.all(3.0),
-              child: Icon(
-                Icons.send,
-                // color: Colors.black54,
-              ),
-            ),
+            icon: Icon(Icons.send, size: 30, color: Colors.teal),
           ),
         ),
       ],
@@ -296,7 +345,9 @@ class InsertComment extends StatelessWidget {
 }
 
 class CommentList extends StatelessWidget {
-  const CommentList({Key? key}) : super(key: key);
+  final Map<String, dynamic> comments;
+  const CommentList({Key? key, required this.comments}) : super(key: key);
+
 
   @override
   Widget build(BuildContext context) {
@@ -334,7 +385,7 @@ class CommentList extends StatelessWidget {
               // margin: EdgeInsets.all(10.0),
               // padding: EdgeInsets.all(5.0),
               child: Text(
-                "@username",
+               comments['user_id']['username'],
                 style: TextStyle(
                   fontSize: 16,
                   decoration: TextDecoration.none,
@@ -352,7 +403,7 @@ class CommentList extends StatelessWidget {
               height: 70,
               padding: EdgeInsets.fromLTRB(3, 5, 0, 5),
               child: Text(
-                "Addis Ababa Institute of Technology Addis Ababa Institute of Technology ",
+                comments['comment'],
                 style: TextStyle(
                   fontSize: 16,
                   decoration: TextDecoration.none,

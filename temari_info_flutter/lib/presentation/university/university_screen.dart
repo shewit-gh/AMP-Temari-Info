@@ -13,8 +13,7 @@ import 'package:temari_info_flutter/presentation/institute/institute_screen.dart
 
 import 'package:temari_info_flutter/presentation/shared/navBar_Widget.dart';
 
-
-class University extends StatelessWidget {
+class UniversityDetail extends StatelessWidget {
   static const String routeName = "/university";
 //  final http.Client ;
 
@@ -39,7 +38,6 @@ class University extends StatelessWidget {
           final bloc = BlocProvider.of<UniBloc>(context);
           print(state);
           if (state is UniversityLoading) {
-            
             bloc.add(UniversityLoad(univId));
             return CircularProgressIndicator();
           }
@@ -108,23 +106,25 @@ class University extends StatelessWidget {
                     width: 500,
                     height: 180,
                     child: ListView.builder(
+                      shrinkWrap: true,
                       itemCount: univ[0]['institute'].length,
                       scrollDirection: Axis.horizontal,
                       itemBuilder: (context, index) {
-                        return ListTile(
-                          title:InstituteList(
-                          institutes: univ[0]['institute'][index],
+                        return SizedBox(
+                          width: 150,
+                          height: 150,
+                          child: ListTile(
+                            title: InstituteList(
+                              institutes: univ[0]['institute'][index],
+                            ),
+                            onTap: () {
+                              Navigator.pushNamed(
+                                context,
+                                Institute.routeName,
+                                arguments: univ[0]['institute'][index]['_id'],
+                              );
+                            },
                           ),
-                          onTap: (){
-
-                          Navigator.pushNamed(
-                                  context,
-                                  Institute.routeName,
-                                  arguments: univ[0]['institute'][index]['_id'],
-                                  
-                                );
-
-                          },
                         );
                       },
                     ),
@@ -137,7 +137,7 @@ class University extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.fromLTRB(30, 10, 0, 10),
                         child: Text(
-                          "${univ[0]['comment'].length} Coments",
+                          "${univ[0]['comment'].length} Comments",
                           style: TextStyle(
                             fontSize: 20,
                           ),
@@ -157,9 +157,9 @@ class University extends StatelessWidget {
                     child: ListView.builder(
                       itemCount: univ[0]['comment'].length,
                       itemBuilder: (context, index) {
-                        return CommentList(
-                          comments: univ[0]['comment'],
-                        );
+                        print('object');
+                        print(univ[0]['comment']);
+                        return CommentList(comments: univ[0]['comment'][index]);
                       },
                     ),
                   ),
@@ -172,7 +172,7 @@ class University extends StatelessWidget {
           );
         },
       ),
-      bottomNavigationBar: bottomnav(),
+      bottomNavigationBar: bottomnav(context),
     );
   }
 }
@@ -186,32 +186,35 @@ class UnivDescription extends StatelessWidget {
       children: [
         // university image
 
+        // Padding(
+        //   padding: const EdgeInsets.all(30.0),
+        //   child: ClipRRect(
+        //       borderRadius: BorderRadius.circular(100.0),
+        //       child: Container(
+        //         height: 120,
+        //         width: 120,
+        //         color: Colors.white,
+        //       )
+        //       // child: Image.asset(
+        //       //   "image/aau.png",
+        //       //   width: 120,
+        //       //   height: 120,
+        //       //   fit: BoxFit.cover,
+        //       // ),
+        //       ),
+        // ),
+        // university description
         Padding(
           padding: const EdgeInsets.all(30.0),
-          child: ClipRRect(
-              borderRadius: BorderRadius.circular(100.0),
-              child: Container(
-                height: 120,
-                width: 120,
-                color: Colors.white,
-              )
-              // child: Image.asset(
-              //   "image/aau.png",
-              //   width: 120,
-              //   height: 120,
-              //   fit: BoxFit.cover,
-              // ),
-              ),
-        ),
-        // university description
-        Container(
-          width: 300,
-          child: Center(
-            child: Text(
-              description,
-              style: TextStyle(
-                fontSize: 16,
-                letterSpacing: 1,
+          child: Container(
+            width: 300,
+            child: Center(
+              child: Text(
+                description,
+                style: TextStyle(
+                  fontSize: 16,
+                  letterSpacing: 1,
+                ),
               ),
             ),
           ),
@@ -283,7 +286,7 @@ class InsertComment extends StatelessWidget {
           ),
         ),
         Container(
-          width: 300,
+          width: 250,
           height: 40,
           margin: EdgeInsets.only(bottom: 10),
           // decoration: BoxDecoration(
@@ -296,24 +299,22 @@ class InsertComment extends StatelessWidget {
         ),
         Container(
           margin: EdgeInsets.only(left: 20, bottom: 0),
-          child: ElevatedButton(
+          child: IconButton(
             onPressed: () {},
-            child: Padding(
-              padding: const EdgeInsets.all(3.0),
-              child: Icon(
-                Icons.send,
-                // color: Colors.black54,
+             icon: Icon(
+                Icons.send, size: 30,
+                color: Colors.teal
               ),
             ),
           ),
-        ),
+        
       ],
     );
   }
 }
 
 class CommentList extends StatelessWidget {
-  final List comments;
+  final Map<String, dynamic> comments;
   const CommentList({Key? key, required this.comments}) : super(key: key);
 
   @override
@@ -352,7 +353,7 @@ class CommentList extends StatelessWidget {
               // margin: EdgeInsets.all(10.0),
               // padding: EdgeInsets.all(5.0),
               child: Text(
-                "@username",
+                comments['user_id']['username'],
                 style: TextStyle(
                   fontSize: 16,
                   decoration: TextDecoration.none,
@@ -370,7 +371,7 @@ class CommentList extends StatelessWidget {
               height: 70,
               padding: EdgeInsets.fromLTRB(3, 5, 0, 5),
               child: Text(
-                "Addis Ababa Institute of Technology Addis Ababa Institute of Technology ",
+                comments['comment'],
                 style: TextStyle(
                   fontSize: 16,
                   decoration: TextDecoration.none,

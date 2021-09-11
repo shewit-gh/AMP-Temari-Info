@@ -24,7 +24,7 @@ class EditProfile extends StatelessWidget {
         child: navtop()),
       bottomNavigationBar:PreferredSize(
         preferredSize: Size.fromHeight(60.0),
-        child: bottomnav()),
+        child: bottomnav(context)),
       body: Padding(
             padding: EdgeInsets.all(10),
             child: ListView(

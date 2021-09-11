@@ -8,7 +8,7 @@ const UniversityController = require('../controllers/UserController')
 // Get all University
 
 function getUniversity(req, res) {
-    University.find().populate("institute").populate("comment").populate("rating")
+    University.find().populate("institute").populate({path:"comment", populate: "user_id"}).populate("rating")
         .exec()
         .then(doc => {
             if (doc) {

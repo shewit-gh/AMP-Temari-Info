@@ -6,7 +6,7 @@ const University=require('../models/UniversityModel')
 module.exports ={
     //GET ALL    
         get:(req, res) =>{
-            Comment.find().populate("univ_id").exec()
+            Comment.find().populate("university_id").populate('user_id').exec()
             .then(result =>{
                 console.log(result);
                 res.status(200).json({
@@ -60,7 +60,7 @@ module.exports ={
             })
             comment.save()
             .then(result => {
-                University.updateOne({_id: req.body.univ_id}, {$push:{comment: comment._id }}).exec();
+                University.updateOne({_id: req.body.university_id}, {$push:{comment: comment._id }}).exec();
                 res.status(200).json({
                     message:'Posted successfully',
                     PostedData: result
