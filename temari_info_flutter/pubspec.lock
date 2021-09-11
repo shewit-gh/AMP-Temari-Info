@@ -84,7 +84,7 @@ packages:
       name: charcode
       url: "https://pub.dartlang.org"
     source: hosted
-<<<<<<< HEAD
+
     version: "1.3.1"
   cli_util:
     dependency: transitive
@@ -92,10 +92,8 @@ packages:
       name: cli_util
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.3.3"
-=======
     version: "1.2.0"
->>>>>>> d3cf1e8d0c17136d97b033e3b9ff984a8a6fa2d8
+
   clock:
     dependency: transitive
     description:
