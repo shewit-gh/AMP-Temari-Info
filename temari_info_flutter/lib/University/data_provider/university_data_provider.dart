@@ -46,8 +46,6 @@ class UniversityDataProvider {
     final response = await http.get(Uri.parse("$_baseUrl/search/$UnivName"));
 
     return [jsonDecode(response.body)];
-
-    
   }
 
   Future<List> fetchAll() async {
@@ -60,7 +58,8 @@ class UniversityDataProvider {
     }
   }
 
-  Future<University> update(int id, University university) async {
+  Future<University> update(String id, University university) async {
+   
     final response = await http.put(Uri.parse("$_baseUrl/$id"),
         headers: <String, String>{"Content-Type": "application/json"},
         body: jsonEncode({
@@ -68,11 +67,8 @@ class UniversityDataProvider {
           "short_name": university.short_name,
           "location": university.location,
           "description": university.description,
-          "institute": university.institute,
-          "comment": university.comment,
-          "rating": university.rating
         }));
-
+    // print(jsonDecode(response.body));
     if (response.statusCode == 200) {
       return University.fromJson(jsonDecode(response.body));
     } else {
@@ -80,7 +76,7 @@ class UniversityDataProvider {
     }
   }
 
-  Future<void> delete(int id) async {
+  Future<void> delete(String id) async {
     final response = await http.delete(Uri.parse("$_baseUrl/$id"));
     if (response.statusCode != 204) {
       throw Exception("Field to delete the university");

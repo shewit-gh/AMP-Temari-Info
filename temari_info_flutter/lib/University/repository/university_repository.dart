@@ -10,7 +10,7 @@ class UniversityRepository {
     return this.dataProvider.create(university);
   }
 
-  Future<University> update(int id, University university) async {
+  Future<University> update(String id, University university) async {
     return this.dataProvider.update(id, university);
   }
 
@@ -18,7 +18,7 @@ class UniversityRepository {
     return this.dataProvider.fetchAll();
   }
 
-  Future<void> delete(int id) async {
+  Future<void> delete(String id) async {
     this.dataProvider.delete(id);
   }
 

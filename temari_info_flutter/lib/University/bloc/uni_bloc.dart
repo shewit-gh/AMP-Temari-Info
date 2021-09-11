@@ -33,16 +33,16 @@ class UniBloc extends Bloc<UniversityEvent, UniversityState> {
 
     
 
-    if (event is UniversityUpdate) {
-      try {
-        await universityRepository.update(
-            event.university.id ?? 0, event.university);
-        final Universitys = await universityRepository.fetchAll();
-        yield UniversityOperationSuccess(Universitys);
-      } catch (_) {
-        yield UniversityOperationFailure();
-      }
-    }
+    // if (event is UniversityUpdate) {
+    //   try {
+    //     await universityRepository.update(
+    //         event.id, event.university);
+    //     final Universitys = await universityRepository.fetchAll();
+    //     yield UniversityOperationSuccess(Universitys);
+    //   } catch (_) {
+    //     yield UniversityOperationFailure();
+    //   }
+    // }
 
     if (event is UniversityDelete) {
       try {

@@ -8,7 +8,7 @@ const University = require("../controllers/UniversityController");
 router.get('/', University.getUniversity);
 router.post('/', University.postUniversity);
 router.get('/:univId', University.getUniversityById);
-router.patch('/:univId', University.updateUniversityByID);
+router.put('/:univId', University.updateUniversityByID);
 router.delete('/:univId', University.deleteUniversityByID);
 router.get('/search/:univName', University.searchUniversity);
 

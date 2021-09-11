@@ -20,7 +20,7 @@ class University {
 
   factory University.fromJson(Map<String, dynamic> json) {
     return University(
-        id: json['id'],
+        id: json['_id'],
         univ_name: json['univ_name'],
         short_name: json['short_name'],
         location: json['location'],

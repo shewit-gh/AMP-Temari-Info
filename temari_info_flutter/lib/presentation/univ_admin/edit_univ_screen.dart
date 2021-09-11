@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:temari_info_flutter/University/bloc/blocs.dart';
+import 'package:temari_info_flutter/editUniversity/screen/edituniv_form.dart';
 import 'package:temari_info_flutter/presentation/institute/institute_screen.dart';
 import 'package:temari_info_flutter/presentation/shared/navBar_Widget.dart';
+import 'package:temari_info_flutter/presentation/university/university_screen.dart';
 
 class EditUniv extends StatelessWidget {
   static const String routeName = "/editUniv";
@@ -21,7 +23,7 @@ class EditUniv extends StatelessWidget {
           final bloc = BlocProvider.of<UniBloc>(context);
           print(state);
           if (state is UniversityLoading) {
-            // bloc.add(UniversityLoad(univId));
+            bloc.add(UniversityLoad("613641d2983aaca9153b2dac"));
             return CircularProgressIndicator();
           }
           if (state is UniversityOperationFailure) {
@@ -60,9 +62,10 @@ class EditUniv extends StatelessWidget {
                       ),
                     ),
                   ),
+
                   // edit
                   Container(
-                    child: Editdescription(),
+                    child: Editdescription(univ[0]['_id'],univ[0]['univ_name'], univ[0]['short_name'],univ[0]['location'], univ[0]['description']),
                   ),
 
                   // side image and description
@@ -71,10 +74,11 @@ class EditUniv extends StatelessWidget {
                     child: UnivDescription(description: univ[0]['description']),
                   ),
 
-                  Row(
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Padding(
-                        padding: const EdgeInsets.fromLTRB(30, 10, 10, 0),
+                        padding: const EdgeInsets.fromLTRB(5, 10, 0, 0),
                         child: Text(
                           "Instituties",
                           style: TextStyle(
@@ -82,20 +86,27 @@ class EditUniv extends StatelessWidget {
                           ),
                         ),
                       ),
-                      // Container(
-                      //   margin: EdgeInsets.fromLTRB(270, 0, 5, 0),
-                      //   child: Icon(
-                      //     Icons.edit,
-                      //     color: Colors.yellow,
-                      //   ),
-                      // ),
-                      // Container(
-                      //   margin: EdgeInsets.fromLTRB(5, 0, 0, 0),
-                      //   child: Icon(
-                      //     Icons.delete,
-                      //     color: Colors.red,
-                      //   ),
-                      // ),
+                      //location
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(7, 10, 0, 0),
+                        child: Center(
+                          child: Row(
+                            children: [
+                              Icon(
+                                Icons.location_on_outlined,
+                                color: Colors.teal,
+                              ),
+                              Text(
+                                univ[0]['location'],
+                                style: TextStyle(
+                                  fontSize: 17,
+                                ),
+                                textAlign: TextAlign.end,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
                     ],
                   ),
 
@@ -153,7 +164,7 @@ class EditUniv extends StatelessWidget {
                   Container(
                     width: 600,
                     height: 600,
-                    child:  ListView.builder(
+                    child: ListView.builder(
                       itemCount: univ[0]['comment'].length,
                       itemBuilder: (context, index) {
                         print('object');
@@ -177,6 +188,13 @@ class EditUniv extends StatelessWidget {
 }
 
 class Editdescription extends StatelessWidget {
+  final String id;
+  final String name;
+  final String short_name;
+  final String location;
+  final String description;
+  Editdescription(this.id, this.name, this.short_name, this.description, this.location);
+
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -186,15 +204,21 @@ class Editdescription extends StatelessWidget {
             Container(
               margin: EdgeInsets.fromLTRB(300, 0, 5, 0),
               child: IconButton(
-                onPressed: (){
-
-                  
+                onPressed: () {
+                  Navigator.pushNamed(context, EditUnivForm.routeName,
+                      arguments: {
+                        "id":id,
+                        "name": name,
+                        "short_name":short_name,
+                        "location":location,
+                        "description":description
+                      });
                 },
-                icon:Icon(
-                Icons.edit,
-                color: Colors.yellow,
-              ),),
-              
+                icon: Icon(
+                  Icons.edit,
+                  color: Colors.yellow,
+                ),
+              ),
             ),
             // Container(
             //   margin: EdgeInsets.fromLTRB(5, 0, 0, 0),
@@ -213,8 +237,8 @@ class Editdescription extends StatelessWidget {
 }
 
 class UnivDescription extends StatelessWidget {
-   final String description;
-   UnivDescription({required this.description});
+  final String description;
+  UnivDescription({required this.description});
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -348,7 +372,6 @@ class CommentList extends StatelessWidget {
   final Map<String, dynamic> comments;
   const CommentList({Key? key, required this.comments}) : super(key: key);
 
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -385,7 +408,7 @@ class CommentList extends StatelessWidget {
               // margin: EdgeInsets.all(10.0),
               // padding: EdgeInsets.all(5.0),
               child: Text(
-               comments['user_id']['username'],
+                comments['user_id']['username'],
                 style: TextStyle(
                   fontSize: 16,
                   decoration: TextDecoration.none,

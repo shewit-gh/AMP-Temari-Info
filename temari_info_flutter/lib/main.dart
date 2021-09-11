@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:temari_info_flutter/University/repository/university_repository.dart';
+import 'package:temari_info_flutter/editUniversity/blocs/edituniv_bloc.dart';
+import 'package:temari_info_flutter/editUniversity/screen/edituniv_form.dart';
 import 'package:temari_info_flutter/institute/blocs/institute_bloc.dart';
 import 'package:temari_info_flutter/institute/data_provider/institute_data.dart';
 import 'package:temari_info_flutter/institute/repo/institute_repo.dart';
@@ -73,8 +75,8 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider<InstituteBloc>(
             create: (context) => InstituteBloc(instRepo)),
-        //  BlocProvider<RatingBloc>(
-        //   create: (context) => RatingBloc(_ratingRepo),
+        BlocProvider<EditUnivBloc>(
+          create: (context) => EditUnivBloc(uniRepo)),
         // ), BlocProvider<RatingBloc>(
         //   create: (context) => RatingBloc(_ratingRepo),
         // ), BlocProvider<RatingBloc>(
@@ -90,8 +92,8 @@ class MyApp extends StatelessWidget {
             // primarySwatch: Colors.blue,
             primarySwatch: Colors.teal,
             brightness: Brightness.dark,
-          ),
-          initialRoute: UnivAdd.routeName,
+          ), 
+          initialRoute: EditUniv.routeName,
           routes: {
             UniversityDetail.routeName: (BuildContext context) =>
                 UniversityDetail(),
@@ -118,6 +120,7 @@ class MyApp extends StatelessWidget {
                 SetNewPassword(),
             Universities.routeName: (BuildContext context) => Universities(),
             Reports.routeName: (BuildContext context) => Universities(),
+            EditUnivForm.routeName:(BuildContext context) => EditUnivForm(),
           }),
     );
   }

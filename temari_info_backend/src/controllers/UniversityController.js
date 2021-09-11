@@ -77,15 +77,29 @@ function getUniversityById(req, res) {
 
 // Update University 
 
-function updateUniversityByID(req, res) {
-    const id = req.params.univId;
-    const updateOps = {};
-    for (const ops of req.body) {
-        updateOps[ops.propName] = ops.value;
-    }
+// function updateUniversityByID(req, res) {
+//     const id = req.params.univId;
+//     const updateOps = {};
+//     for (const ops of req.body) {
+//         updateOps[ops.propName] = ops.value;
+//     }
 
-    University.updateMany({ _id: id },
-        { $set: updateOps })
+//     University.updateMany({ _id: id },
+//         { $set: updateOps })
+//         .exec()
+//         .then(result => {
+//             res.status(200).json(result);
+//         })
+//         .catch(err => {
+//             res.status(500).json({
+//                 error: err
+//             });
+//         });
+// }
+function updateUniversityByID(req, res) {
+    
+    University.findByIdAndUpdate({ _id: req.params.univId},
+        { $set: req.body})
         .exec()
         .then(result => {
             res.status(200).json(result);
