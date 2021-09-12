@@ -3,6 +3,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 
 const University = require('../models/UniversityModel');
+const UniversityController = require('../controllers/UserController')
 
 // Get all University
 

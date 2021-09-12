@@ -14,7 +14,7 @@ class InstituteBloc extends Bloc<InstituteDetail, InstituteState> {
       try {
         final institute =
             await instituteRepository.fetchById(event.institute_id);
-            
+
         yield InstituteLoaded(institute);
         // print(institute);
       } catch (_) {
@@ -50,5 +50,32 @@ class InstituteBloc extends Bloc<InstituteDetail, InstituteState> {
         yield InstituteLoadFail(_);
       }
     }
+  }
+}
+
+//institute post bloc
+class InstAddBloc extends Bloc<InstituteAddEvent, InstAddState> {
+  final InstituteRepository instituteRepository;
+
+  InstAddBloc(this.instituteRepository) : super(InstAddLoading());
+
+  @override
+  Stream<InstAddState> mapEventToState(InstituteAddEvent event) async* {
+    if (event is InstituteAdd) {
+      try {
+        //await universityRepository.create(event.university);
+
+        final institute = await instituteRepository.create(event.institute);
+        //await InstituteRepository.fetchAll();
+        print(institute);
+        yield InstAddSuccess(institute);
+      } catch (_) {
+        print("failed to post");
+        yield InstAddFailure();
+      }
+    }
+    // if (event is SearchRefresh){
+    //   yield (UnivSearchLoading());
+    // }
   }
 }

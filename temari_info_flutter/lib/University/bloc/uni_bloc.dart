@@ -81,8 +81,6 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
   }
 }
 
-
-
 //university add bloc
 class UnivAddBloc extends Bloc<UniversityAddEvent, UnivAddState> {
   final UniversityRepository universityRepository;
@@ -91,13 +89,12 @@ class UnivAddBloc extends Bloc<UniversityAddEvent, UnivAddState> {
 
   @override
   Stream<UnivAddState> mapEventToState(UniversityAddEvent event) async* {
-    
     if (event is UniversityCreate) {
       try {
         //await universityRepository.create(event.university);
 
-        final Universitys = await universityRepository.create(event.university); 
-            await universityRepository.fetchAll();
+        final Universitys = await universityRepository.create(event.university);
+        await universityRepository.fetchAll();
         print(Universitys);
         yield UnivAddSuccess(Universitys);
       } catch (_) {
@@ -105,12 +102,27 @@ class UnivAddBloc extends Bloc<UniversityAddEvent, UnivAddState> {
         yield UnivAddFailure();
       }
     }
-    // if (event is SearchRefresh){
-    //   yield (UnivSearchLoading());
-    // }
   }
 }
+//univ fetch bloc home
 
+class UnivFetchBloc extends Bloc<UniversityFetchEvent, UniversityFetchState> {
+  final UniversityRepository universityRepository;
 
+  UnivFetchBloc(this.universityRepository) : super(UnivFetching());
 
-
+  @override
+  Stream<UniversityFetchState> mapEventToState(
+      UniversityFetchEvent event) async* {
+    if (event is UniversityFetch) {
+      // yield UniversityLoading()
+      try {
+        final universitys = await universityRepository.fetchAll();
+        // print(universitys);
+        yield UniversityFetchSuccess(universitys);
+      } catch (_) {
+        yield UniversityFetchFailure();
+      }
+    }
+  }
+}

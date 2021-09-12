@@ -4,18 +4,16 @@ import 'package:flutter/material.dart';
 @immutable
 class Department extends Equatable {
   Department(
-      {required this.id,
-      required this.dept_name,
-      required this.years,
-      required this.institute_id});
+      {this.id, this.dept_name, this.years, this.institute_id, this.objective});
 
-  final String id;
-  final int dept_name;
-  final String years;
-  final String institute_id;
+  final String? id;
+  final String? dept_name;
+  final String? years;
+  final String? institute_id;
+  final String? objective;
 
   @override
-  List<Object> get props => [id, dept_name, years, institute_id];
+  List<String> get props => [];
 
   factory Department.fromJson(Map<String, dynamic> json) {
     return Department(
@@ -23,6 +21,7 @@ class Department extends Equatable {
       dept_name: json['dept_name'],
       years: json['years'],
       institute_id: json['institute_id'],
+      objective: json["objective"],
     );
   }
 

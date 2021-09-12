@@ -3,15 +3,14 @@ import 'package:temari_info_flutter/institute/blocs/institute_state.dart';
 import 'package:flutter/material.dart';
 import 'package:temari_info_flutter/institute/model/institute_model.dart';
 
-abstract class InstituteEvent extends Equatable{
+abstract class InstituteEvent extends Equatable {
   const InstituteEvent();
 }
-
 
 class InstituteDetail extends InstituteEvent {
   final String institute_id;
   InstituteDetail(this.institute_id);
-  
+
   @override
   List<Object> get props => [];
 }
@@ -50,4 +49,21 @@ class InstituteDelete extends InstituteEvent {
 
   @override
   toString() => 'Institute Deleted {Institute Id: $id}';
+}
+
+//institute add event
+abstract class InstituteAddEvent extends Equatable {
+  const InstituteAddEvent();
+}
+
+class InstituteAdd extends InstituteAddEvent {
+  final Institute institute;
+
+  const InstituteAdd(this.institute);
+
+  @override
+  List<Object> get props => [institute];
+
+  @override
+  String toString() => 'institute Created {University: $institute}';
 }

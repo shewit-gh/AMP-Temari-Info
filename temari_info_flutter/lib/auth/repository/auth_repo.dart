@@ -1,3 +1,4 @@
+import 'package:temari_info_flutter/auth/bloc/auth_state.dart';
 import 'package:temari_info_flutter/auth/data_providers/auth_provider.dart';
 import 'package:temari_info_flutter/auth/models/auth_model.dart';
 import 'package:temari_info_flutter/auth/models/auth_token_model.dart';
@@ -14,8 +15,8 @@ class AuthRepository {
     return this.dataProvider.signIn(user);
   }
 
-  Future<String?> signOut(User user) async {
-    return this.dataProvider.signOut(user);
+  Future<String?> signOut() async {
+    return this.dataProvider.signOut();
   }
   Future<String> forgotPassword(String email) async {
     return this.dataProvider.forgotPassword(email);
@@ -24,5 +25,18 @@ class AuthRepository {
   Future<String> resetPassword(String reset_link, String password) async {
     return this.dataProvider.resetPassword(reset_link, password);
   }
+
+  Future<String> editProfile(String username, String email) async {
+    return this.dataProvider.editProfile(username, email);
+  }
+
+  Future<String> changePassword(String password) async {
+    return this.dataProvider.changePassword(password);
+  }
+
+  Future<String> deleteAccount() async {
+    return this.dataProvider.deleteAccount();
+  }
+
 
 }

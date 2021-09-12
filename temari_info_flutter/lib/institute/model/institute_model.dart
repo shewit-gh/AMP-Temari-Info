@@ -1,7 +1,7 @@
 class Institute {
-  final int? id;
-  final int univ_id;
-  final String inst_name;
+  final String? id;
+  final String? univ_id;
+  final String? inst_name;
   final String? phone;
   final String? email;
   final String inst_description;
@@ -9,8 +9,8 @@ class Institute {
 
   Institute(
       {this.id,
-      required this.univ_id,
-      required this.inst_name,
+      this.univ_id,
+      this.inst_name,
       this.phone,
       this.email,
       required this.inst_description,
@@ -23,7 +23,7 @@ class Institute {
         inst_name: json['inst_name'],
         phone: json['phone'],
         email: json['email'],
-        department_id:json['department_id'],
+        department_id: json['department_id'],
         inst_description: json['inst_description']);
   }
 }

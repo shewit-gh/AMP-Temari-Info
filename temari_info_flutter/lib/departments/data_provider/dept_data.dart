@@ -26,10 +26,11 @@ class DepartmentDataProvider {
         'dept_name': department.dept_name,
         'years': department.years,
         'institute_id': department.institute_id,
+        "objective": department.objective,
       }),
     );
 
-    if (response.statusCode == 200) {
+    if (response.statusCode == 201) {
       return Department.fromJson(jsonDecode(response.body));
     } else {
       throw Exception('Failed to create department');

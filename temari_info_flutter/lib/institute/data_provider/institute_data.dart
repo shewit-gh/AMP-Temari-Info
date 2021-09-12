@@ -19,9 +19,10 @@ class InstituteDataProvider {
           "email": institute.email,
           "inst_description": institute.inst_description
         }));
-
+    print(response.statusCode);
     if (response.statusCode == 201) {
       return Institute.fromJson(jsonDecode(response.body));
+      //print(response.body);
     }
     {
       throw Exception("Failed to create institute");
@@ -31,11 +32,11 @@ class InstituteDataProvider {
   Future<List> fetchById(String id) async {
     final response = await http.get(Uri.parse("$_baseUrl/$id"));
     return [jsonDecode(response.body)];
-  //   if (response.statusCode == 200) {
-  //     return Institute.fromJson(jsonDecode(response.body));
-  //   } else {
-  //     throw Exception("Failed to fetch institute");
-  //   }
+    //   if (response.statusCode == 200) {
+    //     return Institute.fromJson(jsonDecode(response.body));
+    //   } else {
+    //     throw Exception("Failed to fetch institute");
+    //   }
   }
 
   Future<List> fetchAll() async {
@@ -61,7 +62,7 @@ class InstituteDataProvider {
           "inst_description": institute.inst_description,
         }));
 
-    if (response.statusCode == 200) {
+    if (response.statusCode == 201) {
       return Institute.fromJson(jsonDecode(response.body));
     } else {
       throw Exception("Could not update the institute");

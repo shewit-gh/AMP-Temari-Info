@@ -64,10 +64,9 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       
     }
     if (event is SignOutEvent) {
-      final User user = event.user;
       // reaching to the backend
       yield SignOutInprogress();
-      final response = await authRepository.signOut(user);
+      final response = await authRepository.signOut();
 
       if (response == "Failure") {
         yield AuthFailed(errorMsg: 'Failed to log out');

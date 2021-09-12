@@ -24,3 +24,20 @@ class UpdateDepartment extends DepartmentEvent {
 
   UpdateDepartment(this.id, this.department);
 }
+
+//department add
+abstract class DepartmentAddEvent extends Equatable {
+  const DepartmentAddEvent();
+}
+
+class DepartmentAdd extends DepartmentAddEvent {
+  final Department department;
+
+  const DepartmentAdd(this.department);
+
+  @override
+  List<Object> get props => [department];
+
+  @override
+  String toString() => 'department Created {University: $department}';
+}

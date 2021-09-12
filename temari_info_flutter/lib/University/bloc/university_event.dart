@@ -86,3 +86,15 @@ class UniversityCreate extends UniversityAddEvent {
   @override
   String toString() => 'University Created {University: $university}';
 }
+
+//univ fetch event
+abstract class UniversityFetchEvent extends Equatable {
+  const UniversityFetchEvent();
+}
+
+class UniversityFetch extends UniversityFetchEvent {
+  const UniversityFetch();
+
+  @override
+  List<Object> get props => [];
+}

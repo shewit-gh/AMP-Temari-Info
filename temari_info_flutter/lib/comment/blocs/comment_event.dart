@@ -11,7 +11,7 @@ abstract class CommentEvent extends Equatable{
 class AddComment extends CommentEvent {
   
   final Comment comment;
-  const AddComment(this.comment);
+  const AddComment({required this.comment});
 }
 
 class GetComment extends CommentEvent {

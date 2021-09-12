@@ -6,6 +6,9 @@ import 'package:temari_info_flutter/editInstitute/bloc/edit_inst_bloc.dart';
 import 'package:temari_info_flutter/editInstitute/screen/edit_inst_form.dart';
 import 'package:temari_info_flutter/editUniversity/blocs/edituniv_bloc.dart';
 import 'package:temari_info_flutter/editUniversity/screen/edituniv_form.dart';
+import 'package:temari_info_flutter/comment/blocs/comment_bloc.dart';
+import 'package:temari_info_flutter/comment/data_provider/comment_data.dart';
+import 'package:temari_info_flutter/comment/repo/repo.dart';
 import 'package:temari_info_flutter/institute/blocs/institute_bloc.dart';
 import 'package:temari_info_flutter/institute/data_provider/institute_data.dart';
 import 'package:temari_info_flutter/institute/repo/institute_repo.dart';
@@ -25,6 +28,8 @@ import 'package:temari_info_flutter/presentation/univ_admin/edit_inst_screen.dar
 import 'package:temari_info_flutter/presentation/univ_admin/edit_univ_screen.dart';
 import 'package:temari_info_flutter/presentation/university/university_screen.dart';
 import 'package:temari_info_flutter/presentation/user/user_screen.dart';
+import 'package:temari_info_flutter/presentation/user/change_password_screen.dart';
+
 import 'package:temari_info_flutter/presentation/about/about_us.dart';
 import 'package:temari_info_flutter/presentation/user/edit_profile_screen.dart';
 import 'package:temari_info_flutter/presentation/login/forgot_password_screen.dart';
@@ -41,6 +46,12 @@ import 'package:http/http.dart' as http;
 
 import 'package:temari_info_flutter/University/data_provider/university_data_provider.dart';
 import 'package:temari_info_flutter/University/bloc/uni_bloc.dart';
+import 'package:temari_info_flutter/comment/data_provider/comment_data.dart';
+import 'package:temari_info_flutter/comment/repo/comment_repo2.dart';
+
+import 'departments/bloc/dept_bloc.dart';
+import 'departments/data_provider/dept_data.dart';
+import 'departments/repo/dept_repo.dart';
 
 void main() {
   runApp(MyApp());
@@ -54,6 +65,10 @@ final InstituteRepository instRepo = InstituteRepository(
     dataProvider: InstituteDataProvider(httpClient: http.Client()));
 final UniversityRepository uniRepo = UniversityRepository(
     dataProvider: UniversityDataProvider(httpClient: http.Client()));
+final DepartmentRepo deptRepo = DepartmentRepo(
+    dataProvider: DepartmentDataProvider(httpClient: http.Client()));
+final CommentRepo2 commentRepo =
+    CommentRepo2(dataProvider: CommentDataProvider(httpClient: http.Client()));
 
 class MyApp extends StatelessWidget {
   @override
@@ -72,16 +87,23 @@ class MyApp extends StatelessWidget {
         BlocProvider<UnivAddBloc>(
           create: (context) => UnivAddBloc(uniRepo),
         ),
+        BlocProvider<InstAddBloc>(
+          create: (context) => InstAddBloc(instRepo),
+        ),
+        BlocProvider<DeptAddBloc>(
+          create: (context) => DeptAddBloc(deptRepo),
+        ),
         BlocProvider<RatingBloc>(
           create: (context) => RatingBloc(_ratingRepo),
         ),
         BlocProvider<InstituteBloc>(
             create: (context) => InstituteBloc(instRepo)),
-        BlocProvider<EditInstBloc>(
-          create: (context) => EditInstBloc(instRepo)),
-        BlocProvider<EditUnivBloc>(
-          create: (context) => EditUnivBloc(uniRepo)),
-         
+        BlocProvider<CommentBloc>(
+            create: (context) => CommentBloc(commentRepo: commentRepo)),
+        //  BlocProvider<RatingBloc>(
+        //   create: (context) => RatingBloc(_ratingRepo),
+        // ), BlocProvider<RatingBloc>(
+        //   create: (context) => RatingBloc(_ratingRepo),
         // ), BlocProvider<RatingBloc>(
         //   create: (context) => RatingBloc(_ratingRepo),
         // ), BlocProvider<RatingBloc>(
@@ -95,8 +117,8 @@ class MyApp extends StatelessWidget {
             // primarySwatch: Colors.blue,
             primarySwatch: Colors.teal,
             brightness: Brightness.dark,
-          ), 
-          initialRoute: Home.routeName,
+          ),
+          initialRoute: Signup.routeName,
           routes: {
             UniversityDetail.routeName: (BuildContext context) =>
                 UniversityDetail(),
@@ -126,6 +148,7 @@ class MyApp extends StatelessWidget {
             EditUnivForm.routeName:(BuildContext context) => EditUnivForm(),
             EditInst.routeName:(BuildContext context) => EditInst(),
             EditInstForm.routeName:(BuildContext context)=>EditInstForm(),
+            ChangePassword.routeName: (BuildContext context) => ChangePassword()
           }),
     );
   }
